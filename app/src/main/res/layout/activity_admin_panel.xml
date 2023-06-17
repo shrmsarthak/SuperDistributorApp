@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".admin.AdminPanelActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome Admin"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/adminhead"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:padding="20dp"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/adminlottie"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/adminhead"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/admin" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Your Task"
+        android:textColor="@android:color/black"
+        android:id="@+id/adminhead2"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/adminlottie"
+        android:layout_marginTop="40dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/adminLL1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_below="@id/adminhead2">
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/adduserbtn"
+                android:layout_width="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:background="@drawable/baseline_person_add_alt_1_24"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Users"
+                android:textColor="@android:color/black"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:id="@+id/viewUserLL">
+
+            <ImageView
+                android:id="@+id/viewUserbtn"
+                android:layout_width="50dp"
+                android:layout_gravity="center"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/baseline_person_search_24" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Users"
+                android:textColor="@android:color/black"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/adminLL2"
+        android:layout_below="@id/adminLL1">
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:layout_below="@+id/adminhead2"
+            android:id="@+id/addcustomerLL">
+
+            <ImageView
+                android:id="@+id/addpersonbtn"
+                android:layout_width="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/adminhead2"
+                android:background="@drawable/baseline_monetization_on_24"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Credit"
+                android:textColor="@android:color/black"
+                android:layout_below="@+id/addpersonbtn"
+                android:id="@+id/addpersontv"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/addcustomerLL"
+            android:layout_below="@+id/adminhead2"
+            android:id="@+id/addexpenseLL">
+
+            <ImageView
+                android:id="@+id/addexpensebtn"
+                android:layout_width="50dp"
+                android:layout_gravity="center"
+                android:layout_height="50dp"
+                android:layout_below="@+id/addpersontv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/baseline_attach_money_24" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Debit"
+                android:textColor="@android:color/black"
+                android:layout_below="@+id/addexpensebtn"
+                android:id="@+id/addexpensetv"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

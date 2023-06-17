@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".SRHomeActivity">
+
+
+    <TextView
+        android:id="@+id/welcomesrtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
+        android:text="Welcome SR"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/totaloutstandingondealersbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomesrtext"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp"
+        android:text="Total Outstanding on your Dealers" />
+
+    <LinearLayout
+        android:layout_below="@+id/totaloutstandingondealersbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/btngroup1"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcomesrtext"
+            android:padding="20dp"
+            android:id="@+id/remainingtargetbtn"
+            android:text="Remaining Target"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="70dp"
+            android:layout_below="@id/welcomesrtext"
+            android:padding="20dp"
+            android:id="@+id/salesdonebtn"
+            android:text="Sales Done"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/btngroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:id="@+id/btngroup2"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:id="@+id/dealerintentbtn"
+            android:text="Dealer Intent"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_marginLeft="70dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:id="@+id/paymentapprovebtn"
+            android:text="Payment Approve"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btngroup3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btngroup2"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/complaintraisebtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Complaint Raise" />
+
+        <Button
+            android:id="@+id/addpaymentbtn"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="70dp"
+            android:padding="20dp"
+            android:text="Add Payment" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btngroup4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btngroup3"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/reportsbtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Reports" />
+
+        <Button
+            android:id="@+id/adddealerbtn"
+            android:layout_width="150dp"
+            android:layout_marginLeft="70dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Add Dealer" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btngroup5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btngroup4"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/expensebtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Expense" />
+
+        <Button
+            android:id="@+id/addvisitbtn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginLeft="70dp"
+            android:text="Add Visit" />
+
+    </LinearLayout>
+</RelativeLayout>

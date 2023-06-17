@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    android:layout_margin="20dp">
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Account Details"-->
+<!--        android:textSize="25sp"-->
+<!--        android:padding="20dp"-->
+<!--        android:textColor="@android:color/black"-->
+<!--        android:gravity="center"-->
+<!--        android:id="@+id/accountdetailtv"-->
+<!--        android:textStyle="bold"/>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Customer Name"
+                    android:id="@+id/customernamehead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Customer Name"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/customername"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll2"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ll1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Particular"
+                    android:id="@+id/particularhead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Particular"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/particular"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll3"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ll2"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doc No."
+                    android:id="@+id/docnohead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Doc No."
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/docno"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll4"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ll3"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:id="@+id/datehead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/date"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll5"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ll4"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Credit"
+                    android:id="@+id/credithead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Credit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/credit"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll6"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ll5"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Debit"
+                    android:id="@+id/debithead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Debit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/debit"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll8"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ll6"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Note"
+                    android:id="@+id/notehead"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Note"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/note"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="20sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

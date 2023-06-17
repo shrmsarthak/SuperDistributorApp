@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="31">
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.ViewTechnicianActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.ViewSRActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.ViewDealerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddTechnicianActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddSRActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddDealerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SchemesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PendingApprovalsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestService.RaiseServiceConcerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestService.MaterialPendencyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestService.ServiceContactDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestService.HandoverDRActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestService.RegisterComplaintAcitivty"
+            android:exported="false" />
+        <activity
+            android:name=".RequestService.ReplaceByDealerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerAccountDetails"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddExpenseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddCustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminPanelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyProducts.CartViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TechnicianHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SRHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyProducts.PlaceOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DealerHomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_dealer_home" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
