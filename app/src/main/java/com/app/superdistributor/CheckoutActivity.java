@@ -12,14 +12,15 @@ import android.widget.Toast;
 public class CheckoutActivity extends AppCompatActivity {
 
     Button BackToHomeBtn;
-    EditText CheckoutAddress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
         BackToHomeBtn = findViewById(R.id.backtohomebtn);
+
+        Intent intent = getIntent();
+
         BackToHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

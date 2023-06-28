@@ -8,23 +8,11 @@
     app:cardBackgroundColor="@android:color/white"
     android:layout_margin="20dp">
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Account Details"-->
-<!--        android:textSize="25sp"-->
-<!--        android:padding="20dp"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        android:gravity="center"-->
-<!--        android:id="@+id/accountdetailtv"-->
-<!--        android:textStyle="bold"/>-->
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
-
 
 
         <LinearLayout
@@ -41,10 +29,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Customer Name"
-                    android:id="@+id/customernamehead"
+                    android:id="@+id/servicecustomernamehead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,10 +40,10 @@
                     android:text="Customer Name"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="20dp"
-                    android:id="@+id/customername"
+                    android:id="@+id/servicecustomername"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
@@ -65,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ll2"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/ll1"
             android:orientation="horizontal">
 
@@ -76,22 +64,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Particular"
-                    android:id="@+id/particularhead"
+                    android:text="Date Of Purchase"
+                    android:id="@+id/servicedateofpurchasehead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Particular"
+                    android:text="Date of Purchase"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="20dp"
-                    android:id="@+id/particular"
+                    android:id="@+id/servicedateofpurchase"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
@@ -102,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ll3"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/ll2"
             android:orientation="horizontal">
 
@@ -113,22 +101,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Doc No."
-                    android:id="@+id/docnohead"
+                    android:text="Model No."
+                    android:id="@+id/modelnumberhead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
+                    android:id="@+id/modelno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Doc No."
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="20dp"
-                    android:id="@+id/docno"
-                    android:textColor="@android:color/black"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:layout_marginRight="20dp"
+                    android:text="Model No."
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
@@ -139,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ll4"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/ll3"
             android:orientation="horizontal">
 
@@ -150,33 +138,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:id="@+id/datehead"
+                    android:text="New Product SN"
+                    android:id="@+id/newproductserialnumberhead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:text="New Product Serial Number"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="20dp"
-                    android:id="@+id/date"
+                    android:id="@+id/newproductserialnumber"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ll5"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/ll4"
             android:orientation="horizontal">
 
@@ -187,33 +174,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Credit"
-                    android:id="@+id/credithead"
+                    android:text="Phone Number"
+                    android:id="@+id/phonenohead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
+                    android:id="@+id/servicephonenumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Credit"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="20dp"
-                    android:id="@+id/credit"
-                    android:textColor="@android:color/holo_green_dark"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:layout_marginRight="20dp"
+                    android:text="Phone Number"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ll6"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/ll5"
             android:orientation="horizontal">
 
@@ -224,22 +210,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Debit"
-                    android:id="@+id/debithead"
+                    android:text="Report URL"
+                    android:id="@+id/reporturlhead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Debit"
+                    android:text="Report URL"
                     android:layout_alignParentEnd="true"
+                    android:autoLink="web"
                     android:layout_marginRight="20dp"
-                    android:id="@+id/debit"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:id="@+id/reporturl"
+                    android:textColor="@android:color/holo_blue_dark"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
@@ -248,8 +235,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ll8"
-            android:layout_marginTop="10dp"
+            android:id="@+id/ll7"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/ll6"
             android:orientation="horizontal">
 
@@ -260,28 +247,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Note"
-                    android:id="@+id/notehead"
+                    android:text="Serial Number"
+                    android:id="@+id/serialnohead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Note"
+                    android:text="Serial Number"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="20dp"
-                    android:id="@+id/note"
+                    android:id="@+id/serviceserialnumber"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="50dp"
-                    android:textSize="20sp"/>
+                    android:textSize="15sp"/>
 
             </RelativeLayout>
 
         </LinearLayout>
 
     </RelativeLayout>
-
 
 </androidx.cardview.widget.CardView>

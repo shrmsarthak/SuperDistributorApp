@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.superdistributor.R;
@@ -28,10 +30,19 @@ public class AddDealerActivity extends AppCompatActivity {
     DatabaseReference database;
     private ProgressDialog LoadingBar;
 
+    String Task, Username,CurrentController;
+    TextView AddDealerHead;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dealer);
+
+        AddDealerHead = findViewById(R.id.addDealerHead);
+
+        Task = getIntent().getStringExtra("task");
+        Username = getIntent().getStringExtra("username");
+        CurrentController = getIntent().getStringExtra("Username");
 
         LoadingBar=new ProgressDialog(this);
         database = FirebaseDatabase.getInstance().getReference();
@@ -44,6 +55,29 @@ public class AddDealerActivity extends AppCompatActivity {
         DealerPasswordET  = findViewById(R.id.dealerPasswordET);
 
         SubmitDealerDetailsBtn = findViewById(R.id.submitDealerDetailsBtn);
+
+
+        if(Task.equals("viewDealer"))
+        {
+            SubmitDealerDetailsBtn.setText("Update Dealer");
+            AddDealerHead.setText("Update Dealer");
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    DealerNameET.setText(snapshot.child("Dealers").child(Username).child("Name").getValue().toString());
+                    DealerUserNameET.setText(snapshot.child("Dealers").child(Username).child("UserName").getValue().toString());
+                    DealerPhoneET.setText(snapshot.child("Dealers").child(Username).child("Phone").getValue().toString());
+                    DealerEmailET.setText(snapshot.child("Dealers").child(Username).child("Email").getValue().toString());
+                    DealerCityET.setText(snapshot.child("Dealers").child(Username).child("City").getValue().toString());
+                    DealerPasswordET.setText(snapshot.child("Dealers").child(Username).child("Password").getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
         SubmitDealerDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +121,7 @@ public class AddDealerActivity extends AppCompatActivity {
                     String dealerPassword = DealerPasswordET.getText().toString();
 
                     createDealerAccount(dealerName, dealerUsername, dealerPhone, dealerEmail, dealerCity, dealerPassword);
+
                 }
             }
         });
@@ -97,7 +132,43 @@ public class AddDealerActivity extends AppCompatActivity {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!(snapshot.child("Dealers").child(dealerUsername).exists()))
+                if(Task.equals("addDealer"))
+                {
+                    if (!(snapshot.child("Dealers").child(dealerUsername).exists()))
+                    {
+                        HashMap<String,Object> dealers = new HashMap<>();
+                        dealers.put("Name", dealerName);
+                        dealers.put("UserName", dealerUsername);
+                        dealers.put("Phone", dealerPhone);
+                        dealers.put("Email", dealerEmail);
+                        dealers.put("City", dealerCity);
+                        dealers.put("Password", dealerPassword);
+                        dealers.put("CurrentBalance", "0");
+
+                        database.child("Dealers").child(dealerUsername).updateChildren(dealers)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        LoadingBar.dismiss();
+                                        Toast.makeText(AddDealerActivity.this, "Dealer Added.", Toast.LENGTH_SHORT).show();
+                                        DealerNameET.setText("");
+                                        DealerUserNameET.setText("");
+                                        DealerPhoneET.setText("");
+                                        DealerEmailET.setText("");
+                                        DealerCityET.setText("");
+                                        DealerPasswordET.setText("");
+                                        Intent i = new Intent(AddDealerActivity.this, AdminPanelActivity.class);
+                                        i.putExtra("Username",CurrentController);
+                                        startActivity(i);
+                                    }
+                                });
+                    }
+                    else {
+                        LoadingBar.dismiss();
+                        Toast.makeText(AddDealerActivity.this, "Dealer with this user name already exist.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
                 {
                     HashMap<String,Object> dealers = new HashMap<>();
                     dealers.put("Name", dealerName);
@@ -112,20 +183,20 @@ public class AddDealerActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     LoadingBar.dismiss();
-                                    Toast.makeText(AddDealerActivity.this, "Dealer Added.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddDealerActivity.this, "Dealer Updated..", Toast.LENGTH_SHORT).show();
                                     DealerNameET.setText("");
                                     DealerUserNameET.setText("");
                                     DealerPhoneET.setText("");
                                     DealerEmailET.setText("");
                                     DealerCityET.setText("");
                                     DealerPasswordET.setText("");
+                                    Intent i = new Intent(AddDealerActivity.this, AdminPanelActivity.class);
+                                    i.putExtra("Username",CurrentController);
+                                    startActivity(i);
                                 }
                             });
                 }
-                else {
-                    LoadingBar.dismiss();
-                    Toast.makeText(AddDealerActivity.this, "Dealer with this user name already exist.", Toast.LENGTH_SHORT).show();
-                }
+
             }
 
             @Override

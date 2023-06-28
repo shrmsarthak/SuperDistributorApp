@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.superdistributor.R;
@@ -28,10 +30,19 @@ public class AddSRActivity extends AppCompatActivity {
     DatabaseReference database;
     private ProgressDialog LoadingBar;
 
+    String Task, Username, CurrentController;
+    TextView AddSRHead;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sractivity);
+
+        AddSRHead = findViewById(R.id.addSRHead);
+
+        Task = getIntent().getStringExtra("task");
+        Username = getIntent().getStringExtra("username");
+        CurrentController = getIntent().getStringExtra("Username");
 
         LoadingBar=new ProgressDialog(this);
         database = FirebaseDatabase.getInstance().getReference();
@@ -44,6 +55,26 @@ public class AddSRActivity extends AppCompatActivity {
 
         SubmitSRDetailsBtn = findViewById(R.id.submitSRDetailsBtn);
 
+        if(Task.equals("viewSR"))
+        {
+            SubmitSRDetailsBtn.setText("Update SR");
+            AddSRHead.setText("Update SR");
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    SRNameET.setText(snapshot.child("SRs").child(Username).child("Name").getValue().toString());
+                    SRUserNameET.setText(snapshot.child("SRs").child(Username).child("UserName").getValue().toString());
+                    SRPhoneET.setText(snapshot.child("SRs").child(Username).child("Phone").getValue().toString());
+                    SREmailET.setText(snapshot.child("SRs").child(Username).child("Email").getValue().toString());
+                    SRPasswordET.setText(snapshot.child("SRs").child(Username).child("Password").getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
         SubmitSRDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +121,41 @@ public class AddSRActivity extends AppCompatActivity {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!(snapshot.child("SRs").child(srUserName).exists()))
+
+                if(Task.equals("addSR"))
+                {
+                    if (!(snapshot.child("SRs").child(srUserName).exists()))
+                    {
+                        HashMap<String,Object> srs = new HashMap<>();
+                        srs.put("Name", srName);
+                        srs.put("UserName", srUserName);
+                        srs.put("Phone", srPhone);
+                        srs.put("Email", srEmail);
+                        srs.put("Password", srPassword);
+
+                        database.child("SRs").child(srUserName).updateChildren(srs)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        LoadingBar.dismiss();
+                                        Toast.makeText(AddSRActivity.this, "SR Added.", Toast.LENGTH_SHORT).show();
+                                        SRNameET.setText("");
+                                        SRUserNameET.setText("");
+                                        SRPhoneET.setText("");
+                                        SREmailET.setText("");
+                                        SRPasswordET.setText("");
+                                        Intent i = new Intent(AddSRActivity.this, AdminPanelActivity.class);
+                                        i.putExtra("Username",CurrentController);
+                                        startActivity(i);
+                                    }
+                                });
+                    }
+                    else {
+                        LoadingBar.dismiss();
+                        Toast.makeText(AddSRActivity.this, "SR with this user name already exist.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
                 {
                     HashMap<String,Object> srs = new HashMap<>();
                     srs.put("Name", srName);
@@ -104,19 +169,20 @@ public class AddSRActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     LoadingBar.dismiss();
-                                    Toast.makeText(AddSRActivity.this, "SR Added.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddSRActivity.this, "SR Updated.", Toast.LENGTH_SHORT).show();
                                     SRNameET.setText("");
                                     SRUserNameET.setText("");
                                     SRPhoneET.setText("");
                                     SREmailET.setText("");
                                     SRPasswordET.setText("");
+                                    Intent i = new Intent(AddSRActivity.this, AdminPanelActivity.class);
+                                    i.putExtra("Username",CurrentController);
+                                    startActivity(i);
                                 }
                             });
                 }
-                else {
-                    LoadingBar.dismiss();
-                    Toast.makeText(AddSRActivity.this, "SR with this user name already exist.", Toast.LENGTH_SHORT).show();
-                }
+
+
             }
 
             @Override

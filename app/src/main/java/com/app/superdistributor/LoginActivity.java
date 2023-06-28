@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,22 +24,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText AccountId,Password;
     private Button Login;
     private ProgressDialog LoadingBar;
-    RadioGroup LoginradioGroup;
-    RadioButton LoginradioButton;
     String mypassword, myaccountid;
 
     TextView ForgetPassword;
     DatabaseReference database;
+    Spinner userTypeDropdown;
+
+    ArrayList<String> userTypeArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        userTypeDropdown = findViewById(R.id.loginUserTypeDropDown);
 
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -45,6 +52,17 @@ public class LoginActivity extends AppCompatActivity {
         Password=(EditText)findViewById(R.id.loginpassword);
         Login=(Button)findViewById(R.id.loginbutton);
         ForgetPassword = findViewById(R.id.forgetPassword);
+
+        userTypeArrayList.add("Select User Type");
+        userTypeArrayList.add("Admin");
+        userTypeArrayList.add("Manager");
+        userTypeArrayList.add("Accountant");
+        userTypeArrayList.add("Dealer");
+        userTypeArrayList.add("S.R.");
+        userTypeArrayList.add("Technician");
+
+        ArrayAdapter<String> usersTypeadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, userTypeArrayList);
+        userTypeDropdown.setAdapter(usersTypeadapter);
 
         ForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +76,6 @@ public class LoginActivity extends AppCompatActivity {
         LoadingBar=new ProgressDialog(this);
         mypassword=Password.getText().toString();
         myaccountid="+91"+AccountId.getText().toString();
-
-        LoginradioGroup=(RadioGroup)findViewById(R.id.loginradioGroup);
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +112,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void AllowAccessToUser(final String myaccountid, final String mypassword) {
 
-        int radioId=LoginradioGroup.getCheckedRadioButtonId();
-        LoginradioButton=findViewById(radioId);
 
         String userType;
 
-        if(LoginradioButton.getText().toString().equals("Dealer"))
+        if(userTypeDropdown.getSelectedItem().toString().equals("Dealer"))
         {
             userType = "Dealers";
             database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -116,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         LoadingBar.dismiss();
                         Intent i = new Intent(LoginActivity.this, DealerHomeActivity.class);
+                        i.putExtra("DealerName",myaccountid);
                         startActivity(i);
                     }
                     else
@@ -131,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-        else if(LoginradioButton.getText().toString().equals("S.R."))
+        else if(userTypeDropdown.getSelectedItem().toString().equals("S.R."))
         {
             userType = "SRs";
             database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -161,24 +176,103 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-        else if(LoginradioButton.getText().toString().equals("Admin"))
+        else if(userTypeDropdown.getSelectedItem().toString().equals("Admin"))
         {
-            if(myaccountid.equals("admin")){
-                if(mypassword.equals("admin"))
-                {
-                    LoadingBar.dismiss();
-                    Intent i = new Intent(LoginActivity.this, AdminPanelActivity.class);
-                    startActivity(i);
+            userType = "Admin";
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if(snapshot.child(userType).child("Username").getValue().toString().equals(myaccountid))
+                    {
+                        if(snapshot.child(userType).child("Password").getValue().toString().equals(mypassword))
+                        {
+                            LoadingBar.dismiss();
+                            Intent i = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                            i.putExtra("Username","Admin");
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            LoadingBar.dismiss();
+                            Toast.makeText(LoginActivity.this, "Please check your password", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else
+                    {
+                        LoadingBar.dismiss();
+                        Toast.makeText(LoginActivity.this, "Please check your username", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else {
-                    LoadingBar.dismiss();
-                    Toast.makeText(this, "Please check your password", Toast.LENGTH_SHORT).show();
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
-            }
-            else {
-                LoadingBar.dismiss();
-                Toast.makeText(this, "Please check your Account Id.", Toast.LENGTH_SHORT).show();
-            }
+            });
+        }
+        else if(userTypeDropdown.getSelectedItem().toString().equals("Manager"))
+        {
+            userType = "Managers";
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(!(snapshot.child(userType).child(myaccountid).exists()))
+                    {
+                        LoadingBar.dismiss();
+                        Toast.makeText(LoginActivity.this, "Account with this id doesn't exist.", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(snapshot.child(userType).child(myaccountid).child("Password").getValue().toString().equals(mypassword))
+                    {
+                        LoadingBar.dismiss();
+                        Intent i = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                        i.putExtra("Username",snapshot.child(userType).child(myaccountid).child("Name").getValue().toString());
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        LoadingBar.dismiss();
+                        Toast.makeText(LoginActivity.this, "Please check your password", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else if(userTypeDropdown.getSelectedItem().toString().equals("Accountant"))
+        {
+            userType = "Accountants";
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(!(snapshot.child(userType).child(myaccountid).exists()))
+                    {
+                        LoadingBar.dismiss();
+                        Toast.makeText(LoginActivity.this, "Account with this id doesn't exist.", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(snapshot.child(userType).child(myaccountid).child("Password").getValue().toString().equals(mypassword))
+                    {
+                        LoadingBar.dismiss();
+                        Intent i = new Intent(LoginActivity.this, AdminPanelActivity.class);
+                        i.putExtra("Username",snapshot.child(userType).child(myaccountid).child("Name").getValue().toString());
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        LoadingBar.dismiss();
+                        Toast.makeText(LoginActivity.this, "Please check your password", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
         else
         {

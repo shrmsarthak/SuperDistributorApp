@@ -50,23 +50,18 @@
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:text="Attach Product" />
 
-    <TextView
+    <ListView
+        android:id="@+id/handOverItemListView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:text="List of products will come here after click on add button \n\n(coming soon: under development)"
-        android:id="@+id/listofproducts"
-        android:background="@color/purple_200"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/handoverAddProductBtn"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp" />
 
     <Button
-        android:layout_below="@id/listofproducts"
+        android:layout_below="@id/handOverItemListView"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

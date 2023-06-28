@@ -34,6 +34,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:id="@+id/customerNameTI"
             />
 
@@ -54,35 +55,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/phoneNoTI"
+            android:inputType="number"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dateOfPurchaseTIL"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/phoneNoTIL"
+
+    <TextView
+        android:id="@+id/dealer_show_selected_date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="Date of Purchase"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:layout_below="@id/phoneNoTIL"
+        android:text="Selected Date is : "
+        android:textSize="18sp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/dateOfPurchaseTI"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/dealerdateOfPurchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dealer_show_selected_date"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Select Date"
+        android:textSize="18sp"
+        app:icon="@drawable/baseline_add_to_photos_24" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/modelNoTIL"
         android:layout_width="match_parent"
-        android:layout_below="@+id/dateOfPurchaseTIL"
+        android:layout_below="@+id/dealerdateOfPurchase"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Model Number"
@@ -91,6 +99,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:id="@+id/modelNoTI"
             />
 
@@ -110,6 +119,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:id="@+id/serialNoTI"
             />
 
@@ -129,6 +139,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:id="@+id/newProductSerialNoTI"
             />
 

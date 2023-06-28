@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".CustomerAccountDetails">
-
+    tools:context=".AccountDetailsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:id="@+id/producttitlecart"
+        android:id="@+id/accountdetailshead"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -36,7 +35,7 @@
                 android:text="Account Details"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -47,23 +46,21 @@
         android:id="@+id/currentbalancetxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/producttitlecart"
+        android:layout_below="@+id/accountdetailshead"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         android:background="@color/purple_500"
         android:gravity="center"
-        android:textSize="20sp"
-        android:padding="20dp"
+        android:textSize="18sp"
+        android:padding="10dp"
         android:text="Current Balance"
         android:textColor="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/expenselist"
+        android:id="@+id/amountlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:layout_below="@+id/currentbalancetxt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

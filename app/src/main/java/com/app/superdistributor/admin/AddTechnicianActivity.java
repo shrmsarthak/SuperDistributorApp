@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.superdistributor.R;
@@ -28,10 +30,20 @@ public class AddTechnicianActivity extends AppCompatActivity {
     DatabaseReference database;
     private ProgressDialog LoadingBar;
 
+    String Task, Username, CurrentController;
+    TextView AddTechnicianHead;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_technician);
+
+        AddTechnicianHead = findViewById(R.id.addTechnicianHead);
+
+        Task = getIntent().getStringExtra("task");
+        Username = getIntent().getStringExtra("username");
+        CurrentController = getIntent().getStringExtra("Username");
 
         LoadingBar=new ProgressDialog(this);
         database = FirebaseDatabase.getInstance().getReference();
@@ -44,6 +56,26 @@ public class AddTechnicianActivity extends AppCompatActivity {
 
         SubmitTechnicianDetailsBtn = findViewById(R.id.submitTechnicianDetailsBtn);
 
+        if(Task.equals("viewTechnician"))
+        {
+            SubmitTechnicianDetailsBtn.setText("Update Technician");
+            AddTechnicianHead.setText("Update Technician");
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    TechnicianNameET.setText(snapshot.child("Technicians").child(Username).child("Name").getValue().toString());
+                    TechnicianUserNameET.setText(snapshot.child("Technicians").child(Username).child("UserName").getValue().toString());
+                    TechnicianPhoneET.setText(snapshot.child("Technicians").child(Username).child("Phone").getValue().toString());
+                    TechnicianEmailET.setText(snapshot.child("Technicians").child(Username).child("Email").getValue().toString());
+                    TechnicianPasswordET.setText(snapshot.child("Technicians").child(Username).child("Password").getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
         SubmitTechnicianDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +122,41 @@ public class AddTechnicianActivity extends AppCompatActivity {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!(snapshot.child("Technicians").child(technicianUserName).exists()))
+
+                if(Task.equals("addTechnician"))
+                {
+                    if (!(snapshot.child("Technicians").child(technicianUserName).exists()))
+                    {
+                        HashMap<String,Object> technicians = new HashMap<>();
+                        technicians.put("Name", technicianName);
+                        technicians.put("UserName", technicianUserName);
+                        technicians.put("Phone", technicianPhone);
+                        technicians.put("Email", technicianEmail);
+                        technicians.put("Password", technicianPassword);
+
+                        database.child("Technicians").child(technicianUserName).updateChildren(technicians)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        LoadingBar.dismiss();
+                                        Toast.makeText(AddTechnicianActivity.this, "Technician Added.", Toast.LENGTH_SHORT).show();
+                                        TechnicianNameET.setText("");
+                                        TechnicianUserNameET.setText("");
+                                        TechnicianPhoneET.setText("");
+                                        TechnicianEmailET.setText("");
+                                        TechnicianPasswordET.setText("");
+                                        Intent i = new Intent(AddTechnicianActivity.this, AdminPanelActivity.class);
+                                        i.putExtra("Username",CurrentController);
+                                        startActivity(i);
+                                    }
+                                });
+                    }
+                    else {
+                        LoadingBar.dismiss();
+                        Toast.makeText(AddTechnicianActivity.this, "Technician with this user name already exist.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
                 {
                     HashMap<String,Object> technicians = new HashMap<>();
                     technicians.put("Name", technicianName);
@@ -104,18 +170,17 @@ public class AddTechnicianActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     LoadingBar.dismiss();
-                                    Toast.makeText(AddTechnicianActivity.this, "Technician Added.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddTechnicianActivity.this, "Technician Updated..", Toast.LENGTH_SHORT).show();
                                     TechnicianNameET.setText("");
                                     TechnicianUserNameET.setText("");
                                     TechnicianPhoneET.setText("");
                                     TechnicianEmailET.setText("");
                                     TechnicianPasswordET.setText("");
+                                    Intent i = new Intent(AddTechnicianActivity.this, AdminPanelActivity.class);
+                                    i.putExtra("Username",CurrentController);
+                                    startActivity(i);
                                 }
                             });
-                }
-                else {
-                    LoadingBar.dismiss();
-                    Toast.makeText(AddTechnicianActivity.this, "Technician with this user name already exist.", Toast.LENGTH_SHORT).show();
                 }
             }
 

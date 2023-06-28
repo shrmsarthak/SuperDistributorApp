@@ -2,22 +2,7 @@ package com.app.superdistributor.MyProducts;
 
 public class Products {
 
-    String Price, ProductCategory, Name, ProductID, ProductQty;
-
-    public String getPrice() {
-        return Price;
-    }
-
-    public void setPrice(String price) {
-        Price = price;
-    }
-    public String getProductCategory() {
-        return ProductCategory;
-    }
-
-    public void setProductCategory(String productCategory) {
-        ProductCategory = productCategory;
-    }
+    String Name, ProductID, ProductQty;
 
     public String getName() {
         return Name;

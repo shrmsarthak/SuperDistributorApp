@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +19,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+        <activity
+            android:name=".MyProducts.ViewProductList"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddAccountantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddManagerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".payments.MaterialReturnPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".payments.BankTransferPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".payments.ChequePaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".payments.QRPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".payments.CashPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.ViewCreditDebitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddCreditDebitActivity"
+            android:exported="false" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:exported="false" />
@@ -43,13 +80,13 @@
             android:name=".ReportsActivity"
             android:exported="false" />
         <activity
-            android:name=".PaymentMethodActivity"
+            android:name=".payments.PaymentMethodActivity"
             android:exported="false" />
         <activity
             android:name=".RequestService.RaiseServiceConcerActivity"
             android:exported="false" />
         <activity
-            android:name=".RequestService.MaterialPendencyActivity"
+            android:name=".RequestService.ServiceReportActivity"
             android:exported="false" />
         <activity
             android:name=".RequestService.ServiceContactDetailActivity"
@@ -64,13 +101,7 @@
             android:name=".RequestService.ReplaceByDealerActivity"
             android:exported="false" />
         <activity
-            android:name=".CustomerAccountDetails"
-            android:exported="false" />
-        <activity
-            android:name=".admin.AddExpenseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".admin.AddCustomerActivity"
+            android:name=".AccountDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".admin.AdminPanelActivity"
@@ -80,9 +111,6 @@
             android:exported="false" />
         <activity
             android:name=".CheckoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MyProducts.CartViewActivity"
             android:exported="false" />
         <activity
             android:name=".TechnicianHomeActivity"

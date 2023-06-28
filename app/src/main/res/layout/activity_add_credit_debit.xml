@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".admin.AddExpenseActivity">
+    android:layout_height="match_parent"
+    tools:context=".admin.AddCreditDebitActivity">
 
     <Spinner
-        android:id="@+id/customernameDropDown"
+        android:id="@+id/dealerDropDown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -25,7 +25,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/customernameDropDown"
+        android:layout_below="@+id/dealerDropDown"
         android:hint="Particular"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -61,22 +61,6 @@
         android:textSize="18sp"
         app:icon="@drawable/baseline_add_to_photos_24" />
 
-<!--    <EditText-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="20dp"-->
-<!--        android:clickable="false"-->
-<!--        android:cursorVisible="false"-->
-<!--        android:focusable="false"-->
-<!--        android:focusableInTouchMode="false"-->
-<!--        android:layout_below="@id/particularETTIL"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:textColorHint="@android:color/white"-->
-<!--        android:hint="Date"-->
-<!--        android:id="@+id/dateET"/>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/docNoTIL"
@@ -98,45 +82,38 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/creditTIL"
+    <Spinner
+        android:id="@+id/transactionType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_below="@+id/docNoTIL"
-        android:hint="Credit"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/creditET"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/debitTIL"
+        android:id="@+id/amountTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/creditTIL"
-        android:hint="Debit"
+        android:layout_below="@+id/transactionType"
+        android:hint="Amount"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:id="@+id/debitET"
+            android:id="@+id/amountET"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/noteTIL"
@@ -145,7 +122,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/debitTIL"
+        android:layout_below="@+id/amountTIL"
         android:hint="Note"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -162,13 +139,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addExpenseBtn"
+        android:id="@+id/addAmountBtn"
         android:padding="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         app:icon="@drawable/baseline_add_24"
-        android:text="Add Expense"
+        android:text="Add Amount"
         android:layout_below="@id/noteTIL"/>
 
 </RelativeLayout>

@@ -7,13 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.app.superdistributor.MyProducts.MyProductAdapter;
-import com.app.superdistributor.MyProducts.Products;
-import com.app.superdistributor.models.ExpenseModel;
+import com.app.superdistributor.models.AmountModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,46 +18,60 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class CustomerAccountDetails extends AppCompatActivity {
+public class AccountDetailsActivity extends AppCompatActivity {
 
-    String customerName;
+    String dealerName, transactionType;
     TextView CurrentBalanceTv;
     RecyclerView recyclerView;
     DatabaseReference database;
-    MyExpenseAdapter myAdapter;
-    ArrayList<ExpenseModel> list;
+    MyAmountAdapter myAdapter;
+    ArrayList<AmountModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_account_details);
+        setContentView(R.layout.activity_account_details);
 
         Intent intent = getIntent();
-        customerName = intent.getStringExtra("customername");
+        dealerName = intent.getStringExtra("Dealer");
+        transactionType = intent.getStringExtra("TransactionType");
 
         CurrentBalanceTv = findViewById(R.id.currentbalancetxt);
 
-        recyclerView = findViewById(R.id.expenselist);
+        recyclerView = findViewById(R.id.amountlist);
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        myAdapter = new MyExpenseAdapter(this,list);
+        myAdapter = new MyAmountAdapter(this,list);
         recyclerView.setAdapter(myAdapter);
 
-        database.child("Customers").child(customerName).addValueEventListener(new ValueEventListener() {
+        database.child("Dealers").child(dealerName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                if(transactionType.equals("All"))
+                {
+                    for (DataSnapshot dataSnapshot : snapshot.child("Credit").getChildren()){
 
-                    if(!(dataSnapshot.getValue() instanceof String))
-                    {
-                        ExpenseModel expenseModel = dataSnapshot.getValue(ExpenseModel.class);
-                        list.add(expenseModel);
+                        AmountModel amountModel = dataSnapshot.getValue(AmountModel.class);
+                        list.add(amountModel);
+
                     }
+                    for (DataSnapshot dataSnapshot : snapshot.child("Debit").getChildren()){
 
+                        AmountModel amountModel = dataSnapshot.getValue(AmountModel.class);
+                        list.add(amountModel);
+                    }
+                }
+                else
+                {
+                    for (DataSnapshot dataSnapshot : snapshot.child(transactionType).getChildren()){
+
+                        AmountModel amountModel = dataSnapshot.getValue(AmountModel.class);
+                        list.add(amountModel);
+                    }
                 }
                 myAdapter.notifyDataSetChanged();
 
@@ -74,7 +84,7 @@ public class CustomerAccountDetails extends AppCompatActivity {
             }
         });
 
-        database.child("Customers").child(customerName).child("CurrentBalance").
+        database.child("Dealers").child(dealerName).child("CurrentBalance").
                 addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

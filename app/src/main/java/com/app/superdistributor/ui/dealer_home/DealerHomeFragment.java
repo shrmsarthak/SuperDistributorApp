@@ -6,30 +6,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.superdistributor.MyProducts.PlaceOrderActivity;
-import com.app.superdistributor.PaymentMethodActivity;
+import com.app.superdistributor.R;
+import com.app.superdistributor.payments.PaymentMethodActivity;
 import com.app.superdistributor.PendingApprovalsActivity;
 import com.app.superdistributor.ReportsActivity;
 import com.app.superdistributor.RequestServiceActivity;
 import com.app.superdistributor.SchemesActivity;
 import com.app.superdistributor.databinding.FragmentDealerHomeBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DealerHomeFragment extends Fragment {
 
     private FragmentDealerHomeBinding binding;
+    private DatabaseReference mref;
+
+    int currentBalance=0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DealerHomeViewModel dealerHomeViewModel =
                 new ViewModelProvider(this).get(DealerHomeViewModel.class);
 
+
+
         binding = FragmentDealerHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+
+        String DealerName = getActivity().getIntent().getStringExtra("DealerName");
 
         final Button placeOrderBtn = binding.placeorderbtn;
         final Button requestServiceBtn = binding.requestservicebtn;
@@ -37,6 +53,27 @@ public class DealerHomeFragment extends Fragment {
         final Button ReportBtn = binding.reportbtn;
         final Button PendingApprovalsBtn = binding.pendingapprovalsbtn;
         final Button SchemeBtn = binding.schemessbtn;
+
+        final TextView CurrentOutstandingBalance = binding.currentOutstandingBalance;
+        final TextView CurrentServicePendency = binding.currentServicePendency;
+
+        mref= FirebaseDatabase.getInstance().getReference();
+
+        mref.child("Dealers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    currentBalance = currentBalance + Integer.parseInt(snap.child("CurrentBalance").getValue(String.class));
+                }
+
+                CurrentOutstandingBalance.setText("Current Outstanding Balance : Rs. "+String.valueOf(currentBalance));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         placeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +94,7 @@ public class DealerHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext().getApplicationContext(), PaymentMethodActivity.class);
+                i.putExtra("DealerName",DealerName);
                 startActivity(i);
             }
         });

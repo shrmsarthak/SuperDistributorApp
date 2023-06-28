@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.superdistributor.RequestService.HandoverDRActivity;
-import com.app.superdistributor.RequestService.MaterialPendencyActivity;
+import com.app.superdistributor.RequestService.ServiceReportActivity;
 import com.app.superdistributor.RequestService.RaiseServiceConcerActivity;
 import com.app.superdistributor.RequestService.RegisterComplaintAcitivty;
 import com.app.superdistributor.RequestService.ReplaceByDealerActivity;
@@ -65,7 +65,7 @@ public class RequestServiceActivity extends AppCompatActivity {
         MaterialPendencyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(RequestServiceActivity.this, MaterialPendencyActivity.class);
+                Intent i = new Intent(RequestServiceActivity.this, ServiceReportActivity.class);
                 startActivity(i);
             }
         });

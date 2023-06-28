@@ -8,6 +8,7 @@ public class DealerHomeViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
+
     public DealerHomeViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is home fragment");

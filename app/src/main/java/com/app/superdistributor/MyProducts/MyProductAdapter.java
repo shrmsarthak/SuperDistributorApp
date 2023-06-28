@@ -1,6 +1,7 @@
 package com.app.superdistributor.MyProducts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.superdistributor.CheckoutActivity;
 import com.app.superdistributor.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -25,8 +28,6 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
 
     Context context;
     Map<String,String> selectedProduct=new HashMap<>();
-    Map<String,Map<String,String>> productdetails=new HashMap<>();
-
     ArrayList<Products> list;
 
 
@@ -47,68 +48,13 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
 
         Products products = list.get(position);
         holder.productName.setText(products.getName());
-        holder.productCategory.setText(products.getProductCategory());
-        holder.productPrice.setText("Price : \u20B9 "+products.getPrice());
-
-        holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
+        holder.AddProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Intent i = new Intent(context, CheckoutActivity.class);
-                //context.startActivity(i);
-
-                SharedPreferences sh1 = context.getSharedPreferences("MySharedPref", context.MODE_APPEND);
-
-
-                if(sh1.getString("productdetails","").equals(""))
-                {
-                    selectedProduct.clear();
-                    selectedProduct.put("ProductName",products.getName());
-                    selectedProduct.put("ProductPrice",products.getPrice());
-                    selectedProduct.put("ProductID",products.getProductID());
-
-
-                    productdetails.put(products.getProductID(), selectedProduct);
-
-                    SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPref",context.MODE_APPEND);
-                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-                    Gson gson = new Gson();
-                    String json = gson.toJson(productdetails);
-
-                    myEdit.putString("productdetails",json);
-                    myEdit.commit();
-
-                    //Toast.makeText(context, productdetails.toString(), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    SharedPreferences sh = context.getSharedPreferences("MySharedPref", context.MODE_APPEND);
-                    String savedproducts = sh.getString("productdetails", "");
-
-                    Gson gson = new Gson();
-                    Map<String,Map<String,String>> productdetails = gson.fromJson(savedproducts, Map.class);
-
-                    selectedProduct.clear();
-                    selectedProduct.put("ProductName",products.getName());
-                    selectedProduct.put("ProductPrice",products.getPrice());
-                    selectedProduct.put("ProductID",products.getProductID());
-
-                    productdetails.put(products.getProductID(), selectedProduct);
-
-
-                    SharedPreferences.Editor myEdit = sh.edit();
-                    Gson gson2 = new Gson();
-                    String json = gson2.toJson(productdetails);
-
-                    myEdit.putString("productdetails",json);
-                    myEdit.commit();
-                }
-
-                Toast.makeText(context, "Item Added to Cart..", Toast.LENGTH_SHORT).show();
-
+            public void onClick(View view) {
+                selectedProduct.put(products.getName(), holder.Qty.getText().toString());
+                SharedPreferences sharedPreferences = context.getSharedPreferences("shared_prefs",context.MODE_PRIVATE);
             }
         });
-
     }
 
     @Override
@@ -118,19 +64,17 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView productName, productPrice, productCategory;
+        TextView productName;
+        Button AddProductBtn;
 
-        Button addToCartBtn;
-
+        TextInputEditText Qty;
+        
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             productName = itemView.findViewById(R.id.tvProductName);
-            productPrice = itemView.findViewById(R.id.tvProductPrice);
-            productCategory = itemView.findViewById(R.id.tvProductCategory);
-            addToCartBtn = itemView.findViewById(R.id.addtocart);
-
-
+            AddProductBtn = itemView.findViewById(R.id.addProduct);
+            Qty = itemView.findViewById(R.id.qty);
 
         }
     }

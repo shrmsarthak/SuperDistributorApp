@@ -33,19 +33,19 @@
 
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/durationDiff"
+                android:id="@+id/currentOutstandingBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_below="@id/title"
                 android:src="@drawable/ic_launcher_background"
-                android:text="Current Outstanding Balance : \u20B9 68,000"
+                android:text="Current Outstanding Balance : Rs. 68,000"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/durationTime"
-                android:layout_below="@id/durationDiff"
+                android:id="@+id/currentServicePendency"
+                android:layout_below="@id/currentOutstandingBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

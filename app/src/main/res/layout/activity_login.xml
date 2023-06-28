@@ -7,56 +7,98 @@
     android:background="@android:color/white"
     tools:context=".LoginActivity">
 
-    <RadioGroup
-        android:id="@+id/loginradioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lottieloginview"
+<!--    <RadioGroup-->
+<!--        android:id="@+id/loginradioGroup"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/h5"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:checkedButton="@+id/loginusercheck"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--            android:id="@+id/loginadmincheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="50dp"-->
+<!--            android:text="Admin"-->
+<!--            android:checked="true"-->
+<!--            android:textColor="@android:color/background_dark"-->
+<!--            android:layout_marginRight="50dp" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--            android:id="@+id/loginmanagercheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Manager"-->
+<!--            android:textColor="@android:color/background_dark" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--            android:id="@+id/loginaccountantcheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Accountant"-->
+<!--            android:textColor="@android:color/background_dark" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--            android:id="@+id/logindealercheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="50dp"-->
+<!--            android:text="Dealer"-->
+<!--            android:textColor="@android:color/background_dark"-->
+<!--            android:layout_marginRight="50dp" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--            android:id="@+id/loginsrcheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="S.R."-->
+<!--            android:textColor="@android:color/background_dark" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatRadioButton-->
+<!--            android:id="@+id/logintechniciancheck"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Technician"-->
+<!--            android:textColor="@android:color/background_dark" />-->
+
+<!--    </RadioGroup>-->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loginlottie"
+        android:layout_below="@id/h5"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:checkedButton="@+id/loginusercheck"
-        android:orientation="vertical">
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/account" />
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/loginadmincheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:text="Admin"
-            android:checked="true"
-            android:textColor="@android:color/background_dark"
-            android:layout_marginRight="50dp" />
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/logindealercheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:text="Dealer"
-            android:textColor="@android:color/background_dark"
-            android:layout_marginRight="50dp" />
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/loginsrcheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="S.R."
-            android:textColor="@android:color/background_dark" />
-
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/logintechniciancheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Technician"
-            android:textColor="@android:color/background_dark" />
-
-    </RadioGroup>
+    <Spinner
+        android:id="@+id/loginUserTypeDropDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/loginlottie"
+        android:layout_marginBottom="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/accountIdTIL"
         android:layout_width="match_parent"
-        android:layout_below="@+id/loginradioGroup"
+        android:layout_below="@+id/loginUserTypeDropDown"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
@@ -126,18 +168,6 @@
         android:textSize="20dp"
         android:gravity="center_horizontal" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieloginview"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/h5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/account" />
 
     <TextView
         android:layout_width="match_parent"

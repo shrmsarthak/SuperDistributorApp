@@ -27,14 +27,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AddExpenseActivity extends AppCompatActivity {
+public class AddCreditDebitActivity extends AppCompatActivity {
 
     DatabaseReference database;
     ArrayList<String> nameArrayList = new ArrayList<>();
+    ArrayList<String> transactionTypeArrayList = new ArrayList<>();
 
-    EditText ParticularET, DocNoET, CreditET, DebitET, NoteET;
+    EditText ParticularET, DocNoET, AmountET, NoteET;
     //DateET
-    Button AddExpenseBtn;
+    Button AddAmountBtn;
 
     private TextView mShowSelectedDateText;
 
@@ -45,21 +46,28 @@ public class AddExpenseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_expense);
+        setContentView(R.layout.activity_add_credit_debit);
 
-        Spinner dropdown = findViewById(R.id.customernameDropDown);
+        Spinner dropdown = findViewById(R.id.dealerDropDown);
+        Spinner transactionTypeSpinner = findViewById(R.id.transactionType);
+
+        transactionTypeArrayList.add("Credit");
+        transactionTypeArrayList.add("Debit");
+
+        ArrayAdapter<String> transactionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, transactionTypeArrayList);
+        transactionTypeSpinner.setAdapter(transactionAdapter);
+
 
         ParticularET = findViewById(R.id.particularET);
         //DateET = findViewById(R.id.dateET);
         DocNoET = findViewById(R.id.docnoET);
-        CreditET = findViewById(R.id.creditET);
-        DebitET = findViewById(R.id.debitET);
+        AmountET = findViewById(R.id.amountET);
         NoteET = findViewById(R.id.noteET);
 
-        AddExpenseBtn = findViewById(R.id.addExpenseBtn);
+        AddAmountBtn = findViewById(R.id.addAmountBtn);
         mShowSelectedDateText = findViewById(R.id.show_selected_date);
 
-        nameArrayList.add("Select Customer");
+        nameArrayList.add("Select Dealer");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nameArrayList);
 
         ////
@@ -91,14 +99,13 @@ public class AddExpenseActivity extends AppCompatActivity {
                 });
         ////
 
-
         database = FirebaseDatabase.getInstance().getReference();
 
-        database.child("Customers").addListenerForSingleValueEvent(new ValueEventListener() {
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot snap : snapshot.getChildren()) {
+                for (DataSnapshot snap : snapshot.child("Dealers").getChildren()) {
                     nameArrayList.add(snap.getKey());
                 }
                 dropdown.setAdapter(adapter);
@@ -110,62 +117,66 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
-        AddExpenseBtn.setOnClickListener(new View.OnClickListener() {
+        AddAmountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(ParticularET.getText().toString().equals(""))
                 {
-                    Toast.makeText(AddExpenseActivity.this, "Please enter particular..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCreditDebitActivity.this, "Please enter particular..", Toast.LENGTH_SHORT).show();
                 }
                 else if(DocNoET.getText().toString().equals(""))
                 {
-                    Toast.makeText(AddExpenseActivity.this, "Please enter doc no..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCreditDebitActivity.this, "Please enter doc no..", Toast.LENGTH_SHORT).show();
                 }
-                else if(DebitET.getText().toString().equals(""))
+                else if(AmountET.getText().toString().equals(""))
                 {
-                    Toast.makeText(AddExpenseActivity.this, "Please enter debit..", Toast.LENGTH_SHORT).show();
-                }
-                else if(CreditET.getText().toString().equals(""))
-                {
-                    Toast.makeText(AddExpenseActivity.this, "Please enter credit..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCreditDebitActivity.this, "Please enter credit..", Toast.LENGTH_SHORT).show();
                 }
                 else if(NoteET.getText().toString().equals(""))
                 {
-                    Toast.makeText(AddExpenseActivity.this, "Please enter note..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCreditDebitActivity.this, "Please enter note..", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //Toast.makeText(AddExpenseActivity.this, ""+dropdown.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
-                    database.child("Customers").child(dropdown.getSelectedItem().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    database.child("Dealers").child(dropdown.getSelectedItem().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String currentBalance = snapshot.child("CurrentBalance").getValue().toString();
 
                             //Toast.makeText(AddExpenseActivity.this, "currentBalance"+currentBalance, Toast.LENGTH_SHORT).show();
 
-                            HashMap<String,String> expenseData = new HashMap<>();
-                            expenseData.put("Particular", ParticularET.getText().toString());
-                            expenseData.put("Date", selectedDate);
-                            expenseData.put("DocNo", DocNoET.getText().toString());
-                            expenseData.put("Name", dropdown.getSelectedItem().toString());
-                            expenseData.put("Credit", CreditET.getText().toString());
-                            expenseData.put("Debit", DebitET.getText().toString());
-                            expenseData.put("Note", NoteET.getText().toString());
+                            HashMap<String,String> creditData = new HashMap<>();
+                            creditData.put("Particular", ParticularET.getText().toString());
+                            creditData.put("Date", selectedDate);
+                            creditData.put("DocNo", DocNoET.getText().toString());
+                            creditData.put("Name", dropdown.getSelectedItem().toString());
+                            creditData.put("Amount", AmountET.getText().toString());
+                            creditData.put("Note", NoteET.getText().toString());
 
-                            int balance = Integer.parseInt(currentBalance) + Integer.parseInt(CreditET.getText().toString()) - Integer.parseInt(DebitET.getText().toString());
+                            String transactionType = "";
+                            int balance=0;
+                            if(transactionTypeSpinner.getSelectedItem().toString().equals("Credit"))
+                            {
+                                balance = Integer.parseInt(currentBalance) + Integer.parseInt(AmountET.getText().toString());
+                                transactionType = "Credit";
+                            }
+                            else {
+                                balance = Integer.parseInt(currentBalance) - Integer.parseInt(AmountET.getText().toString());
+                                transactionType = "Debit";
+                            }
 
-                            database.child("Customers").child(dropdown.getSelectedItem().toString()).push().setValue(expenseData);
+                            database.child("Dealers").child(dropdown.getSelectedItem().toString()).child(transactionType).push().setValue(creditData);
 
-                            database.child("Customers").child(dropdown.getSelectedItem().toString()).child("CurrentBalance").
+                            database.child("Dealers").child(dropdown.getSelectedItem().toString()).child("CurrentBalance").
                                     setValue(String.valueOf(balance)).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(AddExpenseActivity.this, "Expense Added", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddCreditDebitActivity.this, "Amount Added", Toast.LENGTH_SHORT).show();
                                             ParticularET.setText("");
                                             mShowSelectedDateText.setText("Selected Date is : ");
                                             DocNoET.setText("");
-                                            CreditET.setText("");
-                                            DebitET.setText("");
+                                            AmountET.setText("");
                                             NoteET.setText("");
                                         }
                                     });

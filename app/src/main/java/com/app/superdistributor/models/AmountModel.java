@@ -1,15 +1,15 @@
 package com.app.superdistributor.models;
 
-public class ExpenseModel {
+public class AmountModel {
 
-    String Credit, Date, Debit, DocNo, Name, Note, Particular;
+    String Amount, Date, DocNo, Name, Note, Particular;
 
-    public String getCredit() {
-        return Credit;
+    public String getAmount() {
+        return Amount;
     }
 
-    public void setCredit(String credit) {
-        Credit = credit;
+    public void setAmount(String amount) {
+        Amount = amount;
     }
 
     public String getDate() {
@@ -18,14 +18,6 @@ public class ExpenseModel {
 
     public void setDate(String date) {
         Date = date;
-    }
-
-    public String getDebit() {
-        return Debit;
-    }
-
-    public void setDebit(String debit) {
-        Debit = debit;
     }
 
     public String getDocNo() {

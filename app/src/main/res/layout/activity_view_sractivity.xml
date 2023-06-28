@@ -18,11 +18,22 @@
         android:textColor="@android:color/black"
         android:padding="20dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewSRHead2"
+        android:layout_below="@+id/viewSRHead"
+        android:text="Long Press on Entry to Delete the SR"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:padding="10dp"/>
+
     <ListView
         android:id="@+id/viewSRlv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/viewSRHead"
+        android:layout_below="@+id/viewSRHead2"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
