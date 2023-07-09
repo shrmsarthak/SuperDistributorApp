@@ -7,25 +7,50 @@
     android:background="@android:color/white"
     tools:context=".admin.AdminPanelActivity">
 
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Welcome Admin"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:id="@+id/adminhead"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@android:color/black"
-        android:padding="20dp"
-        />
+        android:layout_height="50dp"
+        android:id="@+id/adminTopHead"
+        android:background="@color/purple_500">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Admin"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/adminhead"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adminNotification"
+            android:src="@drawable/baseline_notifications_24"
+            android:layout_toLeftOf="@id/adminLogout"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adminLogout"
+            android:src="@drawable/baseline_logout_24"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="25dp"/>
+
+
+    </RelativeLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/adminlottie"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_below="@+id/adminhead"
+        android:layout_below="@+id/adminTopHead"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
@@ -45,7 +70,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:layout_below="@+id/adminlottie"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"/>
 
     <LinearLayout

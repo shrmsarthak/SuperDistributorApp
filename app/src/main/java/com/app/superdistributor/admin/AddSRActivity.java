@@ -133,6 +133,13 @@ public class AddSRActivity extends AppCompatActivity {
                         srs.put("Email", srEmail);
                         srs.put("Password", srPassword);
 
+                        HashMap<String,Object> srsSalesStatus = new HashMap<>();
+                        srsSalesStatus.put("SalesDone","0");
+                        srsSalesStatus.put("RemainingTarget","0");
+                        srsSalesStatus.put("TotalOutstanding","0");
+
+                        srs.put("SRSSalesStatus",srsSalesStatus);
+
                         database.child("SRs").child(srUserName).updateChildren(srs)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

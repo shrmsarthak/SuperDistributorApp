@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.superdistributor.LoginActivity;
 import com.app.superdistributor.MyProducts.ViewProductList;
 import com.app.superdistributor.R;
+import com.app.superdistributor.admin.notification.AdminNotificationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,7 @@ public class AdminPanelActivity extends AppCompatActivity {
     DatabaseReference database;
 
     TextView Head;
+    ImageView AdminNotification, AdminLogout;
 
     String Username;
     @Override
@@ -42,6 +45,46 @@ public class AdminPanelActivity extends AppCompatActivity {
 
         Username = getIntent().getStringExtra("Username");
 
+        AdminNotification = findViewById(R.id.adminNotification);
+        AdminLogout = findViewById(R.id.adminLogout);
+
+        database = FirebaseDatabase.getInstance().getReference();
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("Admin").child("Notifications").child("ProductConfirmation").exists())
+                {
+                    AdminNotification.setImageResource(R.drawable.baseline_notifications_active_24);
+                }
+                else
+                {
+                    AdminNotification.setImageResource(R.drawable.baseline_notifications_24);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        AdminNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AdminPanelActivity.this, AdminNotificationActivity.class);
+                startActivity(i);
+            }
+        });
+
+        AdminLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AdminPanelActivity.this, LoginActivity.class);
+                startActivity(i);
+            }
+        });
+
         Head = findViewById(R.id.adminhead);
 
         Head.setText("Welcome "+Username);
@@ -50,6 +93,7 @@ public class AdminPanelActivity extends AppCompatActivity {
         ViewCreditDebitBtn = findViewById(R.id.viewcreditdebitbtn);
 
         AddProductBtn = findViewById(R.id.addProductBtn);
+
 
         AddUserBtn = findViewById(R.id.adduserbtn);
         ViewUserBtn = findViewById(R.id.viewUserbtn);
@@ -98,7 +142,7 @@ public class AdminPanelActivity extends AppCompatActivity {
                 LoadingBar.setCanceledOnTouchOutside(false);
                 LoadingBar.show();
 
-                database = FirebaseDatabase.getInstance().getReference();
+
 
                 database.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -137,7 +181,8 @@ public class AdminPanelActivity extends AppCompatActivity {
         AddCreditDebitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AdminPanelActivity.this, AddCreditDebitActivity.class);
+                Intent intent = new Intent(AdminPanelActivity.this, AddDebitCreditActivity.class);
+                intent.putExtra("Username",Username);
                 startActivity(intent);
             }
         });
@@ -237,5 +282,9 @@ public class AdminPanelActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

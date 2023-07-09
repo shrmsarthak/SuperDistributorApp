@@ -6,7 +6,10 @@
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@android:color/white"
-    android:layout_margin="20dp">
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
 
 
     <RelativeLayout
@@ -30,6 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Customer Name"
+                    android:textStyle="bold"
                     android:id="@+id/customernamehead"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="20dp"
@@ -39,6 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Customer Name"
+                    android:textStyle="bold"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="15dp"
                     android:id="@+id/customername"

@@ -1,24 +1,20 @@
 package com.app.superdistributor.MyProducts;
 
+import static com.app.superdistributor.MyProducts.PlaceOrderActivity.orderMap;
+
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.superdistributor.CheckoutActivity;
 import com.app.superdistributor.R;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +23,14 @@ import java.util.Map;
 public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyViewHolder> {
 
     Context context;
-    Map<String,String> selectedProduct=new HashMap<>();
     ArrayList<Products> list;
+    String DealerName;
 
 
-    public MyProductAdapter(Context context, ArrayList<Products> list) {
+    public MyProductAdapter(Context context, ArrayList<Products> list, String dealerName) {
         this.context = context;
         this.list = list;
+        this.DealerName = dealerName;
     }
 
     @NonNull
@@ -51,8 +48,25 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
         holder.AddProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedProduct.put(products.getName(), holder.Qty.getText().toString());
-                SharedPreferences sharedPreferences = context.getSharedPreferences("shared_prefs",context.MODE_PRIVATE);
+
+                if(holder.Qty.getText().toString().equals("0"))
+                {
+                    Toast.makeText(context, "Please increase quantity to add product..", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Map<String, Object> productMap = new HashMap<>();
+                    Toast.makeText(context, "Porduct added..", Toast.LENGTH_SHORT).show();
+                    productMap.put("Name",products.getName());
+                    productMap.put("ProductID",products.getProductID());
+                    productMap.put("ProductQty",holder.Qty.getText().toString());
+                    productMap.put("DealerName",DealerName);
+                    productMap.put("Status","Open");
+
+                    orderMap.put(products.getProductID(),productMap);
+                    holder.Qty.setText("0");
+                    //Toast.makeText(context, ""+products.getName(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

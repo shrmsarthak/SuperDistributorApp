@@ -96,6 +96,16 @@ public class DealerHomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout)
+        {
+            Intent i = new Intent(DealerHomeActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_dealer_home);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
@@ -103,4 +113,8 @@ public class DealerHomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

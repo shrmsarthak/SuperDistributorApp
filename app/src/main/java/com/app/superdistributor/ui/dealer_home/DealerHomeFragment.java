@@ -80,6 +80,7 @@ public class DealerHomeFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent i = new Intent(getContext().getApplicationContext(), PlaceOrderActivity.class);
+                i.putExtra("DealerName",DealerName);
                 startActivity(i);
             }
         });

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.app.superdistributor.CheckoutActivity;
 import com.app.superdistributor.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PlaceOrderActivity extends AppCompatActivity {
@@ -35,10 +38,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
     Button PlaceFinalOrderButton;
 
+    public static Map<String,Object> orderMap;
+
+    String DealerName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
+
+        DealerName = getIntent().getStringExtra("DealerName");
 
         PlaceFinalOrderButton = findViewById(R.id.placefinalorderbtn);
 
@@ -48,12 +57,31 @@ public class PlaceOrderActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        myAdapter = new MyProductAdapter(this,list);
+        myAdapter = new MyProductAdapter(this,list, DealerName);
         recyclerView.setAdapter(myAdapter);
+
+        orderMap = new HashMap<>();
 
         PlaceFinalOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(orderMap.size() == 0)
+                {
+                    Toast.makeText(PlaceOrderActivity.this, "Please add products to place order..", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    database.child("Dealers").child(DealerName).child("Orders").updateChildren(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    orderMap.clear();
+                                    Intent i = new Intent(PlaceOrderActivity.this, CheckoutActivity.class);
+                                    i.putExtra("DealerName",DealerName);
+                                    startActivity(i);
+                                }
+                            });
+                }
+                //Toast.makeText(PlaceOrderActivity.this, ""+String.valueOf(checkArray.size()), Toast.LENGTH_SHORT).show();
             }
         });
         database.child("Products").addValueEventListener(new ValueEventListener() {

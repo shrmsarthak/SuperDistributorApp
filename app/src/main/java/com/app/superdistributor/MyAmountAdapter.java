@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,7 @@ public class MyAmountAdapter extends RecyclerView.Adapter<MyAmountAdapter.MyView
         holder.NameTv.setText(amountModel.getName());
         holder.NoteTv.setText(amountModel.getNote());
         holder.PaticularTv.setText(amountModel.getParticular());
+
     }
 
     @Override

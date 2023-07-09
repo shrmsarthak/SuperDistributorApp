@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,9 +30,9 @@ import java.util.HashMap;
 
 public class AddCreditDebitActivity extends AppCompatActivity {
 
+    String Username;
     DatabaseReference database;
     ArrayList<String> nameArrayList = new ArrayList<>();
-    ArrayList<String> transactionTypeArrayList = new ArrayList<>();
 
     EditText ParticularET, DocNoET, AmountET, NoteET;
     //DateET
@@ -41,22 +42,17 @@ public class AddCreditDebitActivity extends AppCompatActivity {
 
     private Button mPickDateButton;
 
-    String selectedDate;
+    String selectedDate, DealerUsername, TransactionType, DealerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_credit_debit);
 
-        Spinner dropdown = findViewById(R.id.dealerDropDown);
-        Spinner transactionTypeSpinner = findViewById(R.id.transactionType);
-
-        transactionTypeArrayList.add("Credit");
-        transactionTypeArrayList.add("Debit");
-
-        ArrayAdapter<String> transactionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, transactionTypeArrayList);
-        transactionTypeSpinner.setAdapter(transactionAdapter);
-
+        DealerUsername = getIntent().getStringExtra("DealerUsername");
+        TransactionType = getIntent().getStringExtra("TransactionType");
+        DealerName = getIntent().getStringExtra("DealerName");
+        Username = getIntent().getStringExtra("Username");
 
         ParticularET = findViewById(R.id.particularET);
         //DateET = findViewById(R.id.dateET);
@@ -66,9 +62,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
 
         AddAmountBtn = findViewById(R.id.addAmountBtn);
         mShowSelectedDateText = findViewById(R.id.show_selected_date);
-
-        nameArrayList.add("Select Dealer");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nameArrayList);
 
         ////
 
@@ -101,22 +94,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance().getReference();
 
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot snap : snapshot.child("Dealers").getChildren()) {
-                    nameArrayList.add(snap.getKey());
-                }
-                dropdown.setAdapter(adapter);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         AddAmountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,7 +116,7 @@ public class AddCreditDebitActivity extends AppCompatActivity {
                 else {
                     //Toast.makeText(AddExpenseActivity.this, ""+dropdown.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
-                    database.child("Dealers").child(dropdown.getSelectedItem().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    database.child("Dealers").child(DealerUsername).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String currentBalance = snapshot.child("CurrentBalance").getValue().toString();
@@ -150,13 +127,13 @@ public class AddCreditDebitActivity extends AppCompatActivity {
                             creditData.put("Particular", ParticularET.getText().toString());
                             creditData.put("Date", selectedDate);
                             creditData.put("DocNo", DocNoET.getText().toString());
-                            creditData.put("Name", dropdown.getSelectedItem().toString());
+                            creditData.put("Name", DealerName);
                             creditData.put("Amount", AmountET.getText().toString());
                             creditData.put("Note", NoteET.getText().toString());
 
                             String transactionType = "";
                             int balance=0;
-                            if(transactionTypeSpinner.getSelectedItem().toString().equals("Credit"))
+                            if(TransactionType.equals("Credit"))
                             {
                                 balance = Integer.parseInt(currentBalance) + Integer.parseInt(AmountET.getText().toString());
                                 transactionType = "Credit";
@@ -166,9 +143,9 @@ public class AddCreditDebitActivity extends AppCompatActivity {
                                 transactionType = "Debit";
                             }
 
-                            database.child("Dealers").child(dropdown.getSelectedItem().toString()).child(transactionType).push().setValue(creditData);
+                            database.child("Dealers").child(DealerUsername).child(transactionType).push().setValue(creditData);
 
-                            database.child("Dealers").child(dropdown.getSelectedItem().toString()).child("CurrentBalance").
+                            database.child("Dealers").child(DealerUsername).child("CurrentBalance").
                                     setValue(String.valueOf(balance)).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -178,6 +155,9 @@ public class AddCreditDebitActivity extends AppCompatActivity {
                                             DocNoET.setText("");
                                             AmountET.setText("");
                                             NoteET.setText("");
+                                            Intent i = new Intent(AddCreditDebitActivity.this, AddDebitCreditActivity.class);
+                                            i.putExtra("Username",Username);
+                                            startActivity(i);
                                         }
                                     });
                         }

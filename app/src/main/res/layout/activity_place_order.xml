@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:background="@color/white"
     tools:context=".MyProducts.PlaceOrderActivity">
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:text="Products"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

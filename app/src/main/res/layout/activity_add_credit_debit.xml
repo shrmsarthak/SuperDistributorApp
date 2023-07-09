@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".admin.AddCreditDebitActivity">
 
-    <Spinner
-        android:id="@+id/dealerDropDown"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/particularETTIL"
@@ -25,7 +15,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/dealerDropDown"
         android:hint="Particular"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -82,17 +71,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/transactionType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/docNoTIL"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amountTIL"
@@ -101,7 +79,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/transactionType"
+        android:layout_below="@+id/docNoTIL"
         android:hint="Amount"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -140,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/addAmountBtn"
-        android:padding="20dp"
+        android:padding="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"

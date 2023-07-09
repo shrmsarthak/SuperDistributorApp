@@ -161,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         LoadingBar.dismiss();
                         Intent i = new Intent(LoginActivity.this, SRHomeActivity.class);
+                        i.putExtra("SRUsername", myaccountid);
                         startActivity(i);
                     }
                     else
@@ -305,6 +306,11 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

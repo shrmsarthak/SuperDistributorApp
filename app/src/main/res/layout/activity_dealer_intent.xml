@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".AccountDetailsActivity">
+    android:background="@color/white"
+    tools:context=".sr.DealerIntentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:id="@+id/accountdetailshead"
+        android:id="@+id/dealerproductLL"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/accountdetailstxt"
+                android:id="@+id/dealerOrdertxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -32,40 +32,22 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
-                android:text="Account Details"
+                android:text="Dealer Orders"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/currentbalancetxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/accountdetailshead"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/purple_500"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:padding="10dp"
-        android:text="Current Balance"
-        android:textColor="@android:color/white" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/amountlist"
+        android:id="@+id/dealerorderList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/currentbalancetxt"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_below="@+id/dealerproductLL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
