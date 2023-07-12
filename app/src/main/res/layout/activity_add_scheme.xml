@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".admin.AddOfferActivity">
+    tools:context=".admin.AddSchemeActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addOfferHead"
-        android:text="Add Offer"
+        android:id="@+id/addSchemeHead"
+        android:text="Add Scheme"
         android:textSize="25sp"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -20,30 +20,30 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/offerNameTIL"
+        android:id="@+id/schemeNameTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/addOfferHead"
-        android:hint="Offer Name"
+        android:layout_below="@+id/addSchemeHead"
+        android:hint="Scheme Name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:id="@+id/offerNameET"
+            android:id="@+id/schemeNameET"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/offerImage"
+        android:id="@+id/schemeImage"
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:layout_below="@+id/offerNameTIL"
+        android:layout_below="@+id/schemeNameTIL"
         android:layout_centerInParent="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -53,25 +53,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/offerImage"
+        android:layout_below="@+id/schemeImage"
         android:layout_centerInParent="true"
         android:fontFamily="sans-serif-medium"
-
         android:gravity="center"
         android:text="Add Image" />
 
 
 
     <Button
-        android:id="@+id/submitOfferDetailsBtn"
+        android:id="@+id/submitSchemeDetailsBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/offerImage"
+        android:layout_below="@+id/schemeImage"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="20dp"
         android:padding="20dp"
-        android:text="Add Offer"
+        android:text="Add Scheme"
         app:icon="@drawable/baseline_add_24" />
 
 </RelativeLayout>

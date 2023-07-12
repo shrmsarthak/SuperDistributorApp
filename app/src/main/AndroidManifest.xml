@@ -20,6 +20,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".admin.AddSchemeActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.AddOfferActivity"
             android:exported="false" />
         <activity

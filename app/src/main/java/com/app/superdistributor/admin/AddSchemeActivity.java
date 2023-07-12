@@ -1,5 +1,10 @@
 package com.app.superdistributor.admin;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +12,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.superdistributor.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,13 +26,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class AddOfferActivity extends AppCompatActivity {
+public class AddSchemeActivity extends AppCompatActivity {
 
-    TextInputEditText OfferName;
-    ShapeableImageView OfferImage;
+    TextInputEditText SchemeName;
+    ShapeableImageView SchemeImage;
 
     boolean isImgAdded = false;
-    Button SubmitOfferDetailsBtn;
+    Button SubmitSchemeDetailsBtn;
 
     DatabaseReference database;
     private ProgressDialog LoadingBar;
@@ -43,14 +43,15 @@ public class AddOfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_offer);
+        setContentView(R.layout.activity_add_scheme);
+
 
         LoadingBar=new ProgressDialog(this);
         database = FirebaseDatabase.getInstance().getReference();
 
-        OfferName = findViewById(R.id.offerNameET);
-        OfferImage = findViewById(R.id.offerImage);
-        SubmitOfferDetailsBtn = findViewById(R.id.submitOfferDetailsBtn);
+        SchemeName = findViewById(R.id.schemeNameET);
+        SchemeImage = findViewById(R.id.schemeImage);
+        SubmitSchemeDetailsBtn = findViewById(R.id.submitSchemeDetailsBtn);
 
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -58,11 +59,11 @@ public class AddOfferActivity extends AppCompatActivity {
                         isImgAdded = true;
                         Intent data = result.getData();
                         // Get the selected image URI
-                        OfferImage.setImageURI(data.getData());
+                        SchemeImage.setImageURI(data.getData());
                     }
                 });
 
-        OfferImage.setOnClickListener(new View.OnClickListener() {
+        SchemeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK);
@@ -71,49 +72,49 @@ public class AddOfferActivity extends AppCompatActivity {
             }
         });
 
-        SubmitOfferDetailsBtn.setOnClickListener(new View.OnClickListener() {
+        SubmitSchemeDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(OfferName.getText().toString().equals("") ){
-                    Toast.makeText(AddOfferActivity.this, "Please enter offer name", Toast.LENGTH_SHORT).show();
+                if(SchemeName.getText().toString().equals("") ){
+                    Toast.makeText(AddSchemeActivity.this, "Please enter scheme name", Toast.LENGTH_SHORT).show();
                 }
                 else if (!isImgAdded){
-                    Toast.makeText(AddOfferActivity.this, "Please enter offer image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddSchemeActivity.this, "Please enter scheme image", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     LoadingBar.setTitle("Please Wait..");
                     LoadingBar.setMessage("Please Wait while we are checking our database...");
                     LoadingBar.show();
 
-                    createNewOffer(OfferName.getText().toString(),OfferImage);
+                    createNewScheme(SchemeName.getText().toString(),SchemeImage);
                 }
             }
         });
-
     }
 
-    private void createNewOffer(String offerName, ShapeableImageView offerImage) {
+
+    private void createNewScheme(String schemeName, ShapeableImageView schemeImage) {
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("Offers").child(offerName).exists()){
+                if (snapshot.child("Schemes").child(schemeName).exists()){
                     LoadingBar.dismiss();
-                    Toast.makeText(AddOfferActivity.this, "Offer with this name already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddSchemeActivity.this, "Scheme with this name already exists", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    HashMap<String,Object> offers = new HashMap<>();
-                    offers.put("Name", offerName);
-                    offers.put("Image", offerImage);
+                    HashMap<String,Object> schemes = new HashMap<>();
+                    schemes.put("Name", schemeName);
+                    schemes.put("Image", schemeImage);
 
-                    database.child("Offers").child(offerName).updateChildren(offers)
+                    database.child("Schemes").child(schemeName).updateChildren(schemes)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     LoadingBar.dismiss();
-                                    Toast.makeText(AddOfferActivity.this,"Offer Added",Toast.LENGTH_SHORT).show();
-                                    OfferName.setText("");
-                                    OfferImage.setImageResource(R.drawable.baseline_add_image);
+                                    Toast.makeText(AddSchemeActivity.this,"Scheme Added",Toast.LENGTH_SHORT).show();
+                                    SchemeName.setText("");
+                                    SchemeImage.setImageResource(R.drawable.baseline_add_image);
                                 }
                             });
                 }
@@ -121,9 +122,9 @@ public class AddOfferActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddOfferActivity.this,"Couldn't save", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(AddSchemeActivity.this,"Couldn't save", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

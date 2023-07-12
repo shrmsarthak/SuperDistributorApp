@@ -266,15 +266,12 @@ public class AdminPanelActivity extends AppCompatActivity {
                         if(users[i].equals("Offer"))
                         {
                             Intent intent = new Intent(AdminPanelActivity.this, AddOfferActivity.class);
-                            intent.putExtra("task","addTechnician");
-                            intent.putExtra("username","");
                             intent.putExtra("Username",Username);
                             startActivity(intent);
                         }
                         else
                         {
-                            Intent intent = new Intent(AdminPanelActivity.this, AddTechnicianActivity.class);
-
+                            Intent intent = new Intent(AdminPanelActivity.this, AddSchemeActivity.class);
                             intent.putExtra("Username",Username);
                             startActivity(intent);
                         }
