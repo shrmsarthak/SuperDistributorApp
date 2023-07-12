@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 public class AdminPanelActivity extends AppCompatActivity {
 
-    ImageView AddCreditDebitBtn, ViewCreditDebitBtn, AddUserBtn, ViewUserBtn, AddProductBtn;
+    ImageView AddCreditDebitBtn, ViewCreditDebitBtn, AddUserBtn, ViewUserBtn, AddProductBtn, AddOfferBtn;
     private ProgressDialog LoadingBar;
     DatabaseReference database;
 
@@ -97,6 +97,7 @@ public class AdminPanelActivity extends AppCompatActivity {
 
         AddUserBtn = findViewById(R.id.adduserbtn);
         ViewUserBtn = findViewById(R.id.viewUserbtn);
+        AddOfferBtn = findViewById(R.id.addofferbtn);
 
         LoadingBar=new ProgressDialog(this);
         AddProductBtn.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +240,41 @@ public class AdminPanelActivity extends AppCompatActivity {
                             Intent intent = new Intent(AdminPanelActivity.this, AddTechnicianActivity.class);
                             intent.putExtra("task","addTechnician");
                             intent.putExtra("username","");
+                            intent.putExtra("Username",Username);
+                            startActivity(intent);
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+
+        AddOfferBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                String[] users = {"Offer", "Scheme"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(AdminPanelActivity.this);
+                builder.setTitle("Select Type");
+                builder.setItems(users, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(users[i].equals("Offer"))
+                        {
+                            Intent intent = new Intent(AdminPanelActivity.this, AddOfferActivity.class);
+                            intent.putExtra("task","addTechnician");
+                            intent.putExtra("username","");
+                            intent.putExtra("Username",Username);
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(AdminPanelActivity.this, AddTechnicianActivity.class);
+
                             intent.putExtra("Username",Username);
                             startActivity(intent);
                         }

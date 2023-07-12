@@ -247,22 +247,21 @@
             android:layout_below="@+id/adminhead2">
 
             <ImageView
+                android:id="@+id/addofferbtn"
                 android:layout_width="50dp"
                 android:layout_gravity="center"
                 android:layout_height="50dp"
-                android:visibility="invisible"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/baseline_attach_money_24" />
+                android:background="@drawable/baseline_offer" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View\nCredit/Debit"
-                android:visibility="invisible"
+                android:text="Add offers &amp; schemes"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold"/>
 
         </LinearLayout>
