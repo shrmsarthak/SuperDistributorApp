@@ -51,24 +51,35 @@
         app:srcCompat="@drawable/baseline_add_image" />
 
     <TextView
+        android:id="@+id/addImageTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/offerImage"
         android:layout_centerInParent="true"
         android:fontFamily="sans-serif-medium"
-
         android:gravity="center"
         android:text="Add Image" />
 
-
+    <Spinner
+        android:id="@+id/selectDealer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addImageTV"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:padding="10dp"
+        android:spinnerMode="dropdown" />
 
     <Button
         android:id="@+id/submitOfferDetailsBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/offerImage"
+        android:layout_below="@+id/selectDealer"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
         android:padding="20dp"
         android:text="Add Offer"
