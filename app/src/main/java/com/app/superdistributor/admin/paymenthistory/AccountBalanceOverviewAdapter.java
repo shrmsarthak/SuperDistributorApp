@@ -38,7 +38,12 @@ public class AccountBalanceOverviewAdapter extends RecyclerView.Adapter<AccountB
     public void onBindViewHolder(@NonNull AccountBalanceOverviewAdapter.MyViewHolder holder, int position) {
         AmountOverviewModel amountOverviewModel = list.get(position);
         holder.NameTv.setText(amountOverviewModel.getName());
-        holder.CurrentBalanceTv.setText("\u20B9 "+Math.abs(Integer.parseInt(amountOverviewModel.getCurrentBalance())));
+
+        if (amountOverviewModel.getCurrentBalance() != null) {
+            holder.CurrentBalanceTv.setText("\u20B9 " + Math.abs(Integer.parseInt(amountOverviewModel.getCurrentBalance())));
+        } else {
+            holder.CurrentBalanceTv.setText("\u20B9 " + 0);
+        }
         holder.RoundedTv.setText(amountOverviewModel.getName().substring(0,1).toUpperCase());
         holder.UserNameTv.setText(amountOverviewModel.getUserName());
 

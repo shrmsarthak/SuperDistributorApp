@@ -27,7 +27,7 @@ public class SRHomeActivity extends AppCompatActivity {
 
     TextView SalesDoneTV, RemainingTargetTV;
     Button TotalSROutstandingBtn, DealerIntentBtn, PaymentApproveBtn, ComplaintRaiseBtn, AddPaymentBtn,
-    ReportsBtn, AddDealerBtn, ExpenseBtn, AddVisitBtn;
+    ReportsBtn, AddDealerBtn, ExpenseBtn, AddVisitBtn, MyDealersBtn;
 
     ImageView LogoutBtn;
 
@@ -84,6 +84,7 @@ public class SRHomeActivity extends AppCompatActivity {
         AddDealerBtn = findViewById(R.id.adddealerbtn);
         ExpenseBtn = findViewById(R.id.expensebtn);
         AddVisitBtn = findViewById(R.id.addvisitbtn);
+        MyDealersBtn = findViewById(R.id.myDealers);
 
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -95,10 +96,21 @@ public class SRHomeActivity extends AppCompatActivity {
             }
         });
 
+
+
         DealerIntentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SRHomeActivity.this, DealerIntentActivity.class);
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
+
+        MyDealersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, SRDealersLedgerAccountActivity.class);
                 i.putExtra("SRUsername",SRUsername);
                 startActivity(i);
             }

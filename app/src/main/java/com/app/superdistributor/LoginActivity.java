@@ -1,8 +1,5 @@
 package com.app.superdistributor;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +8,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.superdistributor.admin.AdminPanelActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
         LoadingBar=new ProgressDialog(this);
         mypassword=Password.getText().toString();
-        myaccountid="+91"+AccountId.getText().toString();
+        myaccountid="+91"+AccountId.getText().toString().trim();
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
