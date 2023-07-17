@@ -69,7 +69,10 @@ public class AddOfferActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    dealerUserNamesList.add(snap.child("UserName").getValue().toString());
+                    if(snap.child("UserName").getValue()!=null)
+                    {
+                        dealerUserNamesList.add(snap.child("UserName").getValue().toString());
+                    }
                 }
             }
             @Override
@@ -88,8 +91,6 @@ public class AddOfferActivity extends AppCompatActivity {
                         OfferImage.setImageURI(uploadedImageUri);
                     }
                 });
-
-
         OfferImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,14 +104,11 @@ public class AddOfferActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(OfferName.getText().toString().equals("") ){
                     Toast.makeText(AddOfferActivity.this, "Please enter offer name", Toast.LENGTH_SHORT).show();
-                }
-                else if (!isImgAdded){
+                } else if (!isImgAdded){
                     Toast.makeText(AddOfferActivity.this, "Please enter offer image", Toast.LENGTH_SHORT).show();
-                }
-                else if (chooseDealer.getSelectedItem().toString().equals("--Select a dealer--")){
+                } else if (chooseDealer.getSelectedItem().toString().equals("--Select a dealer--")){
                     Toast.makeText(AddOfferActivity.this, "Please select & assign a dealer", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else{
                     createNewOffer(OfferName.getText().toString());
                 }
             }
@@ -131,7 +129,6 @@ public class AddOfferActivity extends AppCompatActivity {
                         });
                     })
                     .addOnFailureListener(Throwable::printStackTrace);
-//            saveToDb(offerName,"testUri",chooseDealer.getSelectedItem().toString());
         }
         else{
             Toast.makeText(AddOfferActivity.this, "Error while locating Image Uri", Toast.LENGTH_SHORT).show();
