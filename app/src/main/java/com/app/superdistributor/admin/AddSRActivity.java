@@ -2,7 +2,6 @@ package com.app.superdistributor.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.collection.LongSparseArray;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -11,16 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.superdistributor.R;
-import com.app.superdistributor.RequestService.HandoverDRActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
@@ -31,20 +27,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class AddSRActivity extends AppCompatActivity {
 
-    TextInputEditText SRNameET, SRUserNameET, SRPhoneET, SREmailET, SRPasswordET;
+    TextInputEditText SRNameET, SRUserNameET, SRPhoneET, SREmailET, SRPasswordET, SRTargetAmtET;
     Button SubmitSRDetailsBtn , SelectDealersBtn;
     DatabaseReference database;
     private ProgressDialog LoadingBar;
-    ArrayList<Integer> langList = new ArrayList<>();
     String Task, Username, CurrentController;
     TextView AddSRHead;
     boolean[] choosenDealers;
-    String[] serialNumberArray = {};
+
     ArrayList<String> dealerUserNames , dealerNames;
     HashMap<String,String> selectedDealers;
 
@@ -67,6 +61,7 @@ public class AddSRActivity extends AppCompatActivity {
         SRPhoneET  = findViewById(R.id.srPhoneET);
         SREmailET  = findViewById(R.id.srEmailET);
         SRPasswordET = findViewById(R.id.srPasswordET);
+        SRTargetAmtET = findViewById(R.id.srTargetET);
 
         SubmitSRDetailsBtn = findViewById(R.id.submitSRDetailsBtn);
         SelectDealersBtn = findViewById(R.id.selectDealersBtn);
@@ -87,12 +82,11 @@ public class AddSRActivity extends AppCompatActivity {
                     SRPhoneET.setText(snapshot.child("SRs").child(Username).child("Phone").getValue().toString());
                     SREmailET.setText(snapshot.child("SRs").child(Username).child("Email").getValue().toString());
                     SRPasswordET.setText(snapshot.child("SRs").child(Username).child("Password").getValue().toString());
+                    SRTargetAmtET.setText(snapshot.child("SRs").child(Username).child("Target Amount").getValue().toString());
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
         }
 
@@ -119,7 +113,7 @@ public class AddSRActivity extends AppCompatActivity {
                             allDealers[i] = dealerNames.get(i)+" - "+ dealerUserNames.get(i);
                         }
                         Log.d("Dealer Names" , Arrays.toString(allDealers));
-                        serialNumberArray = dealerUserNames.toArray(new String[0]);
+
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(AddSRActivity.this);
 
@@ -194,6 +188,10 @@ public class AddSRActivity extends AppCompatActivity {
                 {
                     Toast.makeText(AddSRActivity.this, "Please select dealers", Toast.LENGTH_SHORT).show();
                 }
+                else if(SRTargetAmtET.getText().toString().equals(""))
+                {
+                    Toast.makeText(AddSRActivity.this, "Please enter SR Target Amount", Toast.LENGTH_SHORT).show();
+                }
                 else
                 {
 
@@ -206,14 +204,15 @@ public class AddSRActivity extends AppCompatActivity {
                     String srPhone = SRPhoneET.getText().toString();
                     String srEmail = SREmailET.getText().toString();
                     String srPassword = SRPasswordET.getText().toString();
+                    String srTargetAmt = SRTargetAmtET.getText().toString();
 
-                    createSRAccount(srName, srPhone, srEmail, srPassword, srUserName , selectedDealers);
+                    createSRAccount(srName, srPhone, srEmail, srPassword, srUserName, selectedDealers, srTargetAmt );
                 }
             }
         });
     }
 
-    private void createSRAccount(String srName, String srPhone, String srEmail, String srPassword, String srUserName , HashMap<String,String> selectedDealers) {
+    private void createSRAccount(String srName, String srPhone, String srEmail, String srPassword, String srUserName , HashMap<String,String> selectedDealers, String srTargetAmt) {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -231,9 +230,10 @@ public class AddSRActivity extends AppCompatActivity {
                         srs.put("myDealers" , selectedDealers);
 
                         HashMap<String,Object> srsSalesStatus = new HashMap<>();
-                        srsSalesStatus.put("SalesDone","0");
-                        srsSalesStatus.put("RemainingTarget","0");
-                        srsSalesStatus.put("TotalOutstanding","0");
+                        srsSalesStatus.put("SalesDone",0);
+                        srsSalesStatus.put("RemainingTarget",0); // TODO : Target Amount
+                        srsSalesStatus.put("TotalOutstanding",0);
+                        srsSalesStatus.put("TargetAmount",Integer.parseInt(srTargetAmt));
 
                         srs.put("SRSSalesStatus",srsSalesStatus);
 
@@ -267,6 +267,7 @@ public class AddSRActivity extends AppCompatActivity {
                     srs.put("Phone", srPhone);
                     srs.put("Email", srEmail);
                     srs.put("Password", srPassword);
+                    srs.put("myDealers" , selectedDealers);
 
                     database.child("SRs").child(srUserName).updateChildren(srs)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

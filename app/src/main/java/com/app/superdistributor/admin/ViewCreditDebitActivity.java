@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,7 +73,10 @@ public class ViewCreditDebitActivity extends AppCompatActivity {
                 Intent i = new Intent(ViewCreditDebitActivity.this, AccountDetailsActivity.class);
                 i.putExtra("Dealer",dealerDropdown.getSelectedItem().toString());
                 i.putExtra("TransactionType",transactionTypeSpinner.getSelectedItem().toString());
-                startActivity(i);
+                if(dealerDropdown.getSelectedItem().toString().equals("Select Dealer"))
+                    Toast.makeText(ViewCreditDebitActivity.this,"Please select a dealer",Toast.LENGTH_SHORT).show();
+                else
+                    startActivity(i);
             }
         });
     }

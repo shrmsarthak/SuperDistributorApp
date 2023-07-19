@@ -27,7 +27,7 @@ public class SRHomeActivity extends AppCompatActivity {
 
     TextView SalesDoneTV, RemainingTargetTV;
     Button TotalSROutstandingBtn, DealerIntentBtn, PaymentApproveBtn, ComplaintRaiseBtn, AddPaymentBtn,
-    ReportsBtn, AddDealerBtn, ExpenseBtn, AddVisitBtn, MyDealersBtn;
+    ReportsBtn, AddDealerBtn, ExpenseBtn, AddVisitBtn;
 
     ImageView LogoutBtn;
 
@@ -54,17 +54,21 @@ public class SRHomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
-
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                SalesDoneTV.setText("Sales Done \u20B9 "+snapshot.child("SRs").child(SRUsername).child("SRSSalesStatus")
+                Integer salesDone = Integer.parseInt(snapshot.child("SRs").child(SRUsername)
+                        .child("SRSSalesStatus")
                         .child("SalesDone").getValue().toString());
-                RemainingTargetTV.setText("Remaining Target \u20B9 "+snapshot.child("SRs").child(SRUsername).child("SRSSalesStatus")
-                        .child("RemainingTarget").getValue().toString());
-                TotalSROutstandingBtn.setText("Total Outstanding - "+snapshot.child("SRs").child(SRUsername).child("SRSSalesStatus")
+                Integer remainingTarget = Integer.parseInt(snapshot.child("SRs").child(SRUsername)
+                        .child("SRSSalesStatus")
+                        .child("TargetAmount").getValue().toString())
+                        - salesDone;
+
+                SalesDoneTV.setText("Sales Done \u20B9 "+ salesDone);
+                RemainingTargetTV.setText("Remaining Target \u20B9 "+ remainingTarget);
+                TotalSROutstandingBtn.setText("Total Outstanding - "+snapshot.child("SRs").child(SRUsername)
+                        .child("SRSSalesStatus")
                         .child("TotalOutstanding").getValue().toString());
             }
 
@@ -84,19 +88,17 @@ public class SRHomeActivity extends AppCompatActivity {
         AddDealerBtn = findViewById(R.id.adddealerbtn);
         ExpenseBtn = findViewById(R.id.expensebtn);
         AddVisitBtn = findViewById(R.id.addvisitbtn);
-        MyDealersBtn = findViewById(R.id.myDealers);
 
         database = FirebaseDatabase.getInstance().getReference();
 
         TotalSROutstandingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(SRHomeActivity.this, ViewCreditDebitActivity.class);
+                Intent i = new Intent(SRHomeActivity.this, SRDealersLedgerAccountActivity.class);
+                i.putExtra("SRUsername",SRUsername);
                 startActivity(i);
             }
         });
-
-
 
         DealerIntentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,10 +109,19 @@ public class SRHomeActivity extends AppCompatActivity {
             }
         });
 
-        MyDealersBtn.setOnClickListener(new View.OnClickListener() {
+        ComplaintRaiseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SRHomeActivity.this, SRDealersLedgerAccountActivity.class);
+                Intent i = new Intent(SRHomeActivity.this, SRComplaintActivity.class);
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
+
+        AddPaymentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, SRAddPaymentActivity.class);
                 i.putExtra("SRUsername",SRUsername);
                 startActivity(i);
             }

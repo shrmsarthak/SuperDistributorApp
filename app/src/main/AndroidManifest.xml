@@ -21,6 +21,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".SRAddPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SRComplaintActivity"
+            android:exported="false" />
+        <activity
             android:name=".SRDealersLedgerAccountActivity"
             android:exported="false" />
         <activity

@@ -214,29 +214,6 @@
             android:text="Add Visit" />
 
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/btngroup6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btngroup5"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/myDealers"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="My Dealers" />
 
-        <Button
-            android:id="@+id/randomId"
-            android:layout_width="170dp"
-            android:layout_marginLeft="20dp"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Symmetry" />
-
-    </LinearLayout>
 </RelativeLayout>
