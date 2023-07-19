@@ -59,6 +59,7 @@ public class SRAddPaymentActivity extends AppCompatActivity {
                     payment.put("Name",nameET.getText().toString());
                     payment.put("Amount",amountET.getText().toString());
                     payment.put("Type",type.getSelectedItem().toString());
+                    payment.put("Status","Pending");
                     database.child("SRs")
                             .child(username)
                             .child("myPayments")

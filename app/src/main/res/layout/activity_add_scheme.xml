@@ -71,8 +71,7 @@
         android:layout_marginRight="50dp"
         android:background="@android:drawable/btn_dropdown"
         android:padding="10dp"
-        android:spinnerMode="dropdown"
-        />
+        android:spinnerMode="dropdown" />
 
 
 

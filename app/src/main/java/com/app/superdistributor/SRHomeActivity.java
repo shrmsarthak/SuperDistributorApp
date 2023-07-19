@@ -126,6 +126,14 @@ public class SRHomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        ExpenseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, SRExpenseActivity.class);
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
 
         ActionBar actionBar = getSupportActionBar();
 
