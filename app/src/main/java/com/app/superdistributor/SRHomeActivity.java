@@ -27,7 +27,7 @@ public class SRHomeActivity extends AppCompatActivity {
 
     TextView SalesDoneTV, RemainingTargetTV;
     Button TotalSROutstandingBtn, DealerIntentBtn, PaymentApproveBtn, ComplaintRaiseBtn, AddPaymentBtn,
-    ReportsBtn, AddDealerBtn, ExpenseBtn, AddVisitBtn;
+    ReportsBtn, PostMessageBtn, ExpenseBtn, AddVisitBtn;
 
     ImageView LogoutBtn;
 
@@ -85,7 +85,7 @@ public class SRHomeActivity extends AppCompatActivity {
         ComplaintRaiseBtn = findViewById(R.id.complaintraisebtn);
         AddPaymentBtn = findViewById(R.id.addpaymentbtn);
         ReportsBtn = findViewById(R.id.reportsbtn);
-        AddDealerBtn = findViewById(R.id.adddealerbtn);
+        PostMessageBtn = findViewById(R.id.postMessageBtn);
         ExpenseBtn = findViewById(R.id.expensebtn);
         AddVisitBtn = findViewById(R.id.addvisitbtn);
 
@@ -122,6 +122,14 @@ public class SRHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SRHomeActivity.this, SRAddPaymentActivity.class);
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
+        PostMessageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, SRPostMessageActivity.class);
                 i.putExtra("SRUsername",SRUsername);
                 startActivity(i);
             }

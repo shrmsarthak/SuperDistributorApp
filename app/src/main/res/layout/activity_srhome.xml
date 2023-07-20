@@ -180,12 +180,12 @@
             android:text="Reports" />
 
         <Button
-            android:id="@+id/adddealerbtn"
+            android:id="@+id/postMessageBtn"
             android:layout_width="170dp"
             android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Add Dealer" />
+            android:text="Post a message" />
 
     </LinearLayout>
 

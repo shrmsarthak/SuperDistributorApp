@@ -93,7 +93,6 @@ public class AddSRActivity extends AppCompatActivity {
         SelectDealersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Initialize alert dialog
                 database.child("Dealers").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

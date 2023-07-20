@@ -21,6 +21,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".SRPostMessageActivity"
+            android:exported="false" />
+        <activity
             android:name=".SRExpenseActivity"
             android:exported="false" />
         <activity

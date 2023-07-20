@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,6 +54,7 @@ public class SRComplaintActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
+                    Log.d("Check",snap.getValue().toString());
                     if (snap.getValue() != null)
                         dealerUserNamesList.add(snap.getValue().toString());
                 }
@@ -60,6 +62,7 @@ public class SRComplaintActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+        Log.d("Dealers" , dealerUserNamesList.toString());
         ArrayAdapter<String> dealerUserNameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dealerUserNamesList);
         chooseDealerSpinner.setAdapter(dealerUserNameAdapter);
 
