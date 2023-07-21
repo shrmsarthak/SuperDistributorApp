@@ -1,18 +1,20 @@
 package com.app.superdistributor;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.app.superdistributor.admin.AddSRActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,30 +28,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class SRPostMessageActivity extends AppCompatActivity {
-
+public class SRAddVisitActivity extends AppCompatActivity {
     String username;
-    EditText descriptionEt;
-    Button selectDealersBtn , submitMessageBtn;
-
+    Spinner visitType;
+    Button selectDealersBtn , submitVisitBtn;
     DatabaseReference database;
     boolean[] choosenDealers;
-
-    ArrayList<String> dealerUserNamesList , dealerNamesList;
+    ArrayList<String> visitTypeList, dealerUserNamesList , dealerNamesList ;
     HashMap<String,String> selectedDealers;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_srpost_message);
+        setContentView(R.layout.activity_sradd_visit);
 
         username = getIntent().getStringExtra("SRUsername");
         database = FirebaseDatabase.getInstance().getReference();
 
-        descriptionEt = findViewById(R.id.descriptionET);
+        visitType = findViewById(R.id.selectVisitType);
 
         selectDealersBtn = findViewById(R.id.selectDealersBtn);
-        submitMessageBtn = findViewById(R.id.submitMessageBtn);
+        submitVisitBtn = findViewById(R.id.submitVisitBtn);
+
+        visitTypeList = new ArrayList<>();
+        visitTypeList.add("General");
+        visitTypeList.add("Product Demonstration");
+        visitTypeList.add("Sales Visit");
+        visitTypeList.add("Technical Support");
+        visitTypeList.add("Feedback and Relationship Building");
+        ArrayAdapter<String> visits = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, visitTypeList);
+        visitType.setAdapter(visits);
 
         dealerUserNamesList = new ArrayList<>();
         dealerNamesList = new ArrayList<>();
@@ -58,20 +65,20 @@ public class SRPostMessageActivity extends AppCompatActivity {
         database.child("SRs")
                 .child(username).child("myDealers")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snap : snapshot.getChildren()) {
-                    if (snap.getValue() != null) {
-                        dealerUserNamesList.add((snap.getKey().toString()));
-                        dealerNamesList.add(snap.getValue().toString());
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            if (snap.getValue() != null) {
+                                dealerUserNamesList.add((snap.getKey().toString()));
+                                dealerNamesList.add(snap.getValue().toString());
+                            }
+                        }
+                        Log.d("Dealers" , dealerUserNamesList.toString());
+                        Log.d("Deal",dealerNamesList.toString());
                     }
-                }
-                Log.d("Dealers" , dealerUserNamesList.toString());
-                Log.d("Deal",dealerNamesList.toString());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
 
 
         selectDealersBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +97,7 @@ public class SRPostMessageActivity extends AppCompatActivity {
                         Log.d("Dealer Names" , Arrays.toString(allDealers));
 
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SRPostMessageActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SRAddVisitActivity.this);
 
                         // set title
                         builder.setTitle("Select Dealers");
@@ -151,39 +158,42 @@ public class SRPostMessageActivity extends AppCompatActivity {
             }
         });
 
-        submitMessageBtn.setOnClickListener(new View.OnClickListener() {
+        submitVisitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (descriptionEt.getText().toString().equals("")) {
-                    Toast.makeText(SRPostMessageActivity.this, "Please add description",Toast.LENGTH_SHORT).show();
-                }
-                else if (selectedDealers.size() == 0){
-                    Toast.makeText(SRPostMessageActivity.this, "Please select dealers",Toast.LENGTH_SHORT).show();
+                if (selectedDealers.size() == 0){
+                    Toast.makeText(SRAddVisitActivity.this, "Please select dealers",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    HashMap<String,Object> message = new HashMap<>();
-                    message.put("Message",descriptionEt.getText().toString());
-                    message.put("To Dealers",selectedDealers);
-                    DatabaseReference db = database.child("SRs").child(username).child("MessageToDealers");
-                    db.child(db.push().getKey())
-                            .updateChildren(message)
+                    HashMap<String,Object> visitDetails = new HashMap<>();
+                    visitDetails.put("To Dealers",selectedDealers);
+                    visitDetails.put("Visit Type", visitType.getSelectedItem().toString());
+
+                    database.child("SRs").child(username)
+                            .child("Visits")
+                            .child(getDate())
+                            .updateChildren(visitDetails)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    descriptionEt.setText("");
+                                    visitType.setSelection(0);
                                     selectedDealers.clear();
-                                    Toast.makeText(SRPostMessageActivity.this,"The message has been sent",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SRAddVisitActivity.this, "Added Today's visit!",Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(SRPostMessageActivity.this,"There was an error submitting your message",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SRAddVisitActivity.this, "There was an error adding the visit...",Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }
             }
         });
 
-
+    }
+    public String getDate() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        return sdf.format(cal.getTime());
     }
 }

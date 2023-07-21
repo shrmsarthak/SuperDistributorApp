@@ -43,8 +43,8 @@ public class SRAddPaymentActivity extends AppCompatActivity {
         paymentType = new ArrayList<>();
         paymentType.add("Cash");
         paymentType.add("Cheque");
-        ArrayAdapter<String> transactionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, paymentType);
-        type.setAdapter(transactionAdapter);
+        ArrayAdapter<String> payment = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, paymentType);
+        type.setAdapter(payment);
 
         submitPayment.setOnClickListener(new View.OnClickListener() {
             @Override
