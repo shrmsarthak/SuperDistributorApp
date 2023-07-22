@@ -21,6 +21,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".AdminViewSRPaymentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminViewSRComplaintsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewSRPaymentsActivity"
             android:exported="false" />
         <activity

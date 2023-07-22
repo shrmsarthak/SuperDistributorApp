@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.app.superdistributor.admin.paymenthistory.AmountOverviewModel;
 import com.app.superdistributor.sr.payments.PaymentStatusAdapter;
 import com.app.superdistributor.sr.payments.PaymentStatusModel;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewSRPaymentsActivity extends AppCompatActivity {
+public class AdminViewSRPaymentsActivity extends AppCompatActivity {
+
     String username;
     ProgressBar progressBar;
     RecyclerView recyclerView;
@@ -33,8 +35,7 @@ public class ViewSRPaymentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_srpayments);
-
+        setContentView(R.layout.activity_admin_view_srpayments);
         username = getIntent().getStringExtra("SRUsername");
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -42,17 +43,18 @@ public class ViewSRPaymentsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.srPaymentStatusRL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myAdapter = new PaymentStatusAdapter(this,list);
+        myAdapter = new PaymentStatusAdapter(this,list,username);
         recyclerView.setAdapter(myAdapter);
 
+        ((TextView)findViewById(R.id.sr_payments_header)).setText("Payments: " + username);
 
         database.child("SRs").child(username)
                 .child("myPayments")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            progressBar.setVisibility(View.INVISIBLE);
                             PaymentStatusModel psm = new PaymentStatusModel();
                             psm.setName(dataSnapshot.child("Name").getValue().toString());
                             psm.setAmount(dataSnapshot.child("Amount").getValue().toString());
@@ -60,8 +62,8 @@ public class ViewSRPaymentsActivity extends AppCompatActivity {
                             psm.setStatus(dataSnapshot.child("Status").getValue().toString());
                             list.add(psm);
                             Log.d("Values : ", dataSnapshot.child("Name").getValue().toString() + dataSnapshot.child("Amount").getValue().toString() );
-//                            myAdapter.notifyDataSetChanged();
-                            myAdapter.notifyItemInserted(list.size()-1);
+                            myAdapter.notifyDataSetChanged();
+
                         }
 
                     }

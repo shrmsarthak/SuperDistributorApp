@@ -12,17 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.superdistributor.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PaymentStatusAdapter extends RecyclerView.Adapter<PaymentStatusAdapter.MyViewHolder> {
 
+    DatabaseReference database;
+    String username = "";
     Context context;
     ArrayList<PaymentStatusModel> list;
 
     public PaymentStatusAdapter(Context context, ArrayList<PaymentStatusModel> list){
         this.context = context;
         this.list = list;
+    }
+    public PaymentStatusAdapter(Context context, ArrayList<PaymentStatusModel> list, String username){
+        this.context = context;
+        this.list = list;
+        this.username = username;
     }
     @NonNull
     @Override
@@ -33,6 +45,7 @@ public class PaymentStatusAdapter extends RecyclerView.Adapter<PaymentStatusAdap
 
     @Override
     public void onBindViewHolder(@NonNull PaymentStatusAdapter.MyViewHolder holder, int position) {
+        database = FirebaseDatabase.getInstance().getReference();
         PaymentStatusModel paymentStatusModel = list.get(position);
         holder.roundedTv.setText(paymentStatusModel.getName().substring(0,1).toUpperCase());
         holder.name.setText(paymentStatusModel.getName());
@@ -44,7 +57,26 @@ public class PaymentStatusAdapter extends RecyclerView.Adapter<PaymentStatusAdap
         }else {
             holder.status.setBackgroundColor(Color.parseColor("#FFB300"));
         }
-        //TODO : Add button on click listener
+        if(!username.equals("")) {
+            holder.status.setClickable(true);
+            holder.status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Map <String,Object> temp = new HashMap<>();
+                    temp.put("Status","Approved");
+                    database.child("SRs").child(username)
+                            .child("myPayments").child(paymentStatusModel.getName())
+                            .updateChildren(temp)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    holder.status.setBackgroundColor(Color.parseColor("#43A047"));
+                                    holder.status.setText("Approved");
+                                }
+                            });
+                }
+            });
+        }
     }
 
     @Override

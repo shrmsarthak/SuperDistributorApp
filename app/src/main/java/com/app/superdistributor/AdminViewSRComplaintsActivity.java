@@ -1,17 +1,17 @@
 package com.app.superdistributor;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.app.superdistributor.admin.paymenthistory.AmountOverviewModel;
+import com.app.superdistributor.sr.complaint.ComplaintAdapter;
+import com.app.superdistributor.sr.complaint.ComplaintModel;
 import com.app.superdistributor.sr.payments.PaymentStatusAdapter;
 import com.app.superdistributor.sr.payments.PaymentStatusModel;
 import com.google.firebase.database.DataSnapshot;
@@ -22,46 +22,43 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewSRPaymentsActivity extends AppCompatActivity {
+public class AdminViewSRComplaintsActivity extends AppCompatActivity {
+
     String username;
     ProgressBar progressBar;
     RecyclerView recyclerView;
     DatabaseReference database;
-    ArrayList<PaymentStatusModel> list = new ArrayList<>();
-    PaymentStatusAdapter myAdapter;
-
+    ArrayList<ComplaintModel> list = new ArrayList<>();
+    ComplaintAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_srpayments);
-
+        setContentView(R.layout.activity_admin_view_srcomplaints);
         username = getIntent().getStringExtra("SRUsername");
         database = FirebaseDatabase.getInstance().getReference();
 
         progressBar = findViewById(R.id.progressBar);
-        recyclerView = findViewById(R.id.srPaymentStatusRL);
+        recyclerView = findViewById(R.id.sr_complaint_rl);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myAdapter = new PaymentStatusAdapter(this,list);
+        myAdapter = new ComplaintAdapter(this,list);
         recyclerView.setAdapter(myAdapter);
 
-
         database.child("SRs").child(username)
-                .child("myPayments")
+                .child("Complaints")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            progressBar.setVisibility(View.INVISIBLE);
-                            PaymentStatusModel psm = new PaymentStatusModel();
-                            psm.setName(dataSnapshot.child("Name").getValue().toString());
-                            psm.setAmount(dataSnapshot.child("Amount").getValue().toString());
-                            psm.setType(dataSnapshot.child("Type").getValue().toString());
-                            psm.setStatus(dataSnapshot.child("Status").getValue().toString());
-                            list.add(psm);
-                            Log.d("Values : ", dataSnapshot.child("Name").getValue().toString() + dataSnapshot.child("Amount").getValue().toString() );
-//                            myAdapter.notifyDataSetChanged();
-                            myAdapter.notifyItemInserted(list.size()-1);
+                            list.add(new ComplaintModel(
+                                    dataSnapshot.child("Tag").getValue().toString(),
+                                    dataSnapshot.child("Description").getValue().toString(),
+                                    dataSnapshot.child("Dealer").getValue().toString()
+                            ));
+                            Log.d("Values : ", dataSnapshot.child("Tag").getValue().toString() + dataSnapshot.child("Dealer").getValue().toString() );
+                            myAdapter.notifyDataSetChanged();
+
                         }
 
                     }
@@ -71,6 +68,7 @@ public class ViewSRPaymentsActivity extends AppCompatActivity {
 
                     }
                 });
+
 
     }
 }

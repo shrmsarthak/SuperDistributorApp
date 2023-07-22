@@ -8,12 +8,15 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.superdistributor.AdminViewSRComplaintsActivity;
+import com.app.superdistributor.AdminViewSRPaymentsActivity;
 import com.app.superdistributor.LoginActivity;
 import com.app.superdistributor.MyProducts.ViewProductList;
 import com.app.superdistributor.R;
@@ -26,11 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AdminPanelActivity extends AppCompatActivity {
 
-    ImageView AddCreditDebitBtn, ViewCreditDebitBtn, AddUserBtn, ViewUserBtn, AddProductBtn, AddOfferBtn;
+    ImageView AddCreditDebitBtn, ViewCreditDebitBtn, AddUserBtn, ViewUserBtn, AddProductBtn, AddOfferBtn, srInfoBtn;
     private ProgressDialog LoadingBar;
     DatabaseReference database;
 
@@ -98,6 +105,7 @@ public class AdminPanelActivity extends AppCompatActivity {
         AddUserBtn = findViewById(R.id.adduserbtn);
         ViewUserBtn = findViewById(R.id.viewUserbtn);
         AddOfferBtn = findViewById(R.id.addofferbtn);
+        srInfoBtn = findViewById(R.id.sr_info_btn);
 
         LoadingBar=new ProgressDialog(this);
         AddProductBtn.setOnClickListener(new View.OnClickListener() {
@@ -315,6 +323,67 @@ public class AdminPanelActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+        srInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String[] infoType = {"Complaints", "Payments"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(AdminPanelActivity.this);
+                builder.setTitle("Select info type");
+
+                List<String> srNames = new ArrayList<>();
+                List<String> srUsernames = new ArrayList<>();
+                database.child("SRs").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            srUsernames.add(snap.getKey().toString());
+                            srNames.add(snap.child("Name").getValue().toString());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(AdminPanelActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setItems(infoType, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        selectSrsDialogBox(infoType[i], srNames, srUsernames);
+                        Log.d("fetch from db", infoType[i]+"    "+srNames.toString() + "    "+ srUsernames.toString());
+
+                    }
+                });
+                builder.show();
+
+            }
+        });
+    }
+
+    private void selectSrsDialogBox(String infoType, List<String> srNames, List<String> srUsernames) {
+        String[] srNamesArr = new String[srNames.size()];
+        int i = 0;
+        for(String srName: srNames){
+            srNamesArr[i++] = srName;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(AdminPanelActivity.this);
+        builder.setTitle("Select SR");
+        builder.setItems(srNamesArr, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(AdminPanelActivity.this, AdminViewSRComplaintsActivity.class);
+
+                if (infoType.equals("Payments")) {
+                    intent = new Intent(AdminPanelActivity.this, AdminViewSRPaymentsActivity.class);
+                }
+                intent.putExtra("SRUsername", srUsernames.get(which));
+                startActivity(intent);
+            }
+        });
+        builder.show();
     }
 
     @Override
