@@ -77,6 +77,7 @@ public class SRDealersLedgerAccountActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     if(myDealers.contains(dataSnapshot.child("UserName").getValue().toString())) {
                         list.add(dataSnapshot.getValue(AmountOverviewModel.class));
+                        myAdapter.notifyItemInserted(list.size()-1);
                         for (DataSnapshot snap : dataSnapshot.child("Credit").getChildren()) {
                             giveAmountArrayList.add(snap.child("Amount").getValue().toString());
                         }
