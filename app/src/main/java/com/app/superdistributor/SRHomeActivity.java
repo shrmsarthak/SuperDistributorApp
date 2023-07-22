@@ -109,6 +109,15 @@ public class SRHomeActivity extends AppCompatActivity {
             }
         });
 
+        PaymentApproveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SRHomeActivity.this, ViewSRPaymentsActivity.class);
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
+
         ComplaintRaiseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

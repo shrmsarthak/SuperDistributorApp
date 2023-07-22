@@ -189,7 +189,6 @@ public class SRAddVisitActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
     public String getDate() {
         Calendar cal = Calendar.getInstance();

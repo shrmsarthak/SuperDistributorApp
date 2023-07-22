@@ -69,6 +69,7 @@ public class SRAddPaymentActivity extends AppCompatActivity {
                                 public void onSuccess(Void unused) {
                                     nameET.setText("");
                                     amountET.setText("");
+                                    type.setSelection(0);
                                     Toast.makeText(SRAddPaymentActivity.this,"Your Payment has been submitted",Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
