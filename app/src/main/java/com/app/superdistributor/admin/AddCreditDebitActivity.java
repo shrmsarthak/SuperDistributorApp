@@ -33,7 +33,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
     ArrayList<String> nameArrayList = new ArrayList<>();
 
     EditText ParticularET, DocNoET, AmountET, NoteET;
-    //DateET
     Button AddAmountBtn;
 
     private TextView mShowSelectedDateText;
@@ -61,8 +60,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
         AddAmountBtn = findViewById(R.id.addAmountBtn);
         mShowSelectedDateText = findViewById(R.id.show_selected_date);
 
-        ////
-
         mPickDateButton = findViewById(R.id.dateET);
         MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.datePicker();
 
@@ -88,7 +85,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
                         selectedDate = materialDatePicker.getHeaderText();
                     }
                 });
-        ////
 
         database = FirebaseDatabase.getInstance().getReference();
 

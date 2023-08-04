@@ -63,26 +63,35 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <DatePicker
-        android:id="@+id/dateOfExpense"
+    <TextView
+        android:id="@+id/show_selected_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/expenseAmountTIL"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:datePickerMode="calendar"
-        android:headerBackground="#6200ED"
-        android:hapticFeedbackEnabled="true"
-        android:dayOfWeekBackground="#6200ED"
-        />
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/expenseAmountTIL"
+        android:text="Selected Date is : "
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/dateET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/show_selected_date"
+        android:text="Select Date"
+        android:textSize="18sp"
+        app:icon="@drawable/baseline_add_to_photos_24" />
+
+
     <Button
         android:id="@+id/addExpenseBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dateOfExpense"
+        android:layout_below="@id/dateET"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"

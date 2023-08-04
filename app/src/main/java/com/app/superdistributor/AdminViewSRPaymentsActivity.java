@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.superdistributor.sr.payments.PaymentStatusAdapter;
 import com.app.superdistributor.sr.payments.PaymentStatusModel;
@@ -54,6 +55,10 @@ public class AdminViewSRPaymentsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         progressBar.setVisibility(View.INVISIBLE);
+                        if (snapshot.getChildrenCount() == 0) {
+                            Toast.makeText(AdminViewSRPaymentsActivity.this, "No Pending Payments", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                             PaymentStatusModel psm = new PaymentStatusModel();
                             psm.setName(dataSnapshot.child("Name").getValue().toString());

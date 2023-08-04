@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.app.superdistributor.admin.paymenthistory.AmountOverviewModel;
 import com.app.superdistributor.sr.payments.PaymentStatusAdapter;
 import com.app.superdistributor.sr.payments.PaymentStatusModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,8 +52,12 @@ public class ViewSRPaymentsActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        if (snapshot.getChildrenCount() == 0) {
+                            Toast.makeText(ViewSRPaymentsActivity.this, "No Pending Payments", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            progressBar.setVisibility(View.INVISIBLE);
                             PaymentStatusModel psm = new PaymentStatusModel();
                             psm.setName(dataSnapshot.child("Name").getValue().toString());
                             psm.setAmount(dataSnapshot.child("Amount").getValue().toString());

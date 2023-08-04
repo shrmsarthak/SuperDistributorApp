@@ -1,10 +1,12 @@
 package com.app.superdistributor;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,7 +26,12 @@ public class SRExpenseActivity extends AppCompatActivity {
     DatabaseReference database;
     EditText expenseTypeEt , expenseAmtEt;
     DatePicker expenseDateDp;
-    Button addExpenseBtn;
+    private Button addExpenseBtn , mPickDateButton;;
+    boolean dateChanged = false;
+    private TextView mShowSelectedDateText;
+
+    String selectedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +41,37 @@ public class SRExpenseActivity extends AppCompatActivity {
 
         expenseTypeEt = findViewById(R.id.expenseTypeET);
         expenseAmtEt = findViewById(R.id.expenseAmountET);
-        expenseDateDp = findViewById(R.id.dateOfExpense);
         addExpenseBtn = findViewById(R.id.addExpenseBtn);
+        mPickDateButton = findViewById(R.id.dateET);
+        mShowSelectedDateText = findViewById(R.id.show_selected_date);
 
-        expenseDateDp.setMinDate(System.currentTimeMillis() - 631152000000L);
-        expenseDateDp.setMaxDate(System.currentTimeMillis() - 1000);
+        MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.datePicker();
+
+        materialDateBuilder.setTitleText("Select a date :");
+
+        final MaterialDatePicker materialDatePicker = materialDateBuilder.build();
+
+
+        mPickDateButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        materialDatePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
+                    }
+                });
+
+
+        materialDatePicker.addOnPositiveButtonClickListener(
+                new MaterialPickerOnPositiveButtonClickListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        dateChanged = true;
+                        mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.getHeaderText());
+                        selectedDate = materialDatePicker.getHeaderText();
+                    }
+                });
+
         addExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,28 +79,26 @@ public class SRExpenseActivity extends AppCompatActivity {
                     Toast.makeText(SRExpenseActivity.this, "Please enter type of expense", Toast.LENGTH_SHORT).show();
                 } else if (expenseAmtEt.getText().toString().equals("")) {
                     Toast.makeText(SRExpenseActivity.this, "Please select amount", Toast.LENGTH_SHORT).show();
+                } else if (!dateChanged) {
+                    Toast.makeText(SRExpenseActivity.this, "Please select a date", Toast.LENGTH_SHORT).show();
                 } else {
                     HashMap<String, Object> expense = new HashMap<>();
                     String expenseType = expenseTypeEt.getText().toString();
                     String expenseAmt = expenseAmtEt.getText().toString();
-                    String day = Integer.toString(expenseDateDp.getDayOfMonth()) , month = Integer.toString(expenseDateDp.getMonth()+1) , date;
-                    if(expenseDateDp.getMonth()+1 < 10){
-                        month = "0"+month;
-                    }
-                    if (expenseDateDp.getDayOfMonth() < 10) {
-                        day = "0"+day;
-                    }
-                        date = day + "-" + month+"-" + Integer.toString(expenseDateDp.getYear());
+
                     expense.put("Type", expenseType);
                     expense.put("Amount", expenseAmt);
-                    expense.put("Date", date);
+                    expense.put("Date", selectedDate);
                     database.child("SRs").child(username)
-                            .child("Expenses").child(date)
+                            .child("Expenses").child(selectedDate)
                             .updateChildren(expense).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     expenseTypeEt.setText("");
                                     expenseAmtEt.setText("");
+                                    mShowSelectedDateText.setText("Select a date :");
+                                    dateChanged = false;
+                                    materialDatePicker.dismiss();
                                     Toast.makeText(SRExpenseActivity.this, "Added Expense", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
