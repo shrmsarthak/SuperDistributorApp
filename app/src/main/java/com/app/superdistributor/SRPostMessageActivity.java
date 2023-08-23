@@ -1,11 +1,16 @@
 package com.app.superdistributor;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,22 +26,28 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class SRPostMessageActivity extends AppCompatActivity {
 
     String username;
     EditText descriptionEt;
-    Button selectDealersBtn , submitMessageBtn;
+    Button selectAudioBtn,selectDealersBtn , submitMessageBtn;
+    private ActivityResultLauncher<Intent> mediaLauncher;
 
     DatabaseReference database;
     boolean[] choosenDealers;
 
     ArrayList<String> dealerUserNamesList , dealerNamesList;
     HashMap<String,String> selectedDealers;
+    private Uri uploadedAudioUri;
+    private String audioUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +59,7 @@ public class SRPostMessageActivity extends AppCompatActivity {
 
         descriptionEt = findViewById(R.id.descriptionET);
 
+        selectAudioBtn = findViewById(R.id.selectAudioBtn);
         selectDealersBtn = findViewById(R.id.selectDealersBtn);
         submitMessageBtn = findViewById(R.id.submitMessageBtn);
 
@@ -73,6 +85,22 @@ public class SRPostMessageActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
+        mediaLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Intent data = result.getData();
+                        // Get the selected audio URI
+                        uploadedAudioUri = data.getData();
+                        Log.d("Uploaded Audio Path : ",uploadedAudioUri.toString());
+                    }
+                });
+        selectAudioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mediaIntent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                mediaLauncher.launch(mediaIntent);
+            }
+        });
 
         selectDealersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,29 +189,42 @@ public class SRPostMessageActivity extends AppCompatActivity {
                     Toast.makeText(SRPostMessageActivity.this, "Please select dealers",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    HashMap<String,Object> message = new HashMap<>();
-                    message.put("Message",descriptionEt.getText().toString());
-                    message.put("To Dealers",selectedDealers);
-                    DatabaseReference db = database.child("SRs").child(username).child("MessageToDealers");
-                    db.child(db.push().getKey())
-                            .updateChildren(message)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    descriptionEt.setText("");
-                                    selectedDealers.clear();
-                                    Toast.makeText(SRPostMessageActivity.this,"The message has been sent",Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(SRPostMessageActivity.this,"There was an error submitting your message",Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        createNewMessageEntry();
                 }
             }
         });
-
-
+    }
+    private void createNewMessageEntry(){
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                                            .child("audios/" + UUID.randomUUID().toString());
+        storageReference.putFile(uploadedAudioUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        audioUrl = uri.toString();
+                        saveToDatabase();
+                    });
+                });
+    }
+    private void saveToDatabase(){
+        HashMap<String,Object> message = new HashMap<>();
+        message.put("Message",descriptionEt.getText().toString());
+        message.put("AudioUrl",audioUrl);
+        message.put("To Dealers",selectedDealers);
+        DatabaseReference db = database.child("SRs").child(username).child("MessageToDealers");
+        db.child(db.push().getKey())
+                .updateChildren(message)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        descriptionEt.setText("");
+                        selectedDealers.clear();
+                        Toast.makeText(SRPostMessageActivity.this,"The message has been sent",Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SRPostMessageActivity.this,"There was an error submitting your message",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

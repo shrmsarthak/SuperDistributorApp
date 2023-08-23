@@ -1,25 +1,16 @@
-package com.app.superdistributor.sr;
+package com.app.superdistributor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import com.app.superdistributor.CheckoutActivity;
-import com.app.superdistributor.MyProducts.MyProductAdapter;
-import com.app.superdistributor.MyProducts.PlaceOrderActivity;
-import com.app.superdistributor.MyProducts.Products;
-import com.app.superdistributor.R;
 import com.app.superdistributor.sr.dealerorders.DealerOrder;
 import com.app.superdistributor.sr.dealerorders.DealerOrderAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,25 +21,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DealerIntentActivity extends AppCompatActivity {
+public class TechnicianTotalPendencyActivity extends AppCompatActivity {
 
+    ProgressBar progressBar;
     RecyclerView recyclerView;
     DatabaseReference database;
-    DealerOrderAdapter myAdapter;
+    DealerOrderAdapter2 myAdapter;
     ArrayList<DealerOrder> list;
 
-    String SRUsername;
 
-    Map<String, Object> dealerProductOrderMap;
+    String technicianUsername;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dealer_intent);
+        setContentView(R.layout.activity_technician_total_pendency);
 
-        dealerProductOrderMap = new HashMap<>();
+        technicianUsername = getIntent().getStringExtra("TechnicianUsername");
 
-        SRUsername = getIntent().getStringExtra("SRUsername");
+        progressBar =  findViewById(R.id.progressBar2);
 
         recyclerView = findViewById(R.id.dealerorderList);
         database = FirebaseDatabase.getInstance().getReference();
@@ -56,7 +48,7 @@ public class DealerIntentActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        myAdapter = new DealerOrderAdapter(this,list, SRUsername);
+        myAdapter = new DealerOrderAdapter2(this,list, technicianUsername);
         recyclerView.setAdapter(myAdapter);
 
         database.child("Dealers").addValueEventListener(new ValueEventListener() {
@@ -71,6 +63,7 @@ public class DealerIntentActivity extends AppCompatActivity {
                     {
                         DealerOrder dealerOrder = dataSnapshot1.getValue(DealerOrder.class);
                         list.add(dealerOrder);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
 
@@ -84,5 +77,6 @@ public class DealerIntentActivity extends AppCompatActivity {
             }
         });
         myAdapter.notifyDataSetChanged();
+
     }
 }

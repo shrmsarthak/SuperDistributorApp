@@ -140,19 +140,15 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
 
     private void uploadProduct(String registerCustomerName, String registerPhoneNumber, String registerDateOfPurchase, String registerModelNumber, String registerSerialNumber) {
         if (filePath != null) {
-
-
             LoadingBar.setTitle("Please Wait..");
             LoadingBar.setMessage("Please Wait we are uploading report and data...");
             LoadingBar.show();
-
             // Defining the child of storageReference
             StorageReference ref
                     = storageReference
                     .child(
                             "images/"
                                     + UUID.randomUUID().toString());
-
             // adding listeners on upload
             // or failure of image
             ref.putFile(filePath)
@@ -176,7 +172,7 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                                         public void onSuccess(Uri uri) {
                                             String url = uri.toString();
 
-                                            String replacementID = UUID.randomUUID().toString();
+                                            String replacementID = registerCustomerName;
 
                                             Map<String, Object> replacementDetails = new HashMap<String, Object>();
                                             replacementDetails.put("CustomerName", registerCustomerName);
@@ -185,6 +181,7 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                                             replacementDetails.put("ModelNumber", registerModelNumber);
                                             replacementDetails.put("SerialNumber", registerSerialNumber);
                                             replacementDetails.put("ReportUrl",url);
+                                            replacementDetails.put("Status","Pending");
 
                                             mref.child("Dealers").child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -211,9 +208,36 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                             // Error, Image not uploaded
                             LoadingBar.dismiss();
                             Toast.makeText(RegisterComplaintAcitivty.this,
-                                            "Failed " + e.getMessage(),
+                                            e.getMessage(),
                                             Toast.LENGTH_SHORT)
                                     .show();
+
+                            //TODO : fix badFilePath
+                            String url = "badFilePath";
+
+                            String replacementID = registerCustomerName;
+
+                            Map<String, Object> replacementDetails = new HashMap<String, Object>();
+                            replacementDetails.put("CustomerName", registerCustomerName);
+                            replacementDetails.put("PhoneNumber", registerPhoneNumber);
+                            replacementDetails.put("DateOfPurchase", registerDateOfPurchase);
+                            replacementDetails.put("ModelNumber", registerModelNumber);
+                            replacementDetails.put("SerialNumber", registerSerialNumber);
+                            replacementDetails.put("ReportUrl",url);
+                            replacementDetails.put("Status","Pending");
+
+                            mref.child("Dealers").child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            LoadingBar.dismiss();
+                                            Toast.makeText(RegisterComplaintAcitivty.this, "Complaints Details Uploaded Successfully..", Toast.LENGTH_SHORT).show();
+
+                                            Intent i = new Intent(RegisterComplaintAcitivty.this, RequestServiceActivity.class);
+                                            startActivity(i);
+                                        }
+                                    });
+
                         }
                     });
         } else {

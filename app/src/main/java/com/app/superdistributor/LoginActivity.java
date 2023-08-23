@@ -288,6 +288,7 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         LoadingBar.dismiss();
                         Intent i = new Intent(LoginActivity.this, TechnicianHomeActivity.class);
+                        i.putExtra("Username",snapshot.child(userType).child(myaccountid).child("UserName").getValue().toString());
                         startActivity(i);
                     }
                     else

@@ -32,7 +32,7 @@ public class DealerHomeFragment extends Fragment {
     private FragmentDealerHomeBinding binding;
     private DatabaseReference mref;
 
-    int currentBalance=0;
+    int currentBalance = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +63,8 @@ public class DealerHomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    currentBalance = currentBalance + Integer.parseInt(snap.child("CurrentBalance").getValue(String.class));
+                    if(snap.child("CurrentBalance").getValue(String.class) != null)
+                    currentBalance = currentBalance + Integer.valueOf(snap.child("CurrentBalance").getValue(String.class));
                 }
 
                 CurrentOutstandingBalance.setText("Current Outstanding Balance : Rs. "+String.valueOf(currentBalance));

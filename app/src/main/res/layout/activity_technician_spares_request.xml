@@ -5,31 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".SRPostMessageActivity">
+    tools:context=".TechnicianSparesRequestActivity">
 
     <TextView
-        android:id="@+id/postMessageHeader"
+        android:id="@+id/requestSparesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:padding="20dp"
         android:textStyle="bold"
-        android:text="Post a Message"
+        android:text="Request Spares"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="25dp"
         android:gravity="center_horizontal" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/descriptionTIL"
+        android:id="@+id/spareTagTIL"
         android:layout_width="match_parent"
-        android:layout_below="@+id/postMessageHeader"
+        android:layout_below="@+id/requestSparesHeader"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="Description"
+        android:hint="Description of material"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -37,61 +37,45 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:id="@+id/descriptionET"
+            android:id="@+id/spareTagET"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/addAudio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add an audio message : "
-        android:textColor="#282828"
-        android:textSize="16sp"
-        android:layout_below="@+id/descriptionTIL"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"/>
-
-    <Button
-        android:id="@+id/selectAudioBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addAudio"
-        android:textSize="12sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:padding="8dp"
-        android:text="Select Audio File"
-        android:textColor="@color/white" />
-
-
-    <Button
-        android:id="@+id/selectDealersBtn"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spareQtyTIL"
         android:layout_width="match_parent"
+        android:layout_below="@+id/spareTagTIL"
         android:layout_height="wrap_content"
-        android:layout_below="@id/selectAudioBtn"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        app:icon="@drawable/baseline_add_24"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:text="Select Dealers" />
+        android:hint="Quantity"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/spareQtyET"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/submitMessageBtn"
+        android:id="@+id/submitBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/selectDealersBtn"
+        android:layout_below="@id/spareQtyTIL"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:padding="20dp"
-        app:icon="@drawable/baseline_notifications_active_24"
-        android:text="Post Message"
-        android:textColor="@color/white" />
+        app:icon="@drawable/baseline_pending_actions_24"
+        android:text="Request Spares"
+        android:textColor="@color/white"
+        />
 
 </RelativeLayout>
