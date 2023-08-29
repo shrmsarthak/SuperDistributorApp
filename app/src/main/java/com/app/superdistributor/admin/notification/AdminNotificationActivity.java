@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.app.superdistributor.NotificationAdapter;
+import com.app.superdistributor.NotificationItemModel;
 import com.app.superdistributor.R;
 import com.app.superdistributor.sr.dealerorders.DealerOrder;
 import com.app.superdistributor.sr.dealerorders.DealerOrderAdapter;
@@ -26,8 +28,8 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DatabaseReference database;
-    ProductConfirmationAdapter myAdapter;
-    ArrayList<ProductConfirmationModel> list;
+    NotificationAdapter myAdapter;
+    ArrayList<NotificationItemModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<>();
-        myAdapter = new ProductConfirmationAdapter(this,list);
+        myAdapter = new NotificationAdapter(this,list);
         recyclerView.setAdapter(myAdapter);
 
         database.child("Admin").child("Notifications").child("ProductConfirmation").child("SRs")
@@ -51,18 +53,55 @@ public class AdminNotificationActivity extends AppCompatActivity {
 
                         for(DataSnapshot dataSnapshot: snapshot.getChildren())
                         {
-                            ProductConfirmationModel productConfirmationModel = dataSnapshot.getValue(ProductConfirmationModel.class);
-                            list.add(productConfirmationModel);
+                            NotificationItemModel notificationItemModel = new NotificationItemModel();
+                            notificationItemModel.setNotificationType("SR Product Confirmation");
+                            notificationItemModel.setNotificationTag(dataSnapshot.child("Name").getValue().toString());
+                            notificationItemModel.
+                                    setNotificationDesc("by " + dataSnapshot.child("PlacedBy").getValue().toString()+
+                                                    "\nPriced at " + dataSnapshot.child("Price").getValue().toString());
+                            list.add(notificationItemModel);
                         }
-
-
                         myAdapter.notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+        database.child("Dealers").child("RequestServices").child("RegisterComplaints")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+                            NotificationItemModel notificationItemModel = new NotificationItemModel();
+                            notificationItemModel.setNotificationType("Dealer Complaint");
+                            notificationItemModel.setNotificationTag(dataSnapshot.child("CustomerName").getValue().toString());
+                            notificationItemModel.
+                                    setNotificationDesc("on " + dataSnapshot.child("DateOfPurchase").getValue().toString());
+                            list.add(notificationItemModel);
+                        }
+                        myAdapter.notifyDataSetChanged();
                     }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+        database.child("Dealers").child("RequestServices").child("ReplacementByDealer")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+                            NotificationItemModel notificationItemModel = new NotificationItemModel();
+                            notificationItemModel.setNotificationType("Replacement by Dealer");
+                            notificationItemModel.setNotificationTag(dataSnapshot.child("CustomerName").getValue().toString());
+                            notificationItemModel.
+                                    setNotificationDesc("on " + dataSnapshot.child("DateOfPurchase").getValue().toString());
+                            list.add(notificationItemModel);
+                        }
+                        myAdapter.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
                 });
 
         myAdapter.notifyDataSetChanged();
