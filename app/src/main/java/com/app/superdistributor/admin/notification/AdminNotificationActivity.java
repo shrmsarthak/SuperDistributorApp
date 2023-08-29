@@ -57,11 +57,14 @@ public class AdminNotificationActivity extends AppCompatActivity {
                             notificationItemModel.setNotificationType("SR Product Confirmation");
                             notificationItemModel.setNotificationTag(dataSnapshot.child("Name").getValue().toString());
                             notificationItemModel.
-                                    setNotificationDesc("by " + dataSnapshot.child("PlacedBy").getValue().toString()+
-                                                    "\nPriced at " + dataSnapshot.child("Price").getValue().toString());
+                                    setNotificationDesc("Price : " + dataSnapshot.child("Price").getValue().toString()+
+                                                    "\nProductID : " + dataSnapshot.child("ProductID").getValue().toString()+
+                                                    "\nQuantity : " + dataSnapshot.child("Qty").getValue().toString()+
+                                                    "\nPlaced by : " + dataSnapshot.child("PlacedBy").getValue().toString()
+                                    );
                             list.add(notificationItemModel);
                         }
-                        myAdapter.notifyDataSetChanged();
+//                        myAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -77,10 +80,13 @@ public class AdminNotificationActivity extends AppCompatActivity {
                             notificationItemModel.setNotificationType("Dealer Complaint");
                             notificationItemModel.setNotificationTag(dataSnapshot.child("CustomerName").getValue().toString());
                             notificationItemModel.
-                                    setNotificationDesc("on " + dataSnapshot.child("DateOfPurchase").getValue().toString());
+                                    setNotificationDesc("Phone : " + dataSnapshot.child("PhoneNumber").getValue().toString()+
+                                            "\nModel : " + dataSnapshot.child("ModelNumber").getValue().toString()+
+                                            "\nPurchased on : " + dataSnapshot.child("DateOfPurchase").getValue().toString()+
+                                            "\nSerial No. : " + dataSnapshot.child("SerialNumber").getValue().toString());
                             list.add(notificationItemModel);
                         }
-                        myAdapter.notifyDataSetChanged();
+//                        myAdapter.notifyDataSetChanged();
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
@@ -95,7 +101,11 @@ public class AdminNotificationActivity extends AppCompatActivity {
                             notificationItemModel.setNotificationType("Replacement by Dealer");
                             notificationItemModel.setNotificationTag(dataSnapshot.child("CustomerName").getValue().toString());
                             notificationItemModel.
-                                    setNotificationDesc("on " + dataSnapshot.child("DateOfPurchase").getValue().toString());
+                                    setNotificationDesc("Phone : " + dataSnapshot.child("PhoneNumber").getValue().toString()+
+                                            "\nModel : " + dataSnapshot.child("ModelNumber").getValue().toString()+
+                                            "\nPurchased on : " + dataSnapshot.child("DateOfPurchase").getValue().toString()+
+                                            "\nSerial No. : " + dataSnapshot.child("SerialNumber").getValue().toString()+
+                                            "\nNew Serial No. : " + dataSnapshot.child("NewProductSerialNumber").getValue().toString());
                             list.add(notificationItemModel);
                         }
                         myAdapter.notifyDataSetChanged();
