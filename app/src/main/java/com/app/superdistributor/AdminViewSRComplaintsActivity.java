@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,10 @@ public class AdminViewSRComplaintsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         progressBar.setVisibility(View.INVISIBLE);
+                            if (snapshot.getChildrenCount() == 0) {
+                                Toast.makeText(AdminViewSRComplaintsActivity.this, "No Pending Complaints", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                             list.add(new ComplaintModel(
                                     dataSnapshot.child("Tag").getValue().toString(),

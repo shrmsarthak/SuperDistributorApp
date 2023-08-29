@@ -18,13 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TechnicianSparesRequestActivity extends AppCompatActivity {
-
     String technicianUsername;
     EditText materialDescEt, materialQtyEt;
     Button submitBtn;
-
     DatabaseReference databaseReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

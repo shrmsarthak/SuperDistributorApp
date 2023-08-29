@@ -70,7 +70,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:layout_below="@+id/adminlottie"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:textStyle="bold"/>
 
     <LinearLayout
@@ -79,13 +79,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:layout_below="@id/adminhead2">
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical">
 
             <ImageView
@@ -111,7 +111,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:id="@+id/viewUserLL">
 
@@ -148,7 +148,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2"
             android:id="@+id/addcreditdebitLL">
@@ -177,7 +177,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2">
 
@@ -214,7 +214,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2"
             android:id="@+id/addProductLL">
@@ -242,7 +242,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2">
 
@@ -257,7 +257,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add offers &amp; schemes"
+                android:text="Add offers/schemes"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -279,7 +279,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical">
 
             <ImageView
@@ -305,7 +305,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:id="@+id/blankLL">
 

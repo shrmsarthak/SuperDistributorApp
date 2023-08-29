@@ -345,7 +345,8 @@ public class ReplaceByDealerActivity extends AppCompatActivity {
                                             replacementDetails.put("ModelNumber", modelNumber);
                                             replacementDetails.put("SerialNumber", serialNumber);
                                             replacementDetails.put("NewProductSerialNumber", newProductSerialNumber);
-                                            replacementDetails.put("ReportUrl",url);
+                                            replacementDetails.put("ReportUrl", url);
+                                            replacementDetails.put("Status", "Pending");
 
                                             mref.child("Dealers").child("RequestServices").child("ReplacementByDealer").child(replacementID).updateChildren(replacementDetails)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

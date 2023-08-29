@@ -26,4 +26,13 @@ public class AmountOverviewModel {
     public void setUserName(String userName) {
         UserName = userName;
     }
+
+    @Override
+    public String toString() {
+        return "AmountOverviewModel{" +
+                "Name='" + Name + '\'' +
+                ", CurrentBalance='" + CurrentBalance + '\'' +
+                ", UserName='" + UserName + '\'' +
+                '}';
+    }
 }

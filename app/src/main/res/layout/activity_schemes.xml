@@ -34,7 +34,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         app:lottie_autoPlay="true"
-        app:lottie_loop="false"
+        app:lottie_loop="true"
         app:lottie_rawRes="@raw/offers" />
 
     <Button
@@ -46,7 +46,7 @@
         android:layout_below="@id/schemeslottie"
         android:layout_centerHorizontal="true"
         app:icon="@drawable/baseline_newspaper_24"
-        android:text="Your Schemes" />
+        android:text="Your Scheme" />
 
     <Button
         android:id="@+id/runningOffersBtn"

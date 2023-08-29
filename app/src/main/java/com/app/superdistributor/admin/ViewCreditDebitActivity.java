@@ -2,6 +2,7 @@ package com.app.superdistributor.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,12 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ViewCreditDebitActivity extends AppCompatActivity {
-
     Button ViewDetailsBtn;
     ArrayList<String> transactionTypeArrayList = new ArrayList<>();
     ArrayList<String> dealerArrayList = new ArrayList<>();
     DatabaseReference database;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +45,9 @@ public class ViewCreditDebitActivity extends AppCompatActivity {
 
                 for (DataSnapshot snap : snapshot.child("Dealers").getChildren()) {
                     dealerArrayList.add(snap.getKey());
+                    Log.d("Test",dealerArrayList.toString());
                 }
                 dealerDropdown.setAdapter(dealeradapter);
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

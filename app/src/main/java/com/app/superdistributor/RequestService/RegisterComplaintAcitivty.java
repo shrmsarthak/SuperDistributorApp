@@ -181,7 +181,7 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                                             replacementDetails.put("ModelNumber", registerModelNumber);
                                             replacementDetails.put("SerialNumber", registerSerialNumber);
                                             replacementDetails.put("ReportUrl",url);
-                                            replacementDetails.put("Status","Pending");
+                                            replacementDetails.put("Status", "Pending");
 
                                             mref.child("Dealers").child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -223,8 +223,8 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                             replacementDetails.put("DateOfPurchase", registerDateOfPurchase);
                             replacementDetails.put("ModelNumber", registerModelNumber);
                             replacementDetails.put("SerialNumber", registerSerialNumber);
-                            replacementDetails.put("ReportUrl",url);
-                            replacementDetails.put("Status","Pending");
+                            replacementDetails.put("ReportUrl", url);
+                            replacementDetails.put("Status", "Pending");
 
                             mref.child("Dealers").child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

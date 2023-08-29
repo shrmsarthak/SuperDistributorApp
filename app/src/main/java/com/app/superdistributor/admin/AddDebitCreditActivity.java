@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -106,6 +107,10 @@ public class AddDebitCreditActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     list.add(dataSnapshot.getValue(AmountOverviewModel.class));
+                }
+                if(list.get(0).getName() == null){
+                    Toast.makeText(AddDebitCreditActivity.this, "No data available currently", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
 

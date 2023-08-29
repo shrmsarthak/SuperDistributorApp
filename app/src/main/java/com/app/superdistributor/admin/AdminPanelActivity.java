@@ -21,6 +21,7 @@ import com.app.superdistributor.LoginActivity;
 import com.app.superdistributor.MyProducts.ViewProductList;
 import com.app.superdistributor.R;
 import com.app.superdistributor.admin.notification.AdminNotificationActivity;
+import com.app.superdistributor.admin.paymenthistory.AmountOverviewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -192,9 +193,30 @@ public class AdminPanelActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AdminPanelActivity.this, AddDebitCreditActivity.class);
                 intent.putExtra("Username",Username);
-                startActivity(intent);
+                ArrayList<AmountOverviewModel> list = new ArrayList<>();
+                database.child("Dealers").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            list.add(dataSnapshot.getValue(AmountOverviewModel.class));
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+
+                });
+                if(list.isEmpty()){
+                    Toast.makeText(AdminPanelActivity.this, "No data available currently", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    startActivity(intent);
+                }
             }
         });
+
 
         ViewCreditDebitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -358,7 +380,6 @@ public class AdminPanelActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
-
             }
         });
     }
