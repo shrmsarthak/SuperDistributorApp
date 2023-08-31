@@ -42,6 +42,7 @@ public class RaiseServiceConcerActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(RaiseServiceConcerActivity.this, "Your concern has been raised", Toast.LENGTH_SHORT).show();
+                            messageEt.setText("");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

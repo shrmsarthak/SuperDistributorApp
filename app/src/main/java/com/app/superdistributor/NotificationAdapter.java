@@ -1,20 +1,27 @@
 package com.app.superdistributor;
 
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.superdistributor.admin.notification.AdminNotificationActivity;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -45,11 +52,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.type.setText(notificationItemModel.getNotificationType());
         holder.tag.setText(notificationItemModel.getNotificationTag());
         holder.description.setText(notificationItemModel.getNotificationDesc());
-        //TODO : on click dialog
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    showExpandedDialog(notificationItemModel.getNotificationType(),
+                    showExpandedDialog(holder.getAdapterPosition(),
+                            notificationItemModel.getNotificationType(),
                             notificationItemModel.getNotificationTag(),
                             notificationItemModel.getNotificationDesc());
             }
@@ -73,7 +80,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 
-  private void showExpandedDialog(String type, String tag, String description) {
+  private void showExpandedDialog(int position, String type, String tag, String description) {
       AlertDialog.Builder builder = new AlertDialog.Builder(context);
       View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_expanded_view, null);
       TextView tagTv = dialogView.findViewById(R.id.notif_tag);
@@ -89,14 +96,25 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
               if(type.equals("SR Product Confirmation")){
                   databaseReference.child("Admin").child("Notifications")
                           .child("ProductConfirmation").child("SRs")
-                          .child("rishabh05").updateChildren(updateStatus);
-                  //TODO : change hardcoded node value
+                          .child(tag).updateChildren(updateStatus);
               }
               else if (type.equals("Dealer Complaint")) {
                   databaseReference.child("Dealers").child("RequestServices")
                           .child("RegisterComplaints").child(tag)
                           .updateChildren(updateStatus);
               }
+              else if (type.equals("Replacement by Dealer")) {
+                      databaseReference.child("Dealers").child("RequestServices")
+                              .child("ReplacementByDealer").child(tag)
+                              .updateChildren(updateStatus);
+              }
+              else if (type.equals("Grievance")) {
+                  databaseReference.child("Grievances").child(tag).removeValue();
+              }
+              if(position<list.size()) list.remove(position);
+              ((Activity)context).finish();
+              context.startActivity(new Intent(context,AdminNotificationActivity.class));
+              Toast.makeText(context, "Status updated", Toast.LENGTH_SHORT).show();
           }
       }).setNegativeButton("Accept", new DialogInterface.OnClickListener() {
           @Override
@@ -105,14 +123,25 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
               if(type.equals("SR Product Confirmation")){
                   databaseReference.child("Admin").child("Notifications")
                           .child("ProductConfirmation").child("SRs")
-                          .child("rishabh05").updateChildren(updateStatus);
-                  //TODO : change hardcoded node value
+                          .child(tag).updateChildren(updateStatus);
               }
               else if (type.equals("Dealer Complaint")) {
                   databaseReference.child("Dealers").child("RequestServices")
                           .child("RegisterComplaints").child(tag)
                           .updateChildren(updateStatus);
               }
+              else if (type.equals("Replacement by Dealer")) {
+                  databaseReference.child("Dealers").child("RequestServices")
+                          .child("ReplacementByDealer").child(tag)
+                          .updateChildren(updateStatus);
+              }
+              else if (type.equals("Grievance")) {
+                  databaseReference.child("Grievances").child(tag).removeValue();
+              }
+              if(position<list.size()) list.remove(position);
+              ((Activity)context).finish();
+              context.startActivity(new Intent(context,AdminNotificationActivity.class));
+              Toast.makeText(context, "Status updated", Toast.LENGTH_SHORT).show();
           }
       });
       AlertDialog dialog = builder.create();

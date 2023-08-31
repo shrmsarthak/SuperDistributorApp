@@ -1,5 +1,7 @@
 package com.app.superdistributor;
 
+import java.util.Objects;
+
 public class NotificationItemModel {
     String notificationType;
     String notificationTag;
@@ -36,5 +38,18 @@ public class NotificationItemModel {
 
     public void setNotificationDesc(String notificationDesc) {
         this.notificationDesc = notificationDesc;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NotificationItemModel)) return false;
+        NotificationItemModel that = (NotificationItemModel) o;
+        return getNotificationType().equals(that.getNotificationType()) && getNotificationTag().equals(that.getNotificationTag()) && getNotificationDesc().equals(that.getNotificationDesc());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNotificationType(), getNotificationTag(), getNotificationDesc());
     }
 }

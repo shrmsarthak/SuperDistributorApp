@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.superdistributor.admin.AdminPanelActivity;
 import com.app.superdistributor.admin.ViewCreditDebitActivity;
+import com.app.superdistributor.admin.notification.AdminNotificationActivity;
 import com.app.superdistributor.sr.DealerIntentActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +31,7 @@ public class SRHomeActivity extends AppCompatActivity {
     Button TotalSROutstandingBtn, DealerIntentBtn, PaymentApproveBtn, ComplaintRaiseBtn, AddPaymentBtn,
     ReportsBtn, PostMessageBtn, ExpenseBtn, AddVisitBtn;
 
-    ImageView LogoutBtn;
+    ImageView NotificationBtn,LogoutBtn;
 
     String SRUsername;
     DatabaseReference database;
@@ -43,9 +45,17 @@ public class SRHomeActivity extends AppCompatActivity {
 
         SRUsername = getIntent().getStringExtra("SRUsername");
 
+        NotificationBtn = findViewById(R.id.srNotification);
         LogoutBtn = findViewById(R.id.srLogout);
 
         database = FirebaseDatabase.getInstance().getReference();
+        NotificationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, AdminNotificationActivity.class);
+                startActivity(i);
+            }
+        });
         LogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

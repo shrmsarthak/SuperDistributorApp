@@ -7,8 +7,44 @@
     android:background="@android:color/white"
     tools:context=".TechnicianHomeActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/adminTopHead"
+        android:background="@color/purple_500">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Technician"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/adminhead"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/technicianNotification"
+            android:src="@drawable/baseline_notifications_24"
+            android:layout_toLeftOf="@id/technicianLogout"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/technicianLogout"
+            android:src="@drawable/baseline_logout_24"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="25dp"/>
+
+
+    </RelativeLayout>
+<!--    <TextView
         android:id="@+id/welcometechniciantext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,15 +58,15 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="25sp" />
+        android:textSize="25sp" />-->
 
     <Button
         android:id="@+id/totalpendecybtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/welcometechniciantext"
+        android:layout_below="@id/adminTopHead"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:padding="20dp"

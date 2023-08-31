@@ -11,8 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.app.superdistributor.admin.AdminPanelActivity;
+import com.app.superdistributor.admin.notification.AdminNotificationActivity;
 import com.app.superdistributor.sr.dealerorders.DealerOrder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +27,7 @@ public class TechnicianHomeActivity extends AppCompatActivity {
 
     String technicianName;
     Button totalPendencyBtn, closeComplaintBtn, rescheduleVisitBtn, indentSpBtn, reportsBtn;
+    ImageView logout,notification;
     int c = 0;
     DatabaseReference database;
     @Override
@@ -31,7 +35,23 @@ public class TechnicianHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_technician_home);
         database = FirebaseDatabase.getInstance().getReference();
+        logout = findViewById(R.id.technicianLogout);
+        notification = findViewById(R.id.technicianNotification);
         totalPendencyBtn = findViewById(R.id.totalpendecybtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TechnicianHomeActivity.this, LoginActivity.class);
+                startActivity(i);
+            }
+        });
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TechnicianHomeActivity.this, AdminNotificationActivity.class);
+                startActivity(i);
+            }
+        });
         database.child("Dealers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -135,5 +155,10 @@ public class TechnicianHomeActivity extends AppCompatActivity {
             Toast.makeText(this, "New Alerts", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
