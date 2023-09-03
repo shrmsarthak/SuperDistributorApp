@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.app.superdistributor.NotificationAdapter;
 import com.app.superdistributor.NotificationItemModel;
@@ -41,6 +42,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Toast.makeText(this, "Pending reminders are in red", Toast.LENGTH_LONG).show();
 
         list = new ArrayList<>();
         myAdapter = new NotificationAdapter(this,list);
@@ -64,6 +66,8 @@ public class AdminNotificationActivity extends AppCompatActivity {
                                                 "\nQuantity : " + dataSnapshot.child("Qty").getValue().toString() +
                                                 "\nPlaced by : " + dataSnapshot.child("PlacedBy").getValue().toString()
                                         );
+                                if(dataSnapshot.child("Reminder").exists())notificationItemModel
+                                        .setNotificationPriority(dataSnapshot.child("Reminder").getValue().toString());
                                 list.add(notificationItemModel);
 //                                myAdapter.notifyDataSetChanged();
                             }
@@ -87,6 +91,8 @@ public class AdminNotificationActivity extends AppCompatActivity {
                                                 "\nModel : " + dataSnapshot.child("ModelNumber").getValue().toString() +
                                                 "\nPurchased on : " + dataSnapshot.child("DateOfPurchase").getValue().toString() +
                                                 "\nSerial No. : " + dataSnapshot.child("SerialNumber").getValue().toString());
+                                if(dataSnapshot.child("Reminder").exists())notificationItemModel
+                                        .setNotificationPriority(dataSnapshot.child("Reminder").getValue().toString());
                                 list.add(notificationItemModel);
 //                                myAdapter.notifyDataSetChanged();
                             }
@@ -111,6 +117,8 @@ public class AdminNotificationActivity extends AppCompatActivity {
                                                 "\nPurchased on : " + dataSnapshot.child("DateOfPurchase").getValue().toString() +
                                                 "\nSerial No. : " + dataSnapshot.child("SerialNumber").getValue().toString() +
                                                 "\nNew Serial No. : " + dataSnapshot.child("NewProductSerialNumber").getValue().toString());
+                                if(dataSnapshot.child("Reminder").exists())notificationItemModel
+                                        .setNotificationPriority(dataSnapshot.child("Reminder").getValue().toString());
                                 list.add(notificationItemModel);
                                 myAdapter.notifyDataSetChanged();
 

@@ -5,6 +5,16 @@ import java.util.Objects;
 public class NotificationItemModel {
     String notificationType;
     String notificationTag;
+    String notificationPriority = "No";
+
+
+    public String getNotificationPriority() {
+        return notificationPriority;
+    }
+
+    public void setNotificationPriority(String notificationPriority) {
+        this.notificationPriority = notificationPriority;
+    }
 
     public String getNotificationType() {
         return notificationType;

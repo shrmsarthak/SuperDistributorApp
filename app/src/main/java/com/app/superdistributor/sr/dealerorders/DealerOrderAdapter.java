@@ -109,6 +109,7 @@ public class DealerOrderAdapter extends RecyclerView.Adapter<DealerOrderAdapter.
                 orderConfirmationMap.put("Qty", dealerOrder.getProductQty());
                 orderConfirmationMap.put("Price", holder.DealerOrderPrice.getText().toString());
                 orderConfirmationMap.put("ProductID", dealerOrder.getProductID());
+                orderConfirmationMap.put("Reminder",false);
 
                 Map<String, Object> orderStatusMap = new HashMap<>();
                 orderStatusMap.put("Status","Pending");

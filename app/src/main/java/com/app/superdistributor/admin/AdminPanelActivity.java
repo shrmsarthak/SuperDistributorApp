@@ -41,7 +41,7 @@ public class AdminPanelActivity extends AppCompatActivity {
     ImageView AddCreditDebitBtn, ViewCreditDebitBtn, AddUserBtn, ViewUserBtn, AddProductBtn, AddOfferBtn, srInfoBtn;
     private ProgressDialog LoadingBar;
     DatabaseReference database;
-
+    ArrayList<AmountOverviewModel> list;
     TextView Head;
     ImageView AdminNotification, AdminLogout;
 
@@ -188,28 +188,33 @@ public class AdminPanelActivity extends AppCompatActivity {
             }
 
         });
+        list = new ArrayList<>();
+        database.child("Dealers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                    if(!dataSnapshot.getKey().toString().equals("RequestServices")) {
+                        AmountOverviewModel amountOverviewModel = new AmountOverviewModel();
+                        amountOverviewModel.setName(dataSnapshot.child("Name").getValue().toString());
+                        amountOverviewModel.setUserName(dataSnapshot.child("UserName").getValue().toString());
+                        amountOverviewModel.setCurrentBalance(dataSnapshot.child("CurrentBalance").getValue().toString());
+//                                list.add(dataSnapshot.getValue(AmountOverviewModel.class));
+                        list.add(amountOverviewModel);
+                        Log.d("Added to list", amountOverviewModel.toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
         AddCreditDebitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdminPanelActivity.this, AddDebitCreditActivity.class);
                 intent.putExtra("Username",Username);
-                ArrayList<AmountOverviewModel> list = new ArrayList<>();
-                database.child("Dealers").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            list.add(dataSnapshot.getValue(AmountOverviewModel.class));
-                        }
-
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-
-                });
                 if(list.isEmpty()){
                     Toast.makeText(AdminPanelActivity.this, "No data available currently", Toast.LENGTH_SHORT).show();
-
                 }
                 else {
                     startActivity(intent);

@@ -10,6 +10,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/reminder_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:lottie_autoPlay="true"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_rawRes="@raw/pending" />
+<!--        <ImageView
+            android:id="@+id/reminder_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="invisible"
+            android:src="@drawable/notification_reminder"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>-->
         <TextView
             android:id="@+id/dealer_name"
             android:layout_width="match_parent"

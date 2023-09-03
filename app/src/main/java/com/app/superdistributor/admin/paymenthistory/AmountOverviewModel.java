@@ -12,6 +12,7 @@ public class AmountOverviewModel {
     }
 
     public String getCurrentBalance() {
+        if(CurrentBalance == null) return "0";
         return CurrentBalance;
     }
 
