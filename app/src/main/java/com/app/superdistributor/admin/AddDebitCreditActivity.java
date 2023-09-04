@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,16 +67,15 @@ public class AddDebitCreditActivity extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    for(DataSnapshot snap: dataSnapshot.child("Credit").getChildren())
-                    {
-                        giveAmountArrayList.add(snap.child("Amount").getValue().toString());
-                    }
-                    for(DataSnapshot snap: dataSnapshot.child("Debit").getChildren())
-                    {
+                    if(!dataSnapshot.getKey().equals("RequestServices")) {
+                        for (DataSnapshot snap : dataSnapshot.child("Credit").getChildren()) {
+                            giveAmountArrayList.add(snap.child("Amount").getValue().toString());
+                        }
+                        for (DataSnapshot snap : dataSnapshot.child("Debit").getChildren()) {
 
-                        getAmmountArrayList.add(snap.child("Amount").getValue().toString());
+                            getAmmountArrayList.add(snap.child("Amount").getValue().toString());
+                        }
                     }
-
                 }
                 giveAmount = 0;
                 getAmount = 0;
@@ -91,7 +91,7 @@ public class AddDebitCreditActivity extends AppCompatActivity {
 
                 YougiveBalance.setText("\u20B9 "+String.valueOf(giveAmount));
                 YougetBalance.setText("\u20B9 "+String.valueOf(getAmount));
-                TotalBalance.setText("\u20B9 "+String.valueOf(giveAmount-getAmount));
+                TotalBalance.setText("\u20B9 "+String.valueOf(getAmount-giveAmount));
 
             }
 
@@ -105,7 +105,11 @@ public class AddDebitCreditActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    list.add(dataSnapshot.getValue(AmountOverviewModel.class));
+                    if(!dataSnapshot.getKey().equals("RequestServices")) list.add(dataSnapshot.getValue(AmountOverviewModel.class));
+                }
+                if(list.get(0).getName() == null){
+                    Toast.makeText(AddDebitCreditActivity.this, "No data available currently", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
 

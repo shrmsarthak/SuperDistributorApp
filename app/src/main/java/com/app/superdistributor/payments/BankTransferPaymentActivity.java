@@ -140,8 +140,7 @@ public class BankTransferPaymentActivity extends AppCompatActivity {
                     LoadingBar.setMessage("Please Wait we are saving your details...");
                     LoadingBar.show();
 
-                    uploadBankTransferDetails(BankTransferAmountEt.getText().toString(),
-                            selectedDate);
+                    uploadBankTransferDetails(BankTransferAmountEt.getText().toString(),selectedDate);
                 }
             }
         });

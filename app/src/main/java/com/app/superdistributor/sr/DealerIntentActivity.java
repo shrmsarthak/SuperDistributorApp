@@ -37,8 +37,6 @@ public class DealerIntentActivity extends AppCompatActivity {
     DealerOrderAdapter myAdapter;
     ArrayList<DealerOrder> list;
 
-    String DealerName;
-
     String SRUsername;
 
     Map<String, Object> dealerProductOrderMap;
@@ -75,7 +73,6 @@ public class DealerIntentActivity extends AppCompatActivity {
                         list.add(dealerOrder);
                     }
                 }
-
 
                 myAdapter.notifyDataSetChanged();
 

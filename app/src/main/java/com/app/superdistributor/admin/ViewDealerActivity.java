@@ -63,8 +63,10 @@ public class ViewDealerActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    dealersArrayList.add(snap.getKey());
-                    dealerNamesList.add(snap.child("Name").getValue().toString());
+                    if(!snap.getKey().toString().equals("RequestServices")) {
+                        dealersArrayList.add(snap.getKey());
+                        dealerNamesList.add(snap.child("Name").getValue().toString());
+                    }
                 }
 
                 for(int i=0; i<dealersArrayList.size(); i++)

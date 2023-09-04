@@ -56,7 +56,7 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
                 else
                 {
                     Map<String, Object> productMap = new HashMap<>();
-                    Toast.makeText(context, "Porduct added..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Product added..", Toast.LENGTH_SHORT).show();
                     productMap.put("Name",products.getName());
                     productMap.put("ProductID",products.getProductID());
                     productMap.put("ProductQty",holder.Qty.getText().toString());

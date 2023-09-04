@@ -1,15 +1,16 @@
 package com.app.superdistributor.admin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.superdistributor.AccountDetailsActivity;
 import com.app.superdistributor.R;
@@ -22,12 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ViewCreditDebitActivity extends AppCompatActivity {
-
     Button ViewDetailsBtn;
     ArrayList<String> transactionTypeArrayList = new ArrayList<>();
     ArrayList<String> dealerArrayList = new ArrayList<>();
     DatabaseReference database;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +45,9 @@ public class ViewCreditDebitActivity extends AppCompatActivity {
 
                 for (DataSnapshot snap : snapshot.child("Dealers").getChildren()) {
                     dealerArrayList.add(snap.getKey());
+                    Log.d("Test",dealerArrayList.toString());
                 }
                 dealerDropdown.setAdapter(dealeradapter);
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -73,7 +72,10 @@ public class ViewCreditDebitActivity extends AppCompatActivity {
                 Intent i = new Intent(ViewCreditDebitActivity.this, AccountDetailsActivity.class);
                 i.putExtra("Dealer",dealerDropdown.getSelectedItem().toString());
                 i.putExtra("TransactionType",transactionTypeSpinner.getSelectedItem().toString());
-                startActivity(i);
+                if(dealerDropdown.getSelectedItem().toString().equals("Select Dealer"))
+                    Toast.makeText(ViewCreditDebitActivity.this,"Please select a dealer",Toast.LENGTH_SHORT).show();
+                else
+                    startActivity(i);
             }
         });
     }

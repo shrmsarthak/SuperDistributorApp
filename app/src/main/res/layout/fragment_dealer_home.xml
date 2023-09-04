@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/ic_baseline_verified_24"
-                android:text="Service Pendency Details : 4"
+                android:text="Service Pendency Details : 0"
                 android:textColor="@color/white"/>
 
             <com.airbnb.lottie.LottieAnimationView

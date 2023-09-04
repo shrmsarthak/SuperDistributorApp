@@ -1,18 +1,16 @@
 package com.app.superdistributor.admin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.superdistributor.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +33,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
     ArrayList<String> nameArrayList = new ArrayList<>();
 
     EditText ParticularET, DocNoET, AmountET, NoteET;
-    //DateET
     Button AddAmountBtn;
 
     private TextView mShowSelectedDateText;
@@ -63,8 +60,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
         AddAmountBtn = findViewById(R.id.addAmountBtn);
         mShowSelectedDateText = findViewById(R.id.show_selected_date);
 
-        ////
-
         mPickDateButton = findViewById(R.id.dateET);
         MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.datePicker();
 
@@ -90,7 +85,6 @@ public class AddCreditDebitActivity extends AppCompatActivity {
                         selectedDate = materialDatePicker.getHeaderText();
                     }
                 });
-        ////
 
         database = FirebaseDatabase.getInstance().getReference();
 

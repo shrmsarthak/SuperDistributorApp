@@ -7,100 +7,31 @@
     android:background="@android:color/white"
     tools:context=".PendingApprovalsActivity">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pending Approvals"
-        android:id="@+id/pendingapprovalhead"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pendingapprovalList"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:padding="20dp"
-        android:layout_below="@+id/pendingapprovalhead"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:id="@+id/adminNotificationTopHead"
+        android:background="@color/purple_500">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Pendency"
-            android:textSize="22sp"
-            android:gravity="center_vertical"
-            android:textStyle="bold"/>
-        <Button
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/baseline_add_alert_24"
-            android:text="Send Reminder"
-            android:layout_marginLeft="40dp"/>
+            android:text="Select one to send a reminder"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"/>
+    </RelativeLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/pendingapprovalList2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notificationRLV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pendingapprovalList"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="Pendency"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            app:icon="@drawable/baseline_add_alert_24"
-            android:text="Send Reminder"/>
-
-
-    </LinearLayout>
-
-
-
-    <Button
-        android:id="@+id/reportClaimPendencyBtn"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pendingapprovalList2"
-        android:layout_centerHorizontal="true"
-        app:icon="@drawable/baseline_pending_actions_24"
-        android:text="Claim Pendency" />
-
-    <Button
-        android:id="@+id/reportGrievanceBtn"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="80dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/reportClaimPendencyBtn"
-        android:layout_centerHorizontal="true"
-        app:icon="@drawable/baseline_help_24"
-        android:text="Grievance" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/adminNotificationTopHead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </RelativeLayout>
