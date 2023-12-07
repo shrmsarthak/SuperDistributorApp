@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/orange_bg"
     tools:context=".admin.AddManagerActivity">
 
     <TextView
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/addmanagerHead"
         android:text="Add Manager"
+        android:fontFamily="@font/allerta"
         android:textSize="25sp"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:id="@+id/managerNameET"
+            android:fontFamily="@font/allerta"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:fontFamily="@font/allerta"
             android:id="@+id/managerUserNameET"
             />
 
@@ -63,6 +66,7 @@
         android:id="@+id/managerPhoneTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/allerta"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -73,6 +77,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
             android:inputType="number"
             android:id="@+id/managerPhoneET"
             />
@@ -94,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:fontFamily="@font/allerta"
             android:id="@+id/managerEmailET"
             />
 
@@ -115,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:fontFamily="@font/allerta"
             android:id="@+id/managerPasswordET"
             />
 
@@ -124,8 +131,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/allerta"
         android:id="@+id/submitmanagerDetailsBtn"
-        android:padding="20dp"
+        android:padding="15dp"
+        android:backgroundTint="@color/black"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"

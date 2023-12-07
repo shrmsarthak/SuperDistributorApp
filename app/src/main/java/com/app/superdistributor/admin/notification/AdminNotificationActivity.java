@@ -42,7 +42,7 @@ public class AdminNotificationActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Toast.makeText(this, "Pending reminders are in red", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Pending reminders are in red", Toast.LENGTH_LONG).show();
 
         list = new ArrayList<>();
         myAdapter = new NotificationAdapter(this,list);

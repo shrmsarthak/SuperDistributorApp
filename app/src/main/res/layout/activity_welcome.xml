@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/img"
     tools:context=".WelcomeActivity">
 
     <LinearLayout
@@ -23,9 +24,9 @@
             android:layout_below="@+id/verifiedicon"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#7D7D7D"
             android:text="Powering Progress, Delivering Excellence"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/verifiedicon"
@@ -55,7 +56,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="Join us today!"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="#7D7D7D"
         android:textSize="15sp" />
 
 
@@ -70,6 +71,7 @@
         android:layout_marginBottom="20dp"
         android:padding="20dp"
         android:text="Get Started"
+        android:backgroundTint="#324E88"
         android:textColor="@android:color/white"
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="615dp" />
@@ -86,7 +88,7 @@
         android:layout_marginBottom="15dp"
         android:gravity="center"
         android:text="Empowering the Future with Reliable Energy Solutions"
-        android:textColor="@android:color/black"
+        android:textColor="#000000"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -94,7 +96,7 @@
         android:id="@+id/head3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="#7D7D7D"
         android:gravity="center"
         android:text="Finest \u2022 Affordable \u2022 Trusted"
         android:textSize="15dp"

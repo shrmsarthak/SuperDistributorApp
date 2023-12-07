@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#B3E5FC"
     tools:context=".RequestService.ServiceReportActivity">
 
     <TextView
@@ -28,6 +28,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:text="Select Date"
+        android:backgroundTint="#303F9F"
         android:textSize="18sp"
         app:icon="@drawable/baseline_add_to_photos_24" />
 

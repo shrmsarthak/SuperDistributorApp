@@ -27,17 +27,27 @@ public class TechnicianHomeActivity extends AppCompatActivity {
 
     String technicianName;
     Button totalPendencyBtn, closeComplaintBtn, rescheduleVisitBtn, indentSpBtn, reportsBtn;
-    ImageView logout,notification;
+    ImageView myMessagesBtn,logout,notification;
+    String technicianUsername;
     int c = 0;
     DatabaseReference database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_technician_home);
+        technicianUsername = getIntent().getStringExtra("Username");
         database = FirebaseDatabase.getInstance().getReference();
         logout = findViewById(R.id.technicianLogout);
+        myMessagesBtn = findViewById(R.id.technicianMessages);
         notification = findViewById(R.id.technicianNotification);
         totalPendencyBtn = findViewById(R.id.totalpendecybtn);
+
+        myMessagesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TechnicianHomeActivity.this, MyMessagesActivity.class).putExtra("Username",technicianUsername));
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

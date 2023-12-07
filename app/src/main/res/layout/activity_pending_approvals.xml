@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#E3F2FD"
     tools:context=".PendingApprovalsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/adminNotificationTopHead"
-        android:background="@color/purple_500">
+        android:background="#303F9F">
 
         <TextView
             android:layout_width="wrap_content"

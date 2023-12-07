@@ -74,10 +74,11 @@ public class SRDealersLedgerAccountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(myDealers.contains(dataSnapshot.child("UserName").getValue().toString())) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if(!dataSnapshot.getKey().equals("RequestServices")){
+                    if (myDealers.contains(dataSnapshot.child("UserName").getValue().toString())) {
                         list.add(dataSnapshot.getValue(AmountOverviewModel.class));
-                        myAdapter.notifyItemInserted(list.size()-1);
+                        myAdapter.notifyItemInserted(list.size() - 1);
                         for (DataSnapshot snap : dataSnapshot.child("Credit").getChildren()) {
                             giveAmountArrayList.add(snap.child("Amount").getValue().toString());
                         }
@@ -85,6 +86,7 @@ public class SRDealersLedgerAccountActivity extends AppCompatActivity {
                             getAmmountArrayList.add(snap.child("Amount").getValue().toString());
                         }
                     }
+                }
                 }
                 giveAmount = 0;
                 getAmount = 0;

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.superdistributor.MyAmountAdapter;
 import com.app.superdistributor.R;
+import com.app.superdistributor.SrCreditDebitActivity;
+import com.app.superdistributor.SrGiveGetAmountActivity;
 import com.app.superdistributor.admin.AddDebitCreditActivity;
 import com.app.superdistributor.admin.GiveGetAmountActivity;
 
@@ -57,10 +59,19 @@ public class AccountBalanceOverviewAdapter extends RecyclerView.Adapter<AccountB
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context.getApplicationContext(), GiveGetAmountActivity.class);
-                i.putExtra("dealerUsername",amountOverviewModel.getUserName());
-                i.putExtra("dealerName",amountOverviewModel.getName());
-                i.putExtra("Username", AddDebitCreditActivity.Username);
+//                Toast.makeText(context,context.toString().substring(25,46), Toast.LENGTH_SHORT).show();
+                Intent i;
+                if (context.toString().substring(25,46).equals("SrCreditDebitActivity")){
+                    i = new Intent(context.getApplicationContext(), SrGiveGetAmountActivity.class);
+                    i.putExtra("SrUsername", SrCreditDebitActivity.Username);
+                    i.putExtra("dealerUsername", amountOverviewModel.getUserName());
+                }
+                else {
+                    i = new Intent(context.getApplicationContext(), GiveGetAmountActivity.class);
+                    i.putExtra("dealerUsername", amountOverviewModel.getUserName());
+                    i.putExtra("dealerName", amountOverviewModel.getName());
+                    i.putExtra("Username", AddDebitCreditActivity.Username);
+                }
                 context.startActivity(i);
             }
         });

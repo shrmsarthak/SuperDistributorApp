@@ -35,11 +35,14 @@ public class HandoverDRActivity extends AppCompatActivity {
     DatabaseReference database;
 
     ArrayList<String> handoverDataList, SelectedItems;
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handover_dractivity);
+
+        userType = getIntent().getType();
 
         HandoverAddProductBtn = findViewById(R.id.handoverAddProductBtn);
 
@@ -61,7 +64,7 @@ public class HandoverDRActivity extends AppCompatActivity {
                         handoverDataList.clear();
                         for (DataSnapshot snap : snapshot.getChildren()) {
                             if(snap.child("Status").getValue().toString().equals("Accepted")) {
-                                handoverDataList.add(snap.child("SerialNumber").getValue().toString());
+                                handoverDataList.add(snap.child("SerialNumber").getValue().toString() );
                             }
                         }
                         serialNumberArray = handoverDataList.toArray(new String[0]);

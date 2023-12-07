@@ -11,6 +11,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/allerta</item>
     </style>
 
     <style name="Theme.AppCompat.NoActionBar.NoActionBar">

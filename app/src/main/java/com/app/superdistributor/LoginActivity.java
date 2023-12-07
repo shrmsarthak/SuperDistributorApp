@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         userTypeArrayList.add("S.R.");
         userTypeArrayList.add("Technician");
 
-        ArrayAdapter<String> usersTypeadapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, userTypeArrayList);
+        ArrayAdapter<String> usersTypeadapter = new ArrayAdapter<>(this, R.layout.simple_spinner_dropdown_item_colored , userTypeArrayList);
         userTypeDropdown.setAdapter(usersTypeadapter);
 
         ForgetPassword.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             LoadingBar.dismiss();
                             Intent i = new Intent(LoginActivity.this, AdminPanelActivity.class);
-                            i.putExtra("Username","Admin");
+                            i.putExtra("Username","admin");
                             startActivity(i);
                         }
                         else

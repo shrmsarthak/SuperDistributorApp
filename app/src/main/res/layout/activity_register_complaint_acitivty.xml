@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#B3E5FC"
     tools:context=".RequestService.RegisterComplaintAcitivty">
 
     <TextView
@@ -74,7 +74,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:clickable="true"
+            android:focusable="false"
             android:id="@+id/registerdateOfPurchaseTI"
             />
 
@@ -141,6 +142,6 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:text="Submit"
-        style="?attr/materialButtonOutlinedStyle"/>
+        android:backgroundTint="#303F9F"/>
 
 </RelativeLayout>

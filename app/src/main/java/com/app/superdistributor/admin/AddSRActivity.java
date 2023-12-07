@@ -40,7 +40,8 @@ public class AddSRActivity extends AppCompatActivity {
     boolean[] choosenDealers;
 
     ArrayList<String> dealerUserNames , dealerNames;
-    HashMap<String,String> selectedDealers;
+    HashMap<String,Object> selectedDealers, dealerDetails;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,11 @@ public class AddSRActivity extends AppCompatActivity {
                                 if (b) {
                                     // when checkbox selected
                                     // Add position  in lang list
-                                    selectedDealers.put(dealerUserNames.get(i),dealerNames.get(i));
+                                    dealerDetails = new HashMap<>();
+                                    dealerDetails.put("Name",dealerNames.get(i));
+                                    dealerDetails.put("Balance",0);
+                                    selectedDealers.put(dealerUserNames.get(i),dealerDetails);
+//                                    dealerDetails.clear();
                                     // Sort array list
                                 } else {
                                     // when checkbox unselected
@@ -140,7 +145,7 @@ public class AddSRActivity extends AppCompatActivity {
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Snackbar.make(getWindow().getDecorView().getRootView(), "Dealers Selected :\n"+selectedDealers.values().toString(), 8000).setTextMaxLines(10).show();
+//                                Snackbar.make(getWindow().getDecorView().getRootView(), "Dealers Selected :\n"+ selectedDealers.values().toString(), 8000).setTextMaxLines(10).show();
                             }
                         });
 
@@ -211,7 +216,7 @@ public class AddSRActivity extends AppCompatActivity {
         });
     }
 
-    private void createSRAccount(String srName, String srPhone, String srEmail, String srPassword, String srUserName , HashMap<String,String> selectedDealers, String srTargetAmt) {
+    private void createSRAccount(String srName, String srPhone, String srEmail, String srPassword, String srUserName , HashMap<String,Object> selectedDealers, String srTargetAmt) {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -227,6 +232,8 @@ public class AddSRActivity extends AppCompatActivity {
                         srs.put("Email", srEmail);
                         srs.put("Password", srPassword);
                         srs.put("myDealers" , selectedDealers);
+
+                        Toast.makeText(AddSRActivity.this,selectedDealers.values().toString(), Toast.LENGTH_SHORT).show();
 
                         HashMap<String,Object> srsSalesStatus = new HashMap<>();
                         srsSalesStatus.put("SalesDone",0);

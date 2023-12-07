@@ -65,6 +65,7 @@
         android:layout_marginRight="20dp"
         android:padding="8dp"
         android:text="Select Audio File"
+        android:backgroundTint="#303F9F"
         android:textColor="@color/white" />
 
 
@@ -92,6 +93,7 @@
         android:padding="20dp"
         app:icon="@drawable/baseline_notifications_active_24"
         android:text="Post Message"
+        android:backgroundTint="#303F9F"
         android:textColor="@color/white" />
 
 </RelativeLayout>

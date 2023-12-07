@@ -22,10 +22,13 @@ public class RaiseServiceConcerActivity extends AppCompatActivity {
     EditText messageEt;
     Button submitBtn;
     DatabaseReference databaseReference;
+    String userType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raise_service_concer);
+
+        userType = getIntent().getType();
         messageEt = findViewById(R.id.raiseConcernMessageET);
         submitBtn = findViewById(R.id.submitBtn);
         databaseReference = FirebaseDatabase.getInstance().getReference();

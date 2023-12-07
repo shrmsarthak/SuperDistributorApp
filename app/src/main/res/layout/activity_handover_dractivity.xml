@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#B3E5FC"
     tools:context=".RequestService.HandoverDRActivity">
 
     <TextView
@@ -66,6 +66,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="#303F9F"
         android:id="@+id/containedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

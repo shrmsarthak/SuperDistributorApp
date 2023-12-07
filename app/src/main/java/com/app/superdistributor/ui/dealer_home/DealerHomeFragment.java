@@ -90,6 +90,8 @@ public class DealerHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext().getApplicationContext(), RequestServiceActivity.class);
+                i.setType("viaDealer");
+                i.putExtra("DealerName",DealerName);
                 startActivity(i);
             }
         });

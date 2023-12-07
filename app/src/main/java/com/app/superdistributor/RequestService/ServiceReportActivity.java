@@ -80,7 +80,6 @@ public class ServiceReportActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-
                             ServiceModel serviceModel = dataSnapshot.getValue(ServiceModel.class);
                             list.add(serviceModel);
                         }

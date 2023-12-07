@@ -29,9 +29,9 @@ public class SRHomeActivity extends AppCompatActivity {
 
     TextView SalesDoneTV, RemainingTargetTV;
     Button TotalSROutstandingBtn, DealerIntentBtn, PaymentApproveBtn, ComplaintRaiseBtn, AddPaymentBtn,
-    ReportsBtn, PostMessageBtn, ExpenseBtn, AddVisitBtn;
+    RequestServiceBtn, PostMessageBtn, ExpenseBtn, AddVisitBtn, CreditDebitBtn;
 
-    ImageView NotificationBtn,LogoutBtn;
+    ImageView myMessagesBtn, NotificationBtn,LogoutBtn;
 
     String SRUsername;
     DatabaseReference database;
@@ -44,11 +44,17 @@ public class SRHomeActivity extends AppCompatActivity {
         RemainingTargetTV = findViewById(R.id.remainingTargetTv);
 
         SRUsername = getIntent().getStringExtra("SRUsername");
-
+        myMessagesBtn = findViewById(R.id.srMessages);
         NotificationBtn = findViewById(R.id.srNotification);
         LogoutBtn = findViewById(R.id.srLogout);
 
         database = FirebaseDatabase.getInstance().getReference();
+        myMessagesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SRHomeActivity.this, MyMessagesActivity.class).putExtra("Username",SRUsername));
+            }
+        });
         NotificationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,10 +100,12 @@ public class SRHomeActivity extends AppCompatActivity {
         PaymentApproveBtn = findViewById(R.id.paymentapprovebtn);
         ComplaintRaiseBtn = findViewById(R.id.complaintraisebtn);
         AddPaymentBtn = findViewById(R.id.addpaymentbtn);
-        ReportsBtn = findViewById(R.id.reportsbtn);
+        RequestServiceBtn = findViewById(R.id.requestservicebtn);
         PostMessageBtn = findViewById(R.id.postMessageBtn);
         ExpenseBtn = findViewById(R.id.expensebtn);
         AddVisitBtn = findViewById(R.id.addvisitbtn);
+        CreditDebitBtn = findViewById(R.id.creditdebitbtn);
+
 
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -145,6 +153,15 @@ public class SRHomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        RequestServiceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, RequestServiceActivity.class);
+                i.setType("viaSr");
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
         PostMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +182,15 @@ public class SRHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SRHomeActivity.this, SRAddVisitActivity.class);
+                i.putExtra("SRUsername",SRUsername);
+                startActivity(i);
+            }
+        });
+
+        CreditDebitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SRHomeActivity.this, SrCreditDebitActivity.class);
                 i.putExtra("SRUsername",SRUsername);
                 startActivity(i);
             }

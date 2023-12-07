@@ -48,11 +48,14 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
     TextInputEditText RegisterCustomerNameTI, RegisterPhoneNumberTI, RegisterDateOfPurchaseTI,
             RegisterModelNumberTI, RegisterSerialNumberTI;
     Button RegisterAttachReportBtn, RegisterSendForApprovalBtn;
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_complaint_acitivty);
+        userType = getIntent().getType();
+        Toast.makeText(this, userType, Toast.LENGTH_SHORT).show();
 
         RegisterCustomerNameTI = findViewById(R.id.registercustomerNameTI);
         RegisterPhoneNumberTI = findViewById(R.id.registerphoneNoTI);
@@ -70,6 +73,12 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
 
         mref= FirebaseDatabase.getInstance().getReference();
         checkAndRequestPermissions(RegisterComplaintAcitivty.this);
+        RegisterDateOfPurchaseTI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         RegisterAttachReportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,7 +192,7 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                                             replacementDetails.put("ReportUrl",url);
                                             replacementDetails.put("Status", "Pending");
 
-                                            mref.child("Dealers").child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
+                                            mref.child(userType).child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
@@ -226,7 +235,7 @@ public class RegisterComplaintAcitivty extends AppCompatActivity {
                             replacementDetails.put("ReportUrl", url);
                             replacementDetails.put("Status", "Pending");
 
-                            mref.child("Dealers").child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
+                            mref.child(userType).child("RequestServices").child("RegisterComplaints").child(replacementID).updateChildren(replacementDetails)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {

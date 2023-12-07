@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#B3E5FC"
     tools:context=".ui.dealer_home.DealerHomeFragment">
 
 
@@ -19,7 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="135dp"
-            android:background="@android:color/darker_gray"
+            android:background="#5C6BC0"
             android:padding="16dp">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -72,6 +72,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="Place Order"
+        android:backgroundTint="#283593"
         android:id="@+id/placeorderbtn"
         android:textColor="@android:color/white"
         android:textSize="15sp"/>
@@ -85,6 +86,7 @@
         android:layout_marginRight="20dp"
         android:text="Request Service"
         android:id="@+id/requestservicebtn"
+        android:backgroundTint="#283593"
         android:textColor="@android:color/white"
         android:textSize="15sp"/>
 
@@ -93,6 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/requestservicebtn"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#283593"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="Add Payment"
@@ -107,6 +110,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:backgroundTint="#283593"
         android:text="Reports"
         android:id="@+id/reportbtn"
         android:textColor="@android:color/white"
@@ -121,6 +125,7 @@
         android:layout_marginRight="20dp"
         android:text="Pending Approvals"
         android:id="@+id/pendingapprovalsbtn"
+        android:backgroundTint="#283593"
         android:textColor="@android:color/white"
         android:textSize="15sp"/>
 
@@ -132,6 +137,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="Schemes | Points"
+        android:backgroundTint="#283593"
         android:id="@+id/schemessbtn"
         android:textColor="@android:color/white"
         android:textSize="15sp"/>

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.app.superdistributor.AdminViewSRComplaintsActivity;
 import com.app.superdistributor.AdminViewSRPaymentsActivity;
 import com.app.superdistributor.LoginActivity;
+import com.app.superdistributor.MyMessagesActivity;
 import com.app.superdistributor.MyProducts.ViewProductList;
 import com.app.superdistributor.R;
 import com.app.superdistributor.admin.notification.AdminNotificationActivity;
@@ -43,7 +44,7 @@ public class AdminPanelActivity extends AppCompatActivity {
     DatabaseReference database;
     ArrayList<AmountOverviewModel> list;
     TextView Head;
-    ImageView AdminNotification, AdminLogout;
+    ImageView myMessages, AdminNotification, AdminLogout;
 
     String Username;
     @Override
@@ -55,6 +56,7 @@ public class AdminPanelActivity extends AppCompatActivity {
 
         AdminNotification = findViewById(R.id.adminNotification);
         AdminLogout = findViewById(R.id.adminLogout);
+        myMessages = findViewById(R.id.my_messages);
 
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -285,7 +287,12 @@ public class AdminPanelActivity extends AppCompatActivity {
             }
         });
 
-
+        myMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminPanelActivity.this, MyMessagesActivity.class).putExtra("Username",Username));
+            }
+        });
 
         AddOfferBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,8 +372,10 @@ public class AdminPanelActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot snap : snapshot.getChildren()) {
-                            srUsernames.add(snap.getKey().toString());
-                            srNames.add(snap.child("Name").getValue().toString());
+                            if(!snap.getKey().toString().equals("RequestServices")) {
+                                srUsernames.add(snap.getKey().toString());
+                                srNames.add(snap.child("Name").getValue().toString());
+                            }
                         }
                     }
                     @Override

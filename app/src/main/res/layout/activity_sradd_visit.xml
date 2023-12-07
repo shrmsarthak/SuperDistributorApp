@@ -33,6 +33,7 @@
         android:layout_below="@+id/addVisitHeader"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:backgroundTint="#303F9F"
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
@@ -44,6 +45,7 @@
         android:layout_below="@id/selectVisitType"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textColor="#303F9F"
         android:layout_marginTop="20dp"
         app:icon="@drawable/baseline_add_24"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
@@ -61,6 +63,7 @@
         android:padding="20dp"
         app:icon="@drawable/baseline_add_to_home_screen_24"
         android:text="Add Visit"
+        android:backgroundTint="#303F9F"
         android:textColor="@color/white"
         />
 
