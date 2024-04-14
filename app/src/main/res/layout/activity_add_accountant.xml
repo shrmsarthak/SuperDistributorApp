@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/orange_bg"
     tools:context=".admin.AddAccountantActivity">
 
     <TextView
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/addaccountantHead"
         android:text="Add Accountant"
+        android:fontFamily="@font/allerta"
         android:textSize="25sp"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -34,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:fontFamily="@font/allerta"
             android:id="@+id/accountantNameET"
             />
 
@@ -54,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:fontFamily="@font/allerta"
             android:id="@+id/accountantUserNameET"
             />
 
@@ -73,7 +76,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="phone"
+            android:fontFamily="@font/allerta"
             android:id="@+id/accountantPhoneET"
             />
 
@@ -94,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:fontFamily="@font/allerta"
             android:id="@+id/accountantEmailET"
             />
 
@@ -115,6 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:fontFamily="@font/allerta"
             android:id="@+id/accountantPasswordET"
             />
 
@@ -127,9 +133,11 @@
         android:id="@+id/submitaccountantDetailsBtn"
         android:padding="20dp"
         android:layout_marginLeft="20dp"
+        android:fontFamily="@font/allerta"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         app:icon="@drawable/baseline_add_24"
+        android:backgroundTint="@color/black"
         android:text="Add accountant"
         android:layout_below="@id/accountantPasswordTIL"/>
 

@@ -12,6 +12,7 @@ public class AmountOverviewModel {
     }
 
     public String getCurrentBalance() {
+        if(CurrentBalance == null) return "0";
         return CurrentBalance;
     }
 
@@ -25,5 +26,14 @@ public class AmountOverviewModel {
 
     public void setUserName(String userName) {
         UserName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "AmountOverviewModel{" +
+                "Name='" + Name + '\'' +
+                ", CurrentBalance='" + CurrentBalance + '\'' +
+                ", UserName='" + UserName + '\'' +
+                '}';
     }
 }

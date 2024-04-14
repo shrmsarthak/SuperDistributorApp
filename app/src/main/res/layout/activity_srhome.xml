@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/srTopHead"
-        android:background="@color/purple_500">
+        android:background="#283593">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,6 +22,15 @@
             android:textStyle="bold"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25dp"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/srMessages"
+            android:src="@drawable/msgicon"
+            android:layout_toLeftOf="@id/srNotification"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
 
 
         <ImageView
@@ -60,7 +69,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="135dp"
-            android:background="@android:color/darker_gray"
+            android:background="#5C6BC0"
             android:padding="16dp">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -104,6 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/SRStatusCard"
         android:layout_marginStart="20dp"
+        android:backgroundTint="#283593"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:padding="10dp"
@@ -116,15 +126,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/totaloutstandingondealersbtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/dealerintentbtn"
             android:layout_width="170dp"
+            android:backgroundTint="#283593"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Dealer Intent" />
@@ -133,8 +142,9 @@
             android:id="@+id/paymentapprovebtn"
             android:layout_width="170dp"
             android:layout_marginLeft="20dp"
+            android:backgroundTint="#283593"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="7dp"
             android:text="Payment Approve" />
 
     </LinearLayout>
@@ -153,11 +163,13 @@
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:backgroundTint="#283593"
             android:text="Complaint Raise" />
 
         <Button
             android:id="@+id/addpaymentbtn"
             android:layout_width="170dp"
+            android:backgroundTint="#283593"
             android:layout_marginLeft="20dp"
             android:layout_height="match_parent"
             android:padding="10dp"
@@ -175,19 +187,21 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/reportsbtn"
+            android:id="@+id/requestservicebtn"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Reports" />
+            android:padding="9.5dp"
+            android:backgroundTint="#283593"
+            android:text="Request Service" />
 
         <Button
-            android:id="@+id/adddealerbtn"
+            android:id="@+id/postMessageBtn"
             android:layout_width="170dp"
             android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="#283593"
             android:padding="10dp"
-            android:text="Add Dealer" />
+            android:text="Post a message" />
 
     </LinearLayout>
 
@@ -205,6 +219,7 @@
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:backgroundTint="#283593"
             android:text="Expense" />
 
         <Button
@@ -213,7 +228,36 @@
             android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:backgroundTint="#283593"
             android:text="Add Visit" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btngroup6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btngroup5"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/creditdebitbtn"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:backgroundTint="#283593"
+            android:text="Credit/Debit" />
+
+        <Button
+            android:id="@+id/reportbtn"
+            android:layout_width="170dp"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:backgroundTint="#283593"
+            android:text="Reports" />
+
+    </LinearLayout>
+
 </RelativeLayout>

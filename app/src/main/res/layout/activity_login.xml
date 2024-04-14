@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/standard_bg"
     tools:context=".LoginActivity">
 
 <!--    <RadioGroup-->
@@ -69,7 +69,7 @@
 <!--    </RadioGroup>-->
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loginlottie"
+        android:id="@+id/login0lottie"
         android:layout_below="@id/h5"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -80,11 +80,26 @@
         android:layout_marginRight="20dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
+        android:visibility="invisible"
         app:lottie_rawRes="@raw/account" />
 
+    <ImageView
+        android:id="@+id/loginlottie"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/h5"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/loginpageicon"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/account" />
 
     <Spinner
         android:id="@+id/loginUserTypeDropDown"
+        android:fontFamily="@font/allerta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -92,8 +107,23 @@
         android:layout_marginRight="20dp"
         android:layout_below="@+id/loginlottie"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="#FB8C00"
+        android:outlineAmbientShadowColor="@color/black"
+        android:elevation="@dimen/fab_margin"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
+
+<!--    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/loginlottie"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:srcCompat="@drawable/dropdownarrow" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/accountIdTIL"
@@ -101,6 +131,8 @@
         android:layout_below="@+id/loginUserTypeDropDown"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:boxStrokeColor="#FB8C00"
+        app:hintTextColor="#FB8C00"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Account ID"
@@ -108,8 +140,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:ems="10"
+            android:fontFamily="@font/allerta"
             android:inputType="text"
             android:id="@+id/accountid"
             />
@@ -124,6 +157,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        app:boxStrokeColor="#FB8C00"
+        app:hintTextColor="#FB8C00"
         android:hint="Password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -131,6 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="@font/allerta"
             android:inputType="textPassword"
             android:id="@+id/loginpassword"
             />
@@ -139,16 +175,19 @@
 
     <Button
         android:id="@+id/loginbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/allerta"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@id/passwordTIL"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:padding="20dp"
+        android:padding="10dp"
         app:icon="@drawable/baseline_login_24"
         android:text="Login"
+        android:textAllCaps="false"
+        android:backgroundTint="#FB8C00"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,23 +200,27 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:fontFamily="@font/allerta"
+        android:gravity="center_horizontal"
         android:padding="20dp"
-        android:text="Login To Your Account"
+        android:text="Login to your account"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
-        android:textSize="20dp"
-        android:gravity="center_horizontal" />
+        android:textSize="20dp" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Forget Password ? Click Here to Reset"
+        android:fontFamily="@font/allerta"
+        android:text="Forgot Password? \n Click Here to Reset"
         android:textColor="@android:color/black"
         android:textAlignment="center"
         android:padding="20dp"
         android:id="@+id/forgetPassword"
         android:layout_below="@+id/loginbutton"/>
+
+
 
 
 </RelativeLayout>

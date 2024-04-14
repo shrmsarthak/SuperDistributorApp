@@ -35,11 +35,14 @@ public class HandoverDRActivity extends AppCompatActivity {
     DatabaseReference database;
 
     ArrayList<String> handoverDataList, SelectedItems;
+    String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handover_dractivity);
+
+        userType = getIntent().getType();
 
         HandoverAddProductBtn = findViewById(R.id.handoverAddProductBtn);
 
@@ -53,7 +56,6 @@ public class HandoverDRActivity extends AppCompatActivity {
         HandoverAddProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Initialize alert dialog
                 database.child("Dealers").child("RequestServices").child("ReplacementByDealer").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -61,9 +63,10 @@ public class HandoverDRActivity extends AppCompatActivity {
 
                         handoverDataList.clear();
                         for (DataSnapshot snap : snapshot.getChildren()) {
-                            handoverDataList.add(snap.child("SerialNumber").getValue().toString());
+                            if(snap.child("Status").getValue().toString().equals("Accepted")) {
+                                handoverDataList.add(snap.child("SerialNumber").getValue().toString() );
+                            }
                         }
-
                         serialNumberArray = handoverDataList.toArray(new String[0]);
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(HandoverDRActivity.this);
@@ -118,6 +121,7 @@ public class HandoverDRActivity extends AppCompatActivity {
                             }
                         });
                         builder.show();
+                        Toast.makeText(HandoverDRActivity.this, "These are the approved products", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

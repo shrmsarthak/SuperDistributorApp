@@ -63,13 +63,13 @@ public class DealerOrderAdapter extends RecyclerView.Adapter<DealerOrderAdapter.
                 if(snapshot.child(dealerOrder.getProductID()).child("Status").getValue().toString().equals("Open"))
                 {
                         holder.DealerOrderProductName.setText(dealerOrder.getName());
-                        holder.OrderPlaceByName.setText("Order Placed by - "+dealerOrder.getDealerName());
+                        holder.OrderPlaceByName.setText("Order Placed by - " + dealerOrder.getDealerName());
                         holder.DealerOrderQty.setText(dealerOrder.getProductQty());
                 }
                 else if(snapshot.child(dealerOrder.getProductID()).child("Status").getValue().toString().equals("Accepted"))
                 {
                     holder.DealerOrderProductName.setText(dealerOrder.getName());
-                    holder.OrderPlaceByName.setText("Order Placed by - "+dealerOrder.getDealerName()+"\nOrder Confirmed");
+                    holder.OrderPlaceByName.setText("Order Placed by - " + dealerOrder.getDealerName()+"\nOrder Confirmed");
                     holder.DealerOrderQty.setEnabled(false);
                     holder.DealerOrderPrice.setEnabled(false);
                     holder.SubmitToAdminBtn.setEnabled(false);
@@ -109,6 +109,7 @@ public class DealerOrderAdapter extends RecyclerView.Adapter<DealerOrderAdapter.
                 orderConfirmationMap.put("Qty", dealerOrder.getProductQty());
                 orderConfirmationMap.put("Price", holder.DealerOrderPrice.getText().toString());
                 orderConfirmationMap.put("ProductID", dealerOrder.getProductID());
+                orderConfirmationMap.put("Reminder",false);
 
                 Map<String, Object> orderStatusMap = new HashMap<>();
                 orderStatusMap.put("Status","Pending");

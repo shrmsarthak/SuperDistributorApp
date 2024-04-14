@@ -61,11 +61,15 @@ public class ReplaceByDealerActivity extends AppCompatActivity {
     TextInputEditText CustomerNameTI, PhoneNumberTI, ModelNumberTI, SerialNumberTI, NewProductSerialNumberTI;
     Button AttachReportBtn, SendForApprovalBtn, mPickDateButton;
     TextView DealerDateOfPurchaseTV;
-    String selectedDate;
+    String selectedDate, userType, username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_replace_by_dealer);
+
+        userType = getIntent().getType();
+
+        username = (userType.equals("viaDealer"))?getIntent().getStringExtra("DealerName"):getIntent().getStringExtra("SRUserame");
 
         CustomerNameTI = findViewById(R.id.customerNameTI);
         PhoneNumberTI = findViewById(R.id.phoneNoTI);
@@ -345,9 +349,10 @@ public class ReplaceByDealerActivity extends AppCompatActivity {
                                             replacementDetails.put("ModelNumber", modelNumber);
                                             replacementDetails.put("SerialNumber", serialNumber);
                                             replacementDetails.put("NewProductSerialNumber", newProductSerialNumber);
-                                            replacementDetails.put("ReportUrl",url);
+                                            replacementDetails.put("ReportUrl", url);
+                                            replacementDetails.put("Status", "Pending");
 
-                                            mref.child("Dealers").child("RequestServices").child("ReplacementByDealer").child(replacementID).updateChildren(replacementDetails)
+                                            mref.child(userType).child("RequestServices").child("ReplacementByDealer").child(customerName).updateChildren(replacementDetails)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {

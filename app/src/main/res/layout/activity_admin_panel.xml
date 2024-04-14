@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/orange_bg"
     tools:context=".admin.AdminPanelActivity">
 
 
@@ -12,24 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/adminTopHead"
-        android:background="@color/purple_500">
+        android:background="#FB8C00">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome Admin"
-            android:textColor="@android:color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:fontFamily="@font/allerta"
             android:id="@+id/adminhead"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25dp"/>
 
         <ImageView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_messages"
+            android:src="@drawable/msgiconblack"
+            android:layout_toLeftOf="@id/adminNotification"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/adminNotification"
-            android:src="@drawable/baseline_notifications_24"
+            android:src="@drawable/baseline_add_alert_24"
             android:layout_toLeftOf="@id/adminLogout"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"/>
@@ -38,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/adminLogout"
-            android:src="@drawable/baseline_logout_24"
+            android:src="@drawable/baseline_login_24"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="25dp"/>
@@ -47,7 +57,7 @@
     </RelativeLayout>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/adminlottie"
+        android:id="@+id/adminhead2"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_below="@+id/adminTopHead"
@@ -60,18 +70,19 @@
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/admin" />
 
-    <TextView
+<!--    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Your Task"
         android:textColor="@android:color/black"
         android:id="@+id/adminhead2"
+        android:fontFamily="@font/allerta"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textSize="20sp"
         android:layout_below="@+id/adminlottie"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"/>-->
 
     <LinearLayout
         android:id="@+id/adminLL1"
@@ -79,13 +90,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:layout_below="@id/adminhead2">
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical">
 
             <ImageView
@@ -101,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Users"
+                android:fontFamily="@font/allerta"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -111,7 +123,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:id="@+id/viewUserLL">
 
@@ -127,6 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="View Users"
+                android:fontFamily="@font/allerta"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -148,7 +161,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2"
             android:id="@+id/addcreditdebitLL">
@@ -166,7 +179,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Credit &amp; Debit Entry"
+                android:text="Credit/Debit Entry"
+                android:fontFamily="@font/allerta"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -177,7 +191,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2">
 
@@ -193,6 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ledger Account"
+                android:fontFamily="@font/allerta"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -214,7 +229,7 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2"
             android:id="@+id/addProductLL">
@@ -231,7 +246,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add &amp; View Product"
+                android:text="Add/View Product"
+                android:fontFamily="@font/allerta"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -242,28 +258,92 @@
 
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:layout_below="@+id/adminhead2">
 
             <ImageView
+                android:id="@+id/addofferbtn"
                 android:layout_width="50dp"
                 android:layout_gravity="center"
                 android:layout_height="50dp"
-                android:visibility="invisible"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/baseline_attach_money_24" />
+                android:background="@drawable/baseline_offer" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View\nCredit/Debit"
-                android:visibility="invisible"
+                android:text="Offers/Schemes"
+                android:fontFamily="@font/allerta"
                 android:textColor="@android:color/black"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/adminLL4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@id/adminLL3">
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/sr_info_btn"
+                android:layout_width="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:background="@drawable/baseline_info_24"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SR Info"
+                android:textColor="@android:color/black"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:fontFamily="@font/allerta"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:id="@+id/blankLL">
+
+<!--            <ImageView-->
+<!--                android:id="@+id/viewUserbtn"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:background="@drawable/baseline_person_search_24" />-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="View Users"-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:gravity="center"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textStyle="bold"/>-->
 
         </LinearLayout>
 

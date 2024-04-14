@@ -31,8 +31,8 @@ public class DealerHomeFragment extends Fragment {
 
     private FragmentDealerHomeBinding binding;
     private DatabaseReference mref;
-
-    int currentBalance=0;
+    String dealerName;
+    int currentBalance = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class DealerHomeFragment extends Fragment {
                 new ViewModelProvider(this).get(DealerHomeViewModel.class);
 
 
-
+        dealerName = getActivity().getIntent().getStringExtra("DealerName");
         binding = FragmentDealerHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -57,16 +57,18 @@ public class DealerHomeFragment extends Fragment {
         final TextView CurrentOutstandingBalance = binding.currentOutstandingBalance;
         final TextView CurrentServicePendency = binding.currentServicePendency;
 
-        mref= FirebaseDatabase.getInstance().getReference();
+        mref = FirebaseDatabase.getInstance().getReference();
 
         mref.child("Dealers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                CurrentServicePendency.setText("Service Pendency Details : " + Long.toString(snapshot.child("RequestServices").child("ReplacementByDealer").getChildrenCount()));
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    currentBalance = currentBalance + Integer.parseInt(snap.child("CurrentBalance").getValue(String.class));
+                    if(snap.child("CurrentBalance").getValue(String.class) != null)
+                    currentBalance = currentBalance + Integer.valueOf(snap.child("CurrentBalance").getValue(String.class));
                 }
 
-                CurrentOutstandingBalance.setText("Current Outstanding Balance : Rs. "+String.valueOf(currentBalance));
+                CurrentOutstandingBalance.setText("Current Outstanding Balance : Rs. " + String.valueOf(currentBalance));
             }
 
             @Override
@@ -88,6 +90,8 @@ public class DealerHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext().getApplicationContext(), RequestServiceActivity.class);
+                i.setType("viaDealer");
+                i.putExtra("DealerName",DealerName);
                 startActivity(i);
             }
         });
@@ -117,6 +121,7 @@ public class DealerHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext().getApplicationContext(), SchemesActivity.class);
+                i.putExtra("DealerName",dealerName);
                 startActivity(i);
             }
         });

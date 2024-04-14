@@ -50,8 +50,7 @@ public class DealerHomeActivity extends AppCompatActivity {
         binding.appBarDealerHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(DealerHomeActivity.this, MyMessagesActivity.class).putExtra("Username",DealerName));
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
